@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native'
 
 import { Text, View } from '@/components/Themed'
 
-const HomeScreen = (): JSX.Element => {
+const SearchScreen = (): JSX.Element => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Tab One</Text>
+			<Text style={styles.title}>Search</Text>
 		</View>
 	)
 }
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default HomeScreen
+export default SearchScreen
