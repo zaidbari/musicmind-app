@@ -4,7 +4,7 @@ import { useDevice } from '@/hooks/useDevice'
 import { useTrackControls } from '@/hooks/useTrackControls'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { memo, useEffect, useState } from 'react'
-import { StyleSheet, useWindowDimensions } from 'react-native'
+import { ActivityIndicator, StyleSheet, useWindowDimensions } from 'react-native'
 import { View } from 'react-native'
 
 function ControlButtons({ open }: { open: boolean }) {
@@ -14,7 +14,7 @@ function ControlButtons({ open }: { open: boolean }) {
 	const [sideWidth, setSideWidth] = useState(250)
 	const [disabled, setDisabled] = useState(false)
 
-	const { isPaused, isBuffering } = useTrackControls()
+	const { isPaused, isBuffering, isLoading } = useTrackControls()
 
 	useEffect(() => {
 		if (deviceType === 'phone') setSideWidth(width)
@@ -67,20 +67,24 @@ function ControlButtons({ open }: { open: boolean }) {
 				onPress={() => _handlePress('previous')}
 			/>
 
-			{isPaused ? (
-				<Ionicons
-					name="pause-circle-sharp"
-					size={open ? 60 : 35}
-					color={disabled ? colors.secondary : colors.accent}
-					onPress={() => _handlePress('pause')}
-				/>
+			{!isLoading ? (
+				isPaused ? (
+					<Ionicons
+						name="pause-circle-sharp"
+						size={open ? 60 : 35}
+						color={disabled ? colors.secondary : colors.accent}
+						onPress={() => _handlePress('pause')}
+					/>
+				) : (
+					<Ionicons
+						name="play-circle-sharp"
+						size={open ? 60 : 35}
+						color={disabled ? colors.secondary : colors.accent}
+						onPress={() => _handlePress('play')}
+					/>
+				)
 			) : (
-				<Ionicons
-					name="play-circle-sharp"
-					size={open ? 60 : 35}
-					color={disabled ? colors.secondary : colors.accent}
-					onPress={() => _handlePress('play')}
-				/>
+				<ActivityIndicator size={55} color={colors.accent} />
 			)}
 
 			<Ionicons

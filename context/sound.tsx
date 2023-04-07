@@ -25,7 +25,7 @@ const SoundContext = React.createContext<TSoundContext>({
 })
 
 export const useSound = () => React.useContext(SoundContext)
-export const SoundProvider = ({ children }: TSoundProvider): JSX.Element => {
+export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 	const soundRef = useRef<Audio.Sound>(new Audio.Sound())
 	const sound = soundRef.current
 
@@ -67,6 +67,7 @@ export const SoundProvider = ({ children }: TSoundProvider): JSX.Element => {
 			if (currentTrackIndex.current !== index) {
 				currentTrackIndex.current = index
 				currentPlayingTrack.current = trackList.current[index]
+
 				await sound.unloadAsync()
 				await sound.loadAsync(
 					{ uri: trackList.current[index].track.track_file },
@@ -123,7 +124,7 @@ export const SoundProvider = ({ children }: TSoundProvider): JSX.Element => {
 	}, [])
 
 	const _next = useCallback(async () => {
-		if (!trackList.current) return
+		if (!trackList.current || !playbackStatus.isLoaded) return
 		try {
 			if (currentTrackIndex.current !== null) {
 				if (currentTrackIndex.current < trackList.current.length - 1) {
@@ -135,10 +136,10 @@ export const SoundProvider = ({ children }: TSoundProvider): JSX.Element => {
 		} catch (e) {
 			logger.log(e, 'SOUND NEXT ERROR')
 		}
-	}, [currentTrackIndex])
+	}, [currentTrackIndex, playbackStatus.isLoaded])
 
 	const _previous = useCallback(async () => {
-		if (!trackList.current) return
+		if (!trackList.current || !playbackStatus.isLoaded) return
 
 		try {
 			if (currentTrackIndex !== null) {
@@ -151,7 +152,7 @@ export const SoundProvider = ({ children }: TSoundProvider): JSX.Element => {
 		} catch (e) {
 			logger.log(e, 'SOUND PREVIOUS ERROR')
 		}
-	}, [currentTrackIndex.current])
+	}, [currentTrackIndex.current, playbackStatus.isLoaded])
 
 	const _toggleLoop = useCallback(async () => {
 		const status = await _getPlaybackStatus()

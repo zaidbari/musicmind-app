@@ -25,7 +25,7 @@ export function MainLinks({ open, deviceType }: MainLinksProps): JSX.Element {
 				deviceType={deviceType}
 				href="/my-playlist"
 				icon="folder-open-sharp"
-				title={t('pages.createPlaylist')}
+				title={t('pages.myPlaylists')}
 			/>
 			<LinkComponent
 				open={open}

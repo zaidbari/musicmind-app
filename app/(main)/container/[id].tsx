@@ -1,3 +1,4 @@
+import { EmptyCard } from '@/components/cards/emptyCard'
 import PlaylistCard from '@/components/cards/playlistCard'
 import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
@@ -5,6 +6,7 @@ import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { usePlaylists } from '@/hooks/queries/usePlaylists'
 import { Stack, useSearchParams } from 'expo-router'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
@@ -13,6 +15,7 @@ export default function PlaylistScreen() {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 	const { isLoading, playlists, setShouldReset } = usePlaylists(id as string)
+	const [searchTerm, setSearchTerm] = useState<string>('')
 
 	if (isLoading) return <Loader />
 
@@ -20,14 +23,23 @@ export default function PlaylistScreen() {
 		<View style={styles.container}>
 			<Stack.Screen options={{ title: t('pages.playlist') as string }} />
 			<ResetView setShouldReset={setShouldReset}>
-				<Input placeholder={t('inputs.searchPlaylists') as string} style={styles.input} />
+				<Input
+					returnKeyType={'search'}
+					inputMode={'search'}
+					onSubmitEditing={({ nativeEvent }) => {
+						setSearchTerm(nativeEvent.text)
+					}}
+					placeholder={t('inputs.searchPlaylists') as string}
+					style={styles.input}
+				/>
 			</ResetView>
 
 			<FlatGrid
+				ListEmptyComponent={<EmptyCard />}
 				additionalRowStyle={{ padding: 0 }}
 				itemDimension={230}
 				spacing={20}
-				data={playlists}
+				data={playlists.filter(playlists => playlists.playlist_name.toLowerCase().includes(searchTerm.toLowerCase()))}
 				renderItem={({ item }) => <PlaylistCard item={item} />}
 			/>
 		</View>

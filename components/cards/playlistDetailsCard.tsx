@@ -26,7 +26,7 @@ function PlaylistDetailCard({ playlistDetails, tracksLength, handlePlay }: TPlay
 			>
 				<Image
 					style={styles.image}
-					contentFit="cover"
+					contentFit="fill"
 					source={{ uri: playlistDetails.Photo as string }}
 					transition={10}
 					onError={console.error}
@@ -34,7 +34,7 @@ function PlaylistDetailCard({ playlistDetails, tracksLength, handlePlay }: TPlay
 				/>
 			</ImageBackground>
 
-			<View style={{ flexGrow: 2 }}>
+			<View style={{ flexGrow: 1 }}>
 				<Text style={StyleSheet.flatten([styles.title, device == 'phone' && { textAlign: 'center' }])}>
 					{playlistDetails.playlist_name}
 				</Text>

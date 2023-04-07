@@ -32,7 +32,7 @@ export function ResetView({ setShouldReset, children }: ResetViewProps): JSX.Ele
 				{({ pressed }) => (
 					<>
 						<Ionicons
-							name="md-arrow-redo-outline"
+							name="reload-outline"
 							size={20}
 							color={pressed ? colors.accent : 'white'}
 							style={{ padding: 0 }}

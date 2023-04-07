@@ -13,6 +13,7 @@ i18n.use(initReactI18next).init({
 				tracks: 'Tracks',
 				play: 'Play',
 				copy: 'Copy',
+				noItems: 'No items found',
 				inputs: {
 					username: 'Username',
 					password: 'Password',
@@ -42,6 +43,7 @@ i18n.use(initReactI18next).init({
 				tracks: 'Numre',
 				play: 'Afspil',
 				copy: 'Kopier',
+				noItems: 'Ingen elementer fundet',
 				inputs: {
 					username: 'Brugernavn',
 					password: 'Kodeord',

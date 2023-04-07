@@ -1,16 +1,24 @@
 import { useTokens } from '@/hooks/useTokens'
 import { Tokens } from '@/types/tokens'
+import { logger } from '@/utils/logger'
 import { useRouter, useSegments } from 'expo-router'
-import React, { useCallback, useEffect, useState } from 'react'
+import { ReactElement, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react'
+
+//TODO: Add a protected route hook to protect the route access based on user authentication.
 
 // This context will be used to store the user info.
-const AuthContext = React.createContext({
+const AuthContext = createContext<{
+	auth: Tokens | null
+	signIn: (tokens: Tokens) => void
+	signOut: () => void
+}>({
+	auth: null,
 	signIn: (tokens: Tokens): void => {},
 	signOut: (): void => {}
 })
 
 // This hook can be used to access the user info.
-export const useAuth = () => React.useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext)
 
 // This hook will protect the route access based on user authentication.
 const useProtectedRoute = (tokens: Tokens | null): void => {
@@ -27,7 +35,7 @@ const useProtectedRoute = (tokens: Tokens | null): void => {
 	}, [tokens?.access, segments])
 }
 
-export const AuthProvider = ({ children }: { children: React.ReactNode | React.ReactElement }): JSX.Element => {
+export const AuthProvider = ({ children }: { children: ReactNode | ReactElement }): JSX.Element => {
 	const [auth, setAuth] = useState<Tokens | null>(null)
 
 	const { getTokens, removeTokens, setTokens } = useTokens()
@@ -39,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode | React.R
 			await setTokens(tokens)
 			setAuth(tokens)
 		} catch (e) {
-			console.log(e)
+			logger.log(e)
 		}
 	}, [])
 
@@ -63,7 +71,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode | React.R
 		<AuthContext.Provider
 			value={{
 				signIn,
-				signOut
+				signOut,
+				auth
 			}}
 		>
 			{children}

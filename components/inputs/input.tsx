@@ -10,7 +10,9 @@ export function Input(props: TextInputProps) {
 			placeholderTextColor={'#8e8e8e'}
 			style={[props.style, { borderColor: border, ...styles.input }]}
 			onFocus={() => setBorder(colors.accent)}
-			onBlur={() => setBorder(colors.secondary)}
+			onBlur={() => {
+				setBorder(colors.secondary)
+			}}
 		/>
 	)
 }

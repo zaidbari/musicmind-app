@@ -1,9 +1,11 @@
 import ContainerCard from '@/components/cards/containerCard'
+import { EmptyCard } from '@/components/cards/emptyCard'
 import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { useContainers } from '@/hooks/queries/useContainers'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
@@ -11,19 +13,29 @@ import { FlatGrid } from 'react-native-super-grid'
 function HomeScreen(): JSX.Element {
 	const { t } = useTranslation()
 	const { isLoading, containers, setShouldReset } = useContainers()
+	const [searchTerm, setSearchTerm] = useState<string>('')
 
 	if (isLoading) return <Loader />
 	return (
 		<View style={styles.container}>
 			<ResetView setShouldReset={setShouldReset}>
-				<Input placeholder={t('inputs.searchPreMadePlaylists') as string} style={styles.input} />
+				<Input
+					returnKeyType={'search'}
+					inputMode={'search'}
+					placeholder={t('inputs.searchPreMadePlaylists') as string}
+					onSubmitEditing={({ nativeEvent }) => {
+						setSearchTerm(nativeEvent.text)
+					}}
+					style={styles.input}
+				/>
 			</ResetView>
 			<Text style={styles.title}>{t('categories')}</Text>
 			<FlatGrid
+				ListEmptyComponent={<EmptyCard />}
 				spacing={20}
 				additionalRowStyle={{ padding: 0 }}
 				itemDimension={230}
-				data={containers}
+				data={containers.filter(container => container.name.toLowerCase().includes(searchTerm.toLowerCase()))}
 				renderItem={({ item }) => <ContainerCard item={item} />}
 			/>
 		</View>

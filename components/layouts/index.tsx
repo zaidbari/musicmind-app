@@ -23,9 +23,9 @@ export default function Layout(): JSX.Element {
 		<SafeAreaView style={StyleSheet.absoluteFill}>
 			<ErrorFallback>
 				<Providers>
-					<Stack>
-						<Stack.Screen name="(main)" options={{ headerShown: false }} />
+					<Stack screenOptions={{ headerShown: false }}>
 						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+						<Stack.Screen name="(main)" options={{ headerShown: false }} />
 					</Stack>
 				</Providers>
 			</ErrorFallback>

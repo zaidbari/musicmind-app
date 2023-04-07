@@ -4,10 +4,17 @@ import { useEffect, useState } from 'react'
 export function useTrackControls() {
 	const [isBuffering, setIsBuffering] = useState(false)
 	const [isPaused, setIsPaused] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
 
 	const { playbackStatus, currentPlayingTrack } = useSound()
 
 	useEffect(() => {
+		if (currentPlayingTrack.current !== null && !playbackStatus.isLoaded) {
+			setIsLoading(true)
+		} else {
+			setIsLoading(false)
+		}
+
 		// ?check if the current playing track is the same as the track in the row
 		if (playbackStatus.isLoaded) {
 			/**
@@ -28,5 +35,5 @@ export function useTrackControls() {
 		setIsBuffering(true)
 	}, [currentPlayingTrack.current])
 
-	return { isBuffering, isPaused }
+	return { isBuffering, isPaused, isLoading }
 }

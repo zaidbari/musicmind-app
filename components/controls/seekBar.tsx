@@ -13,15 +13,17 @@ function SeekBar() {
 
 	// convert miliseconds to human readable time
 	const _convertToTime = (millis: number) => {
-		const minutes = Math.floor(millis / 60000)
-		const seconds = parseFloat(((millis % 60000) / 1000).toFixed(0))
+		let minutes = Math.floor(millis / 60000)
+		let seconds = parseFloat(((millis % 60000) / 1000).toFixed(0))
+		if (isNaN(minutes)) minutes = 0
+		if (isNaN(seconds)) seconds = 0
 		return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 	}
 
 	useEffect(() => {
 		if (playbackStatus.isLoaded) {
-			setValue(playbackStatus.positionMillis)
-			setMaxValue(playbackStatus.durationMillis)
+			setValue(isNaN(playbackStatus.positionMillis) ? 0 : playbackStatus.positionMillis)
+			setMaxValue(isNaN(playbackStatus.durationMillis) ? 1 : playbackStatus.durationMillis)
 		}
 	}, [playbackStatus])
 
@@ -38,7 +40,7 @@ function SeekBar() {
 				<Text style={{ color: colors.secondary, fontSize: 10 }}>00:00</Text>
 			)}
 			<Slider
-				style={{ width: 190 }}
+				style={{ width: 190, height: 10 }}
 				minimumValue={0}
 				maximumValue={maxValue}
 				value={value}

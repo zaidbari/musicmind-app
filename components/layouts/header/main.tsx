@@ -4,6 +4,7 @@ import { useAuth } from '@/context/auth'
 import { useLanguage } from '@/hooks/useLanguage'
 import { useSearch } from '@/hooks/useSearch'
 import { View } from 'react-native'
+import { InfoButton } from './infoButton'
 
 export function MainHeader(): JSX.Element {
 	const { signOut } = useAuth()
@@ -19,7 +20,7 @@ export function MainHeader(): JSX.Element {
 				icon={'search-outline'}
 			/>
 			<IconButton onPress={_handleLanguageChange} icon={'language-outline'} />
-			<IconButton onPress={() => {}} icon={'notifications-outline'} />
+			<InfoButton />
 			<IconButton onPress={() => {}} icon={'newspaper-outline'} />
 			<IconButton onPress={() => {}} icon={'cog-outline'} />
 			<IconButton onPress={signOut} icon={'ios-power-sharp'} />

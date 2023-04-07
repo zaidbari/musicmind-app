@@ -28,7 +28,7 @@ function VolumeBar() {
 		>
 			<Ionicons name="volume-low" size={24} color={disabled ? colors.secondary : 'white'} />
 			<Slider
-				style={{ width: 190 }}
+				style={{ width: 190, height: 10 }}
 				minimumValue={0}
 				maximumValue={1}
 				value={volume.current}
