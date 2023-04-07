@@ -12,12 +12,16 @@ module.exports = function (api) {
 					"@/constants": "./constants",
 					"@/utils": "./utils",
 					"@/context": "./context",
+					"@/services": "./services",
 					"@/types": "./types",
+					"@/hooks": "./hooks",
+					"@/stacks": "./stacks",
 				},
 				extensions: [ '.js', '.jsx', '.ts', '.tsx' ]
 			},
 			],
-			'@babel/plugin-proposal-export-namespace-from'
+			'@babel/plugin-proposal-export-namespace-from',
+			'react-native-reanimated/plugin'
 		],
 	}
 }

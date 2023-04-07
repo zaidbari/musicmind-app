@@ -1,53 +1,69 @@
-import { AuthContextType, User } from '@/types/user'
+import { useTokens } from '@/hooks/useTokens'
+import { Tokens } from '@/types/tokens'
 import { useRouter, useSegments } from 'expo-router'
-import { createContext, ReactElement, ReactNode, useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 // This context will be used to store the user info.
-const AuthContext = createContext<AuthContextType>({
-	signIn: (user: User): void => {},
-	signOut: (): void => {},
-	user: null as User | null
+const AuthContext = React.createContext({
+	signIn: (tokens: Tokens): void => {},
+	signOut: (): void => {}
 })
 
 // This hook can be used to access the user info.
-export function useAuth() {
-	return useContext(AuthContext)
-}
+export const useAuth = () => React.useContext(AuthContext)
 
 // This hook will protect the route access based on user authentication.
-function useProtectedRoute(user: User | null) {
+const useProtectedRoute = (tokens: Tokens | null): void => {
 	const segments = useSegments()
 	const router = useRouter()
 
 	useEffect(() => {
 		const inAuthGroup = segments[0] === '(auth)'
-
-		if (!user && !inAuthGroup) {
+		if (!tokens?.access && !inAuthGroup) {
 			router.replace('/sign-in')
-		} else if (user && inAuthGroup) {
+		} else if (tokens?.access && inAuthGroup) {
 			router.replace('/')
 		}
-	}, [user, segments])
+	}, [tokens?.access, segments])
 }
 
-export function Provider({ children }: { children: ReactNode | ReactElement }) {
-	const [user, setAuth] = useState<User | null>(null)
-	useProtectedRoute(user)
+export const AuthProvider = ({ children }: { children: React.ReactNode | React.ReactElement }): JSX.Element => {
+	const [auth, setAuth] = useState<Tokens | null>(null)
 
-	const signIn = useCallback((user: User) => {
-		setAuth(user)
+	const { getTokens, removeTokens, setTokens } = useTokens()
+
+	useProtectedRoute(auth)
+
+	const signIn = useCallback(async (tokens: Tokens) => {
+		try {
+			await setTokens(tokens)
+			setAuth(tokens)
+		} catch (e) {
+			console.log(e)
+		}
 	}, [])
 
-	const signOut = useCallback(() => {
+	const signOut = useCallback(async () => {
+		await removeTokens()
 		setAuth(null)
+	}, [])
+
+	const loadStorageData = useCallback(async () => {
+		const tokens = await getTokens()
+		if (tokens) {
+			setAuth(tokens)
+		}
+	}, [])
+
+	useEffect(() => {
+		loadStorageData()
 	}, [])
 
 	return (
 		<AuthContext.Provider
 			value={{
 				signIn,
-				signOut,
-				user
+				signOut
 			}}
 		>
 			{children}

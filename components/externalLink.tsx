@@ -3,7 +3,7 @@ import * as WebBrowser from 'expo-web-browser'
 import React from 'react'
 import { Platform } from 'react-native'
 
-export const ExternalLink = (props: React.ComponentProps<typeof Link>): JSX.Element => {
+export function ExternalLink(props: React.ComponentProps<typeof Link>): JSX.Element {
 	return (
 		<Link
 			hrefAttrs={{

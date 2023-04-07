@@ -1,0 +1,71 @@
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+
+i18n.use(initReactI18next).init({
+	resources: {
+		en: {
+			translation: {
+				signin: 'Sign In',
+				auth_empty_fields: 'Email and password is required!',
+				reset: 'Reset',
+				categories: 'Categories',
+				close: 'Close',
+				tracks: 'Tracks',
+				play: 'Play',
+				copy: 'Copy',
+				inputs: {
+					username: 'Username',
+					password: 'Password',
+					search: 'Search',
+					searchPlaylists: 'Search playlists',
+					searchPreMadePlaylists: 'Search pre-made playlists'
+				},
+				pages: {
+					home: 'Home',
+					internalContainers: 'Internal containers',
+					myPlaylists: 'My playlists',
+					createPlaylist: 'Create playlist',
+					playlist: 'Playlist',
+					playlistTracks: 'Playlist tracks'
+				},
+				'No active account found with the given credentials!': 'No active account found with the given credentials!'
+			}
+		},
+		// danish
+		da: {
+			translation: {
+				signin: 'Log ind',
+				auth_empty_fields: 'Venligst indtast brugernavn og adgangskode!',
+				reset: 'Nulstil',
+				categories: 'Kategorier',
+				close: 'Luk',
+				tracks: 'Numre',
+				play: 'Afspil',
+				copy: 'Kopier',
+				inputs: {
+					username: 'Brugernavn',
+					password: 'Kodeord',
+					search: 'Søg',
+					searchPlaylists: 'Søg spillelister',
+					searchPreMadePlaylists: 'Søg præoprettet spillelister'
+				},
+				pages: {
+					home: 'Hjem',
+					internalContainers: 'Internt Miljø',
+					myPlaylists: 'Mine spillelister',
+					createPlaylist: 'Opret spilleliste',
+					playlist: 'Spillelister',
+					playlistTracks: 'Spillelister numre'
+				},
+				'No active account found with the given credentials!': 'Ingen aktive brugere fundet med de givne oplysninger!'
+			}
+		}
+	},
+	fallbackLng: 'da',
+	interpolation: {
+		escapeValue: false
+	},
+	react: { useSuspense: false }
+})
+
+export default i18n
