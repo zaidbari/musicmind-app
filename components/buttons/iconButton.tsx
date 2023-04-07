@@ -9,7 +9,7 @@ type IconButtonProps = PressableProps & {
 
 export function IconButton({ icon, style, ...props }: IconButtonProps): JSX.Element {
 	return (
-		<Pressable style={StyleSheet.flatten([styles.iconButton, style && style])} {...props}>
+		<Pressable accessibilityRole="button" style={StyleSheet.flatten([styles.iconButton, style && style])} {...props}>
 			{({ pressed }) => (
 				<Ionicons name={icon} size={20} color={pressed ? colors.accent : 'white'} style={{ padding: 0 }} />
 			)}

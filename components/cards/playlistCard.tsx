@@ -26,7 +26,7 @@ function PlaylistCard({ item }: { item: TPlaylist }): JSX.Element {
 			<Pressable onPress={_handlePress} style={styles.card}>
 				<Image
 					style={styles.image}
-					contentFit={'cover'}
+					contentFit={'fill'}
 					source={{ uri: item.Photo }}
 					placeholder={blurhash}
 					transition={10}

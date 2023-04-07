@@ -21,7 +21,7 @@ function AlbumImage(): JSX.Element | null {
 		<ImageBackground source={{ uri }} style={styles.backgroundImage} resizeMode="cover" blurRadius={10}>
 			<Image
 				style={styles.image}
-				contentFit="cover"
+				contentFit="fill"
 				source={{ uri }}
 				transition={10}
 				onError={console.error}

@@ -18,7 +18,7 @@ function ContainerCard({ item }: { item: Container }): JSX.Element {
 					transition={10}
 					source={{ uri: item.Photo }}
 					style={styles.image}
-					contentFit={'cover'}
+					contentFit={'fill'}
 				/>
 			</Link>
 			<Pressable style={styles.infoButton} onPress={() => showModal({ title: item.name, content: item.description })}>

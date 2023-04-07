@@ -68,7 +68,11 @@ export const SoundProvider = ({ children }: TSoundProvider): JSX.Element => {
 				currentTrackIndex.current = index
 				currentPlayingTrack.current = trackList.current[index]
 				await sound.unloadAsync()
-				await sound.loadAsync({ uri: trackList.current[index].track.track_file }, { shouldPlay: true }, false)
+				await sound.loadAsync(
+					{ uri: trackList.current[index].track.track_file },
+					{ shouldPlay: true, volume: volume.current },
+					false
+				)
 			} else _handlePlayPause()
 		} catch (e) {
 			logger.log(e, 'SOUND LOAD ERROR')
