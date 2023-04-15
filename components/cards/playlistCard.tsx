@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router'
 import { memo, useCallback } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
-function PlaylistCard({ item }: { item: TPlaylist }): JSX.Element {
+function PlaylistCard({ item, width }: { item: TPlaylist; width: number }): JSX.Element {
 	const { showModal } = useModal()
 	const router = useRouter()
 
@@ -22,10 +22,10 @@ function PlaylistCard({ item }: { item: TPlaylist }): JSX.Element {
 	}, [item.playlist])
 
 	return (
-		<>
+		<View style={{ flex: 1, width, position: 'relative' }}>
 			<Pressable onPress={_handlePress} style={styles.card}>
 				<Image
-					style={styles.image}
+					style={StyleSheet.flatten([styles.image, { width, height: width }])}
 					contentFit={'fill'}
 					source={{ uri: item.Photo }}
 					placeholder={blurhash}
@@ -41,7 +41,7 @@ function PlaylistCard({ item }: { item: TPlaylist }): JSX.Element {
 			>
 				<Ionicons name="information-circle" size={16} color="white" />
 			</Pressable>
-		</>
+		</View>
 	)
 }
 
@@ -50,8 +50,6 @@ export default memo(PlaylistCard)
 const styles = StyleSheet.create({
 	image: {
 		flex: 1,
-		width: '100%',
-		height: 260,
 		borderRadius: 10
 	},
 	card: {

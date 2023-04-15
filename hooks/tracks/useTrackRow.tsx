@@ -48,6 +48,7 @@ export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
 			(selectedIndex?: number) => {
 				switch (selectedIndex) {
 					case 0:
+						console.log(trackList.current, track)
 						// check if trackList.current is null
 						if (!trackList.current) {
 							trackList.current = [track]

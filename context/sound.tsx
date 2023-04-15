@@ -74,6 +74,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 					{ shouldPlay: true, volume: volume.current },
 					false
 				)
+				//TODO: Music player aquisition end point goes here
 			} else _handlePlayPause()
 		} catch (e) {
 			logger.log(e, 'SOUND LOAD ERROR')

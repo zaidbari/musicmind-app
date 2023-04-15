@@ -2,6 +2,7 @@ import ErrorBoundary from 'react-native-error-boundary'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import Constants from 'expo-constants'
 import { colors } from '@/constants/colors'
+import { logger } from '@/utils/logger'
 
 export function ErrorFallback({ children }: { children: React.ReactElement }): JSX.Element {
 	const CustomFallback = (props: { error: Error; resetError: Function }) => (
@@ -15,7 +16,7 @@ export function ErrorFallback({ children }: { children: React.ReactElement }): J
 	)
 
 	function handleError(error: Error, componentStack: string) {
-		console.log(error, componentStack)
+		logger.log(error, componentStack)
 	}
 
 	return (
