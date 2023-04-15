@@ -5,7 +5,7 @@ import Slider from '@react-native-community/slider'
 import { memo, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
-function VolumeBar() {
+function VolumeBar({ width }: { width: number }) {
 	const { currentPlayingTrack, _setVolume, volume } = useSound()
 
 	const [disabled, setDisabled] = useState<boolean>(true)
@@ -20,7 +20,7 @@ function VolumeBar() {
 			style={{
 				justifyContent: 'space-between',
 				alignItems: 'center',
-				width: 250,
+				width,
 				gap: 10,
 				flexDirection: 'row',
 				marginTop: 20

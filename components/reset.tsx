@@ -1,5 +1,5 @@
 import { colors } from '@/constants/colors'
-import { useDevice } from '@/hooks/useDevice'
+import { useDevice } from '@/context/device'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'

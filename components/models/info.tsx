@@ -1,12 +1,12 @@
 import { colors } from '@/constants/colors'
-import { memo } from 'react'
+import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 export type InfoModalProps = {
 	hideModal: () => void
 	title: string
-	content: string
+	content: string | React.ReactElement
 }
 function Modal({ hideModal, title, content }: InfoModalProps): JSX.Element {
 	const { height, width } = useWindowDimensions()
@@ -57,16 +57,16 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 100,
-		paddingVertical: 8,
+		paddingVertical: 6,
 		backgroundColor: colors.accent,
-		borderRadius: 5,
+		borderRadius: 4,
 		marginVertical: 8,
 		flexDirection: 'row',
 		justifyContent: 'center'
 	},
 	text: {
 		color: colors.primary,
-		fontSize: 16,
+		fontSize: 14,
 		marginHorizontal: 8,
 		textAlign: 'center',
 		fontWeight: 'bold'

@@ -1,11 +1,11 @@
 import { colors } from '@/constants/colors'
-import { useDevice } from '@/hooks/useDevice'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Image } from 'expo-image'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Pressable, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { MainLinks } from './links/mainLinks'
 import TrackControls from '@/components/controls'
+import { useDevice } from '@/context/device'
 
 type MainSidebarProps = {
 	open: boolean

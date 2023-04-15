@@ -4,7 +4,7 @@ import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
-import { usePlaylists } from '@/hooks/queries/usePlaylists'
+import { useGetPlaylists } from '@/hooks/queries/useGetPlaylists'
 import { Stack, useSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -14,7 +14,7 @@ import { FlatGrid } from 'react-native-super-grid'
 export default function PlaylistScreen() {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
-	const { isLoading, playlists, setShouldReset } = usePlaylists(id as string)
+	const { isLoading, playlists, setShouldReset } = useGetPlaylists(id as string)
 	const [searchTerm, setSearchTerm] = useState<string>('')
 
 	if (isLoading) return <Loader />

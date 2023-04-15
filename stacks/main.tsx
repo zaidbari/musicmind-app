@@ -1,6 +1,6 @@
 import { MainHeader } from '@/components/layouts/header/main'
 import { colors } from '@/constants/colors'
-import { useDevice } from '@/hooks/useDevice'
+import { useDevice } from '@/context/device'
 import { Stack } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text } from 'react-native'

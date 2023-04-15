@@ -1,24 +1,15 @@
 import { colors } from '@/constants/colors'
 import { useSound } from '@/context/sound'
-import { useDevice } from '@/hooks/useDevice'
-import { useTrackControls } from '@/hooks/useTrackControls'
+import { useTrackControls } from '@/hooks/tracks/useTrackControls'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { memo, useEffect, useState } from 'react'
-import { ActivityIndicator, StyleSheet, useWindowDimensions } from 'react-native'
-import { View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-function ControlButtons({ open }: { open: boolean }) {
-	const deviceType = useDevice()
+function ControlButtons({ open, width }: { open: boolean; width: number }) {
 	const { _play, _pause, _previous, _next, _toggleLoop, _shuffle, currentPlayingTrack } = useSound()
-	const { width } = useWindowDimensions()
-	const [sideWidth, setSideWidth] = useState(250)
 	const [disabled, setDisabled] = useState(false)
 
 	const { isPaused, isBuffering, isLoading } = useTrackControls()
-
-	useEffect(() => {
-		if (deviceType === 'phone') setSideWidth(width)
-	}, [])
 
 	useEffect(() => {
 		if (isBuffering) setDisabled(true)
@@ -46,7 +37,7 @@ function ControlButtons({ open }: { open: boolean }) {
 					alignItems: 'center',
 					flexDirection: open ? 'row' : 'column'
 				},
-				open && { width: sideWidth, marginVertical: 20 }
+				open && { width, marginVertical: 20 }
 			])}
 		>
 			{open && (

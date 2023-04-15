@@ -4,7 +4,7 @@ import Slider from '@react-native-community/slider'
 import { memo, useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 
-function SeekBar() {
+function SeekBar({ width }: { width: number }) {
 	const { currentPlayingTrack, playbackStatus, _setPosition } = useSound()
 
 	const [disabled, setDisabled] = useState<boolean>(true)
@@ -33,7 +33,7 @@ function SeekBar() {
 	}, [currentPlayingTrack.current])
 
 	return (
-		<View style={{ justifyContent: 'space-between', alignItems: 'center', width: 250, gap: 10, flexDirection: 'row' }}>
+		<View style={{ justifyContent: 'space-between', alignItems: 'center', width, gap: 10, flexDirection: 'row' }}>
 			{currentPlayingTrack.current ? (
 				<Text style={{ color: 'white', fontSize: 10 }}>{_convertToTime(value)}</Text>
 			) : (

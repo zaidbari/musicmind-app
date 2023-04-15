@@ -14,7 +14,7 @@ type TUseTracks = {
 	playlistDetails: TPlaylist
 }
 
-export const useTracks = (id: string): TUseTracks => {
+export const useGetTracks = (id: string): TUseTracks => {
 	const api = useAxios()
 
 	const [tracks, setTracks] = useState<TTrackItem[]>([])

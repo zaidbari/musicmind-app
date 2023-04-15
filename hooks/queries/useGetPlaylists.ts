@@ -1,11 +1,11 @@
-import { TPlaylist } from '@/types/playlist.d'
 import { PLAYLIST_GROUP_URL } from '@/constants/urls'
+import useAxios from '@/hooks/useAxios'
+import { TPlaylist } from '@/types/playlist.d'
+import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
 import { useCallback, useEffect, useState } from 'react'
-import useAxios from '../useAxios'
-import { logger } from '@/utils/logger'
 
-export const usePlaylists = (id: string) => {
+export const useGetPlaylists = (id: string) => {
 	const api = useAxios()
 
 	const [playlists, setPlaylists] = useState<TPlaylist[]>([])

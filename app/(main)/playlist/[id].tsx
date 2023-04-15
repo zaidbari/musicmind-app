@@ -3,8 +3,8 @@ import { Loader } from '@/components/loader'
 import TrackRow from '@/components/track/tractRow'
 import { colors } from '@/constants/colors'
 import { useSound } from '@/context/sound'
-import { useTracks } from '@/hooks/queries/useTracks'
-import { TTrack } from '@/types/track'
+import { useGetTracks } from '@/hooks/queries/useGetTracks'
+import { TTrackItem } from '@/types/track'
 import { FlashList } from '@shopify/flash-list'
 import { Stack, useSearchParams } from 'expo-router'
 import { useCallback } from 'react'
@@ -15,7 +15,7 @@ export default function TrackScreen() {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 
-	const { tracks, isLoading, playlistDetails } = useTracks(id as string)
+	const { tracks, isLoading, playlistDetails } = useGetTracks(id as string)
 	const { trackList, _load } = useSound()
 
 	const _handlePlayPress = (trackIndex: number) => {
@@ -24,7 +24,7 @@ export default function TrackScreen() {
 	}
 
 	const renderTrack = useCallback(
-		({ track, index }: { track: TTrack; index: number }) => (
+		({ track, index }: { track: TTrackItem; index: number }) => (
 			<TrackRow index={index} track={track} handlePlay={_handlePlayPress} />
 		),
 		[tracks]
@@ -52,7 +52,7 @@ export default function TrackScreen() {
 					data={tracks}
 					renderItem={({ item, index }) =>
 						renderTrack({
-							track: item.track,
+							track: item,
 							index
 						})
 					}

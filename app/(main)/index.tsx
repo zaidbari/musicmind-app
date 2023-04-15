@@ -4,7 +4,7 @@ import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
-import { useContainers } from '@/hooks/queries/useContainers'
+import { useGetContainers } from '@/hooks/queries/useGetContainers'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
@@ -12,7 +12,7 @@ import { FlatGrid } from 'react-native-super-grid'
 
 function HomeScreen(): JSX.Element {
 	const { t } = useTranslation()
-	const { isLoading, containers, setShouldReset } = useContainers()
+	const { isLoading, containers, setShouldReset } = useGetContainers()
 	const [searchTerm, setSearchTerm] = useState<string>('')
 
 	if (isLoading) return <Loader />

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import useAxios from '@/hooks/useAxios'
 import { logger } from '@/utils/logger'
 
-export const useContainers = () => {
+export const useGetContainers = () => {
 	const api = useAxios()
 
 	const [containers, setContainers] = useState<Container[]>([])

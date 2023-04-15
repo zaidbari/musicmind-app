@@ -14,6 +14,13 @@ i18n.use(initReactI18next).init({
 				play: 'Play',
 				copy: 'Copy',
 				noItems: 'No items found',
+				success: 'Success',
+				error: 'Error',
+				actions: 'Actions',
+				notifications: {
+					addedToQueue: 'Added to queue',
+					alreadyInQueue: 'Track already in queue'
+				},
 				inputs: {
 					username: 'Username',
 					password: 'Password',
@@ -44,6 +51,13 @@ i18n.use(initReactI18next).init({
 				play: 'Afspil',
 				copy: 'Kopier',
 				noItems: 'Ingen elementer fundet',
+				success: 'Succes',
+				error: 'Fejl',
+				actions: 'Handlinger',
+				notifications: {
+					addedToQueue: 'Tilføjet til kø',
+					alreadyInQueue: 'Nummeret er allerede i køen'
+				},
 				inputs: {
 					username: 'Brugernavn',
 					password: 'Kodeord',

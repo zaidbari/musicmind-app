@@ -18,7 +18,7 @@ export type TTrack = {
 }
 
 export type TTrackRow = {
-	track: TTrack
+	track: TTrackItem
 	index: number
 	handlePlay: (index: number) => void
 }
@@ -27,4 +27,5 @@ export type TUseTrackRowReturnType = {
 	isBuffering: boolean
 	isPaused: boolean
 	isCurrentTrackSelectedForPlayback: boolean
+	onPress: () => void
 }

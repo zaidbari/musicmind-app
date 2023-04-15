@@ -1,4 +1,4 @@
-import { useDevice } from '@/hooks/useDevice'
+import { useDevice } from '@/context/device'
 import { MainStack } from '@/stacks/main'
 import { useEffect, useState } from 'react'
 import { View, useWindowDimensions } from 'react-native'

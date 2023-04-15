@@ -1,5 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
-import { useDevice } from '@/hooks/useDevice'
+import { useDevice } from '@/context/device'
 import { TPlaylist } from '@/types/playlist'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Image } from 'expo-image'
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 		paddingHorizontal: 15,
 		paddingVertical: 5,
-		borderRadius: 50,
+		borderRadius: 5,
 		gap: 5,
 		backgroundColor: colors.accent
 	},
