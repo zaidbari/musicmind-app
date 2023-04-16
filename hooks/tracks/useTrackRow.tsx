@@ -3,28 +3,30 @@ import { useSound } from '@/context/sound'
 import { TTrackItem, TUseTrackRowReturnType } from '@/types/track'
 import { useActionSheet } from '@expo/react-native-action-sheet'
 import { useEffect, useState } from 'react'
-import { useModal } from '../useModal'
+import { useInfoModal } from '../modals/useInfoModal'
 import { useTranslation } from 'react-i18next'
+import { usePlaylistModal } from '../modals/usePlaylistModal'
 
 export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
 	const [isBuffering, setIsBuffering] = useState(false)
 	const [isPaused, setIsPaused] = useState(false)
 	const [isCurrentTrackSelectedForPlayback, setIsCurrentTrackSelectedForPlayback] = useState<boolean>(false)
-	const { showModal } = useModal()
+	const { showModal: showPlaylistModal } = usePlaylistModal()
+	const { showModal } = useInfoModal()
 	const { t } = useTranslation()
 
 	const { playbackStatus, currentPlayingTrack, trackList } = useSound()
 
 	const { showActionSheetWithOptions } = useActionSheet()
 
-	const options = ['Add to queue', 'Add to playlist', 'Cancel']
+	const options = [t('menu.addToQueue'), t('menu.addToPlaylist'), t('close')]
 	const cancelButtonIndex = options.length - 1
 
 	function onPress() {
 		showActionSheetWithOptions(
 			{
 				options,
-				title: t('actions') as string,
+				title: track.track.song_title,
 				userInterfaceStyle: 'dark',
 				showSeparators: true,
 				containerStyle: {
@@ -67,7 +69,7 @@ export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
 
 						break
 					case 1:
-						console.log('Add to playlist')
+						showPlaylistModal({ trackId: track.track.id })
 						break
 					case cancelButtonIndex:
 					// Canceled

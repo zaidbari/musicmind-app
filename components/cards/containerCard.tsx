@@ -1,5 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
-import { useModal } from '@/hooks/useModal'
+import { useInfoModal } from '@/hooks/modals/useInfoModal'
 import { Container } from '@/types/container'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Image } from 'expo-image'
@@ -8,7 +8,7 @@ import { memo } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 
 function ContainerCard({ item, width }: { item: Container; width: number }): JSX.Element {
-	const { showModal } = useModal()
+	const { showModal } = useInfoModal()
 
 	return (
 		<View style={{ flex: 1, width, position: 'relative' }}>

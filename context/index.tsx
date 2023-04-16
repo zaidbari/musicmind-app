@@ -1,9 +1,9 @@
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { ReactElement, ReactNode } from 'react'
 import { AuthProvider } from './auth'
-import { ModalProvider } from './modal'
-import { SoundProvider } from './sound'
-import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { DeviceProvider } from './device'
+import { ModalProvider } from './modals'
+import { SoundProvider } from './sound'
 
 const Providers = ({ children }: { children: ReactNode | ReactElement }): JSX.Element => {
 	return (

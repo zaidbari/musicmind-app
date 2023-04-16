@@ -1,5 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
-import { useModal } from '@/hooks/useModal'
+import { useInfoModal } from '@/hooks/modals/useInfoModal'
 import { TPlaylist } from '@/types/playlist'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -9,7 +9,7 @@ import { memo, useCallback } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 function PlaylistCard({ item, width }: { item: TPlaylist; width: number }): JSX.Element {
-	const { showModal } = useModal()
+	const { showModal } = useInfoModal()
 	const router = useRouter()
 
 	const _handlePress = useCallback(async () => {

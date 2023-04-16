@@ -39,8 +39,10 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 	const [auth, setAuth] = useState<Tokens | null>(null)
 
 	const { getTokens, removeTokens, setTokens } = useTokens()
+	const segments = useSegments()
+	const router = useRouter()
 
-	useProtectedRoute(auth)
+	// useProtectedRoute(auth)
 
 	const signIn = useCallback(async (tokens: Tokens) => {
 		try {
@@ -66,6 +68,15 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 	useEffect(() => {
 		loadStorageData()
 	}, [])
+
+	useEffect(() => {
+		const inAuthGroup = segments[0] === '(auth)'
+		if (!auth?.access && !inAuthGroup) {
+			router.replace('/sign-in')
+		} else if (auth?.access && inAuthGroup) {
+			router.replace('/')
+		}
+	}, [auth?.access, segments])
 
 	return (
 		<AuthContext.Provider

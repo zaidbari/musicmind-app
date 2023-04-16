@@ -5,9 +5,9 @@ export type SearchContextType = {
 	setSearchVisible: Dispatch<SetStateAction<boolean>>
 }
 
-export const SearchContext = createContext<SearchContextType>({
+export const SearchModalContext = createContext<SearchContextType>({
 	searchVisible: false,
 	setSearchVisible: () => {}
 })
 
-export const useSearch = (): SearchContextType => useContext(SearchContext)
+export const useSearchModal = (): SearchContextType => useContext(SearchModalContext)

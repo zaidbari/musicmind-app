@@ -1,19 +1,22 @@
 import { MainContentArea } from '@/components/layouts/content/main'
 import { MainSidebar } from '@/components/layouts/sidebar/main'
 import InfoModal from '@/components/models/info'
+import PlaylistModal from '@/components/models/playlist'
 import SearchModal from '@/components/models/search'
 import { colors } from '@/constants/colors'
 import { useDevice } from '@/context/device'
-import { useModal } from '@/hooks/useModal'
-import { useSearch } from '@/hooks/useSearch'
+import { useInfoModal } from '@/hooks/modals/useInfoModal'
+import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
+import { useSearchModal } from '@/hooks/modals/useSearchModal'
 import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 export default (): JSX.Element => {
 	const [open, setOpen] = useState<boolean>(true)
 	const device = useDevice()
-	const { visible, hideModal, title, content } = useModal()
-	const { searchVisible, setSearchVisible } = useSearch()
+	const { visible, hideModal, title, content } = useInfoModal()
+	const { searchVisible, setSearchVisible } = useSearchModal()
+	const { visible: playlistVisible, hideModal: hidePlaylistModal } = usePlaylistModal()
 
 	useEffect(() => {
 		if (device === 'phone') setOpen(false)
@@ -25,6 +28,7 @@ export default (): JSX.Element => {
 			<MainContentArea open={open} />
 			{visible && <InfoModal hideModal={hideModal} title={title} content={content} />}
 			{searchVisible && <SearchModal setSearchVisible={setSearchVisible} />}
+			{playlistVisible && <PlaylistModal hideModal={hidePlaylistModal} />}
 		</View>
 	)
 }

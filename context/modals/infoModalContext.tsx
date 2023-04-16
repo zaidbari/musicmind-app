@@ -1,8 +1,7 @@
-import { ModalContext } from '@/hooks/useModal'
+import { InfoModalContext } from '@/hooks/modals/useInfoModal'
 import { ReactElement, ReactNode, useState } from 'react'
-import { SearchProvider } from './search'
 
-export const ModalProvider = ({ children }: { children: ReactNode | ReactElement }): JSX.Element => {
+export const InfoModalProvider = ({ children }: { children: ReactNode | ReactElement }): JSX.Element => {
 	const [visible, setVisible] = useState(false)
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
@@ -20,7 +19,7 @@ export const ModalProvider = ({ children }: { children: ReactNode | ReactElement
 	}
 
 	return (
-		<ModalContext.Provider
+		<InfoModalContext.Provider
 			value={{
 				visible,
 				title,
@@ -29,7 +28,7 @@ export const ModalProvider = ({ children }: { children: ReactNode | ReactElement
 				hideModal
 			}}
 		>
-			<SearchProvider>{children}</SearchProvider>
-		</ModalContext.Provider>
+			{children}
+		</InfoModalContext.Provider>
 	)
 }

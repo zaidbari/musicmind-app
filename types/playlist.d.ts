@@ -9,3 +9,12 @@ export type TPlaylist = {
 	playlist_name: string
 	position: number
 }
+
+export type TUserPlaylist = {
+	id: number
+	Photo: string
+	description: string
+	name: string
+	theme: string | null
+	visibility: number
+}

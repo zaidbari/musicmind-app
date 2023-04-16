@@ -38,6 +38,12 @@ export function MainStack(): JSX.Element {
 				}}
 			/>
 			<Stack.Screen
+				name="newsfeed"
+				options={{
+					title: t('pages.newsfeed') as string
+				}}
+			/>
+			<Stack.Screen
 				name="playlist"
 				options={{
 					title: t('pages.playlistTracks') as string

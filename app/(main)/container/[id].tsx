@@ -15,8 +15,8 @@ export default function PlaylistScreen() {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
-	const [width, setWidth] = useState<number>(0)
-	const [itemsCount, setItemsCount] = useState<number>(0)
+	const [width, setWidth] = useState<number>(230)
+	const [itemsCount, setItemsCount] = useState<number>(3)
 	const [layoutWidth, setLayoutWidth] = useState<number>(0)
 
 	useEffect(() => {

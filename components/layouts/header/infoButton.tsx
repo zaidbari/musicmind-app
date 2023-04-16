@@ -2,19 +2,20 @@ import { IconButton } from '@/components/buttons/iconButton'
 import { colors } from '@/constants/colors'
 import { useActionSheet } from '@expo/react-native-action-sheet'
 import * as WebBrowser from 'expo-web-browser'
+import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 
 export function InfoButton() {
 	const { showActionSheetWithOptions } = useActionSheet()
-
+	const { t } = useTranslation()
 	const onPress = () => {
-		const options = ['Burgermanual', 'Feedback', 'Guided Tour', 'Cancel']
+		const options = ['Burgermanual', 'Feedback', t('menu.tour'), t('close')]
 		const cancelButtonIndex = options.length - 1
 
 		showActionSheetWithOptions(
 			{
 				options,
-				title: 'Information',
+				title: t('actions') as string,
 				userInterfaceStyle: 'dark',
 				showSeparators: true,
 				containerStyle: {

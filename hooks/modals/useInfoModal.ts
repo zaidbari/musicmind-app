@@ -8,7 +8,7 @@ export type ModelContextType = {
 	hideModal: () => void
 }
 
-export const ModalContext = createContext<ModelContextType>({
+export const InfoModalContext = createContext<ModelContextType>({
 	visible: false,
 	title: '',
 	content: '',
@@ -16,4 +16,4 @@ export const ModalContext = createContext<ModelContextType>({
 	hideModal: () => {}
 })
 
-export const useModal = (): ModelContextType => useContext(ModalContext)
+export const useInfoModal = (): ModelContextType => useContext(InfoModalContext)

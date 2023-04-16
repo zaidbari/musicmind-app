@@ -34,7 +34,13 @@ i18n.use(initReactI18next).init({
 					myPlaylists: 'My playlists',
 					createPlaylist: 'Create playlist',
 					playlist: 'Playlist',
-					playlistTracks: 'Playlist tracks'
+					playlistTracks: 'Playlist tracks',
+					newsfeed: 'News Feed'
+				},
+				menu: {
+					addToPlaylist: 'Add to playlist',
+					addToQueue: 'Add to queue',
+					tour: 'Guided Tour'
 				},
 				'No active account found with the given credentials!': 'No active account found with the given credentials!'
 			}
@@ -71,7 +77,13 @@ i18n.use(initReactI18next).init({
 					myPlaylists: 'Mine spillelister',
 					createPlaylist: 'Opret spilleliste',
 					playlist: 'Spillelister',
-					playlistTracks: 'Spillelister numre'
+					playlistTracks: 'Spillelister numre',
+					newsfeed: 'Nyhedsstrøm'
+				},
+				menu: {
+					addToPlaylist: 'Tilføj til spilleliste',
+					addToQueue: 'Tilføj til kø',
+					tour: 'Rundvisning'
 				},
 				'No active account found with the given credentials!': 'Ingen aktive brugere fundet med de givne oplysninger!'
 			}
