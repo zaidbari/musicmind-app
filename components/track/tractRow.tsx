@@ -59,15 +59,15 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between'
 	},
 	title: {
-		fontSize: 18,
+		fontSize: 16,
 		marginBottom: 10,
 		fontWeight: 'bold'
 	},
 	subTitle: {
-		color: '#b3b3b3',
+		color: 'rgba(255,255,255,0.8)',
 		fontStyle: 'italic',
 		textDecorationLine: 'underline',
-		textDecorationStyle: 'dashed',
+		textDecorationStyle: 'solid',
 		textDecorationColor: colors.accent
 	}
 })

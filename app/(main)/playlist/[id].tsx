@@ -1,84 +1,77 @@
-import PlaylistDetailsCard from '@/components/cards/playlistDetailsCard'
+import { EmptyCard } from '@/components/cards/emptyCard'
+import PlaylistCard from '@/components/cards/playlistCard'
+import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
-import PlaylistModal from '@/components/models/playlist'
-import TrackRow from '@/components/track/tractRow'
+import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
-import { useSound } from '@/context/sound'
-import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
-import { useGetTracks } from '@/hooks/queries/useGetTracks'
-import { TTrackItem } from '@/types/track'
-import { FlashList } from '@shopify/flash-list'
+import { useGetPlaylists } from '@/hooks/queries/useGetPlaylists'
 import { Stack, useSearchParams } from 'expo-router'
-import { useCallback, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
+import { FlatGrid } from 'react-native-super-grid'
 
-export default function TrackScreen() {
+export default function PlaylistScreen() {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
-
-	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks(id as string)
-	const { trackList, _load } = useSound()
-	const { setUserPlaylists } = usePlaylistModal()
+	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
+	const [width, setWidth] = useState<number>(250)
+	const [itemsCount, setItemsCount] = useState<number>(3)
+	const [layoutWidth, setLayoutWidth] = useState<number>(880)
 
 	useEffect(() => {
-		if (userPlaylists.length === 0) return
-		setUserPlaylists(userPlaylists)
-	}, [userPlaylists])
-
-	const _handlePlayPress = (trackIndex: number) => {
-		trackList.current = tracks
-		_load(trackIndex)
-	}
-
-	const renderTrack = useCallback(
-		({ track, index }: { track: TTrackItem; index: number }) => (
-			<TrackRow index={index} track={track} handlePlay={_handlePlayPress} />
-		),
-		[tracks]
-	)
-
-	const renderHeader = useCallback(
-		() => (
-			<PlaylistDetailsCard
-				handlePlay={_handlePlayPress}
-				playlistDetails={playlistDetails}
-				tracksLength={tracks.length}
-			/>
-		),
-		[tracks]
-	)
+		if (layoutWidth !== 0) {
+			setWidth((layoutWidth - 20 * itemsCount - 1) / itemsCount)
+		}
+	}, [layoutWidth, itemsCount])
 
 	if (isLoading) return <Loader />
+
 	return (
-		<>
-			<Stack.Screen options={{ title: t('pages.playlistTracks') as string }} />
-			<View style={styles.container}>
-				<FlashList
-					contentContainerStyle={{ paddingBottom: 30 }}
-					ListHeaderComponent={renderHeader}
-					data={tracks}
-					renderItem={({ item, index }) =>
-						renderTrack({
-							track: item,
-							index
-						})
-					}
-					estimatedItemSize={100}
-					ItemSeparatorComponent={() => <View style={styles.separator} />}
+		<View style={styles.container}>
+			<Stack.Screen options={{ title: t('pages.playlist') as string }} />
+			<ResetView setShouldReset={setShouldReset}>
+				<Input
+					returnKeyType={'search'}
+					inputMode={'search'}
+					onSubmitEditing={({ nativeEvent }) => {
+						search(nativeEvent.text)
+					}}
+					placeholder={t('inputs.searchPlaylists') as string}
+					style={styles.input}
 				/>
-			</View>
-		</>
+			</ResetView>
+
+			<FlatGrid
+				onLayout={({ nativeEvent }) => setLayoutWidth(nativeEvent.layout.width)}
+				onItemsPerRowChange={setItemsCount}
+				ListEmptyComponent={<EmptyCard />}
+				additionalRowStyle={{ padding: 0 }}
+				itemDimension={230}
+				spacing={20}
+				data={playlists}
+				renderItem={({ item }) => <PlaylistCard width={width} item={item} />}
+			/>
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		padding: 0
 	},
-	separator: {
-		height: 1,
-		marginVertical: 15,
-		backgroundColor: colors.secondary
+	input: {
+		flexGrow: 1
+	},
+	title: {
+		fontSize: 20,
+		color: colors.accent,
+		fontWeight: 'bold',
+		marginVertical: 10
+	},
+	grid: {
+		padding: 0,
+		marginTop: 10
 	}
 })

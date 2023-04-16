@@ -1,4 +1,5 @@
 import Layout from '@/components/layouts'
+import { Loader } from '@/components/loader'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useFonts } from 'expo-font'
 import { SplashScreen } from 'expo-router'
@@ -27,6 +28,11 @@ export default (): JSX.Element => {
 		// ?errors are caught by the ErrorBoundary component
 		if (error) throw error
 	}, [error])
+
+	if (Platform.OS == 'web' && !loaded) {
+		// ?we need to return something before the fonts are loaded
+		return <Loader />
+	}
 
 	// ?wait for all the assets to be loaded before rendering the app
 	return loaded ? <Layout /> : <SplashScreen />

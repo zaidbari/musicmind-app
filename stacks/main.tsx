@@ -32,7 +32,7 @@ export function MainStack(): JSX.Element {
 				}}
 			/>
 			<Stack.Screen
-				name="container"
+				name="playlist"
 				options={{
 					title: t('pages.playlist') as string
 				}}
@@ -44,7 +44,7 @@ export function MainStack(): JSX.Element {
 				}}
 			/>
 			<Stack.Screen
-				name="playlist"
+				name="tracks"
 				options={{
 					title: t('pages.playlistTracks') as string
 				}}

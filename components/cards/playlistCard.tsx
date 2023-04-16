@@ -15,7 +15,7 @@ function PlaylistCard({ item, width }: { item: TPlaylist; width: number }): JSX.
 	const _handlePress = useCallback(async () => {
 		try {
 			await AsyncStorage.setItem('@playlist', JSON.stringify(item))
-			router.push(`/playlist/${item.playlist}`)
+			router.push(`/tracks/${item.playlist}`)
 		} catch (error) {
 			console.error(error)
 		}

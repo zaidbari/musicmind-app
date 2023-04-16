@@ -12,7 +12,7 @@ function ContainerCard({ item, width }: { item: Container; width: number }): JSX
 
 	return (
 		<View style={{ flex: 1, width, position: 'relative' }}>
-			<Link href={`container/${item.id}`} style={{ marginBottom: 20 }}>
+			<Link href={`/playlist/${item.id}`} style={{ marginBottom: 20 }}>
 				<Image
 					placeholder={blurhash}
 					transition={10}

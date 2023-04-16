@@ -13,9 +13,9 @@ import { FlatGrid } from 'react-native-super-grid'
 function HomeScreen(): JSX.Element {
 	const { t } = useTranslation()
 	const { isLoading, containers, setShouldReset, search } = useGetContainers()
-	const [width, setWidth] = useState<number>(230)
+	const [width, setWidth] = useState<number>(250)
 	const [itemsCount, setItemsCount] = useState<number>(3)
-	const [layoutWidth, setLayoutWidth] = useState<number>(0)
+	const [layoutWidth, setLayoutWidth] = useState<number>(880)
 
 	useEffect(() => {
 		if (layoutWidth !== 0) {

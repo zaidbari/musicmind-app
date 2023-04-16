@@ -1,0 +1,52 @@
+{
+	"cli": {
+		"version": ">= 2.8.0"
+	},
+	"build": {
+		"development": {
+			"developmentClient": true,
+			"distribution": "internal",
+			"autoIncrement": false,
+			"ios": {
+				"simulator": true
+			}
+		},
+		"preview": {
+			"distribution": "internal",
+			"autoIncrement": true,
+			"ios": {
+				"autoIncrement": false
+			}
+		},
+		"production": {
+			"android": {
+				"buildType": "app-bundle",
+				"autoIncrement": true
+			},
+			"ios": {
+				"autoIncrement": false
+			}
+		},
+		"temporaryPreview": {
+			"autoIncrement": false,
+			"android": {
+				"buildType": "apk"
+			}
+		}
+	},
+	"submit": {
+		"production": {
+			"android": {
+				"track": "production",
+				"releaseStatus": "completed"
+			}
+		},
+		"internal": {
+			"android": {
+				"track": "internal",
+				"releaseStatus": "completed",
+				"changesNotSentForReview": true
+			}
+		}
+	}
+}

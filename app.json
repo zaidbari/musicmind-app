@@ -1,42 +1,65 @@
 {
-  "expo": {
-    "name": "car-pool",
-    "slug": "car-pool",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "carpool",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#151a28"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "config": {
-        "usesNonExemptEncryption": false
-      },
-      "entitlements": {
-        "com.apple.developer.networking.wifi-info": true
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#151a28"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "sentry-expo",
-      "expo-localization"
-    ]
-  }
+	"expo": {
+		"name": "musicmind",
+		"slug": "musicmind",
+		"version": "2.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"scheme": "carpool",
+		"userInterfaceStyle": "automatic",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#151a28"
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"requireFullScreen": true,
+			"bundleIdentifier": "dk.instorex.musicmind",
+			"buildNumber": "2.0.0",
+			"supportsTablet": true,
+			"config": {
+				"usesNonExemptEncryption": false
+			},
+			"entitlements": {
+				"com.apple.developer.networking.wifi-info": true
+			},
+			"infoPlist": {
+				"UIBackgroundModes": ["audio"],
+				"UISupportedInterfaceOrientations": [
+					"UIInterfaceOrientationPortrait",
+					"UIInterfaceOrientationLandscapeLeft",
+					"UIInterfaceOrientationLandscapeRight"
+				],
+				"NSPhotoLibraryUsageDescription": "The app accesses your gallery to let you upload photo for your playlist.",
+				"NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera"
+			}
+		},
+		"android": {
+			"package": "dk.instorex.musicmindapp_new",
+			"versionCode": 30,
+			"permissions": [
+				"android.permission.CAMERA",
+				"android.permission.READ_EXTERNAL_STORAGE",
+				"android.permission.WRITE_EXTERNAL_STORAGE",
+				"android.permission.BLUETOOTH",
+				"android.permission.BLUETOOTH_ADMIN",
+				"android.permission.BLUETOOTH_CONNECT"
+			],
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"backgroundColor": "#151a28"
+			}
+		},
+		"web": {
+			"bundler": "metro",
+			"favicon": "./assets/images/favicon.png"
+		},
+		"plugins": ["sentry-expo", "expo-localization"],
+		"extra": {
+			"eas": {
+				"projectId": "fdef740e-48e3-4ff0-a962-d2eb4ae3c5a8"
+			}
+		}
+	}
 }

@@ -8,7 +8,7 @@ export default (): JSX.Element => {
 		<Stack
 			screenOptions={{
 				headerShown: false,
-				title: t('pages.playlistTracks') as string,
+				title: t('pages.playlist') as string,
 				contentStyle: {
 					backgroundColor: colors.primary
 				}
