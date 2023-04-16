@@ -5,8 +5,24 @@
 		"version": "2.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "carpool",
-		"userInterfaceStyle": "automatic",
+		"scheme": "musicmind",
+		"userInterfaceStyle": "dark",
+		"extra": {
+			"eas": {
+				"projectId": "fdef740e-48e3-4ff0-a962-d2eb4ae3c5a8"
+			}
+		},
+		"hooks": {
+			"postPublish": [
+				{
+					"file": "sentry-expo/upload-sourcemaps",
+					"config": {
+						"organization": "instorex-aps",
+						"project": "music-mind"
+					}
+				}
+			]
+		},
 		"splash": {
 			"image": "./assets/images/splash.png",
 			"resizeMode": "contain",
@@ -55,23 +71,6 @@
 			"bundler": "metro",
 			"favicon": "./assets/images/favicon.png"
 		},
-		"plugins": ["sentry-expo", "expo-localization"],
-		"extra": {
-			"eas": {
-				"projectId": "fdef740e-48e3-4ff0-a962-d2eb4ae3c5a8"
-			}
-		},
-		"hooks": {
-			"postPublish": [
-				{
-					"file": "sentry-expo/upload-sourcemaps",
-					"config": {
-						"organization": "instorex-aps",
-						"project": "music-mind",
-						"authToken": "1087bd16e7124b109bdad8b1af28b0c690302a947a404eac9646bd4214d1a927"
-					}
-				}
-			]
-		}
+		"plugins": ["sentry-expo", "expo-localization"]
 	}
 }
