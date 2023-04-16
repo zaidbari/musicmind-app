@@ -2,6 +2,14 @@ import 'react-native-gesture-handler'
 import 'expo-router/entry'
 import { Platform } from 'react-native'
 import '@/utils/localization'
+import * as Sentry from 'sentry-expo'
+import { SENTRY_DSN } from './constants/urls'
+
+Sentry.init({
+	dsn: SENTRY_DSN,
+	enableInExpoDevelopment: true,
+	debug: false
+})
 
 if (Platform.OS === 'web' && document) {
 	// get head element
