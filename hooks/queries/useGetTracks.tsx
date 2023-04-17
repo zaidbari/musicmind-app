@@ -32,13 +32,17 @@ export const useGetTracks = (id: string): TUseTracks => {
 				setUserPlaylists(data)
 			}
 		} catch (error) {
-			logger.log(error)
+			logger.sentry(error, {
+				tags: {
+					section: 'fetchUserPlaylist'
+				}
+			})
 		} finally {
 			setIsLoading(false)
 		}
 	}, [])
 
-	const fetchContainers = useCallback(
+	const fetchTracksByPlaylistId = useCallback(
 		async (unmounted: boolean, token: CancelToken) => {
 			setIsLoading(true)
 			try {
@@ -51,7 +55,11 @@ export const useGetTracks = (id: string): TUseTracks => {
 					}
 				}
 			} catch (error) {
-				logger.log(error)
+				logger.sentry(error, {
+					tags: {
+						section: 'fetchTracksByPlaylistId'
+					}
+				})
 			} finally {
 				setIsLoading(false)
 			}
@@ -63,7 +71,7 @@ export const useGetTracks = (id: string): TUseTracks => {
 		let unmounted = false
 		let source = axios.CancelToken.source()
 
-		fetchContainers(unmounted, source.token)
+		fetchTracksByPlaylistId(unmounted, source.token)
 		fetchUserPlaylist(unmounted, source.token)
 		return () => {
 			unmounted = true

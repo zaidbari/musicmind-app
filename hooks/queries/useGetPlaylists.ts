@@ -21,7 +21,7 @@ export const useGetPlaylists = (
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	const [searchTerm, search] = useState<string>('')
 
-	const fetchContainers = useCallback(
+	const fetchPlaylistById = useCallback(
 		async (unmounted: boolean, token: CancelToken) => {
 			setIsLoading(true)
 			try {
@@ -31,7 +31,11 @@ export const useGetPlaylists = (
 					setOriginalPlaylists(data)
 				}
 			} catch (error) {
-				logger.log(error)
+				logger.sentry(error, {
+					tags: {
+						section: 'fetchPlaylistById'
+					}
+				})
 			} finally {
 				setIsLoading(false)
 			}
@@ -54,7 +58,7 @@ export const useGetPlaylists = (
 		let unmounted = false
 		let source = axios.CancelToken.source()
 
-		fetchContainers(unmounted, source.token)
+		fetchPlaylistById(unmounted, source.token)
 		return () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')

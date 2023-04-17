@@ -3,6 +3,7 @@ import { useAuth } from '@/context/auth'
 import { useTokens } from '@/hooks/useTokens'
 import { Tokens } from '@/types/tokens'
 import api from '@/utils/api'
+import { logger } from '@/utils/logger'
 import axios, { AxiosInstance } from 'axios'
 
 const useAxios = (): AxiosInstance => {
@@ -55,7 +56,11 @@ const useAxios = (): AxiosInstance => {
 					prevRequest.headers['Authorization'] = `JWT ${data.access}`
 					return await api(prevRequest)
 				} catch (err) {
-					console.log(err)
+					logger.sentry(err, {
+						tags: {
+							section: 'useAxios Hook'
+						}
+					})
 					signOut()
 					return Promise.reject(err)
 				}

@@ -21,7 +21,11 @@ export const useGetNewsfeed = () => {
 				setNewsfeed(data)
 			}
 		} catch (error) {
-			logger.log(error)
+			logger.sentry(error, {
+				tags: {
+					section: 'fetchNewsfeed'
+				}
+			})
 		} finally {
 			setIsLoading(false)
 		}

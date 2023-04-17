@@ -13,10 +13,15 @@ export default function Layout(): JSX.Element {
 	const isConnected = useNetwork()
 	const { i18n } = useTranslation()
 	useLayoutEffect(() => {
-		AsyncStorage.getItem('language').then(language => {
-			if (language) i18n.changeLanguage(language)
-			else i18n.changeLanguage('da')
-		})
+		AsyncStorage.getItem('language')
+			.then(language => {
+				if (language) i18n.changeLanguage(language)
+				else i18n.changeLanguage('da')
+			})
+			.catch(() => {
+				// fallback to default language
+				i18n.changeLanguage('da')
+			})
 	}, [])
 
 	return isConnected ? (

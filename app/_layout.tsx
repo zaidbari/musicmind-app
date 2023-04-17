@@ -18,7 +18,7 @@ if (Platform.OS === 'android') {
 export const unstable_settings = { initialRouteName: '(main)' } // ? set initial route to be our main stack
 export { ErrorBoundary } from 'expo-router'
 
-export default (): JSX.Element => {
+function Root(): JSX.Element {
 	// ?loading icons here before application is rendered
 	const [loaded, error] = useFonts({
 		...Ionicons.font
@@ -37,3 +37,5 @@ export default (): JSX.Element => {
 	// ?wait for all the assets to be loaded before rendering the app
 	return loaded ? <Layout /> : <SplashScreen />
 }
+
+export default Root

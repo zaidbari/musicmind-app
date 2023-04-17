@@ -29,7 +29,11 @@ export const useGetContainers = (): {
 				setContainers(data)
 			}
 		} catch (error) {
-			logger.log(error)
+			logger.sentry(error, {
+				tags: {
+					section: 'fetchContainers'
+				}
+			})
 		} finally {
 			setIsLoading(false)
 		}

@@ -48,8 +48,12 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 		try {
 			await setTokens(tokens)
 			setAuth(tokens)
-		} catch (e) {
-			logger.log(e)
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: 'Auth Context'
+				}
+			})
 		}
 	}, [])
 

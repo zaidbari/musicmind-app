@@ -54,7 +54,11 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 			}
 		} else {
 			if (status.error) {
-				logger.log(`FATAL PLAYER ERROR: ${status.error}`)
+				logger.sentry(status.error, {
+					tags: {
+						section: '_onPlaybackStatusUpdate'
+					}
+				})
 			} else {
 				logger.log('Player is not loaded')
 			}
@@ -76,8 +80,12 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				)
 				//TODO: Music player aquisition end point goes here
 			} else _handlePlayPause()
-		} catch (e) {
-			logger.log(e, 'SOUND LOAD ERROR')
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_load'
+				}
+			})
 		}
 	}
 
@@ -91,8 +99,12 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 					await _play()
 				}
 			}
-		} catch (e) {
-			logger.log(e, "Couldn't play or pause")
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_handlePlayPause'
+				}
+			})
 		}
 	}, [playbackStatus])
 
@@ -103,24 +115,36 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 			} else {
 				await _load(0)
 			}
-		} catch (e) {
-			logger.log(e, 'SOUND PLAY ERROR')
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_play'
+				}
+			})
 		}
 	}, [currentTrackIndex.current])
 
 	const _pause = useCallback(async () => {
 		try {
 			await sound.pauseAsync()
-		} catch (e) {
-			logger.log(e, 'SOUND PAUSE ERROR')
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_pause'
+				}
+			})
 		}
 	}, [])
 
 	const _stop = useCallback(async () => {
 		try {
 			await sound.stopAsync()
-		} catch (e) {
-			logger.log(e, 'SOUND STOP ERROR')
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_stop'
+				}
+			})
 		}
 	}, [])
 
@@ -134,8 +158,12 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 					await _load(0)
 				}
 			}
-		} catch (e) {
-			logger.log(e, 'SOUND NEXT ERROR')
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_next'
+				}
+			})
 		}
 	}, [currentTrackIndex, playbackStatus.isLoaded])
 
@@ -150,8 +178,12 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 					await _load(trackList.current.length - 1)
 				}
 			}
-		} catch (e) {
-			logger.log(e, 'SOUND PREVIOUS ERROR')
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_previous'
+				}
+			})
 		}
 	}, [currentTrackIndex.current, playbackStatus.isLoaded])
 

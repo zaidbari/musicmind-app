@@ -3,12 +3,14 @@ import 'expo-router/entry'
 import { Platform } from 'react-native'
 import '@/utils/localization'
 import * as Sentry from 'sentry-expo'
-import { SENTRY_DSN } from './constants/urls'
+import { SENTRY_DSN } from '@/constants/urls'
 
 Sentry.init({
 	dsn: SENTRY_DSN,
 	enableInExpoDevelopment: true,
-	debug: false
+	debug: false,
+	tracesSampleRate: 1.0,
+	attachScreenshot: true
 })
 
 if (Platform.OS === 'web' && document) {
