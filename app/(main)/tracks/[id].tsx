@@ -21,8 +21,7 @@ export default function TrackScreen() {
 	const { setUserPlaylists } = usePlaylistModal()
 
 	useEffect(() => {
-		if (userPlaylists.length === 0) return
-		setUserPlaylists(userPlaylists)
+		if (userPlaylists.length) setUserPlaylists(userPlaylists)
 	}, [userPlaylists])
 
 	const _handlePlayPress = (trackIndex: number) => {
@@ -57,6 +56,7 @@ export default function TrackScreen() {
 					contentContainerStyle={{ paddingBottom: 30 }}
 					ListHeaderComponent={renderHeader}
 					data={tracks}
+					keyExtractor={item => String(item.track.id)}
 					renderItem={({ item, index }) =>
 						renderTrack({
 							track: item,

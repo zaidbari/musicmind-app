@@ -71,6 +71,13 @@
 			"bundler": "metro",
 			"favicon": "./assets/images/favicon.png"
 		},
-		"plugins": ["sentry-expo", "expo-localization"]
+		"plugins": [
+			"sentry-expo",
+			"expo-localization",
+			"expo-screen-orientation",
+			{
+				"initialOrientation": "DEFAULT"
+			}
+		]
 	}
 }

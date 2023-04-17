@@ -6,13 +6,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Stack } from 'expo-router'
 import { useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 export default function Layout(): JSX.Element {
 	const isConnected = useNetwork()
 	const { i18n } = useTranslation()
+
 	useLayoutEffect(() => {
+		if (Platform.OS === 'android') {
+			ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL)
+		}
+		if (Platform.OS === 'ios') {
+			ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+		}
+
 		AsyncStorage.getItem('language')
 			.then(language => {
 				if (language) i18n.changeLanguage(language)
