@@ -14,6 +14,14 @@ Sentry.init({
 })
 
 if (Platform.OS === 'web' && document) {
+	const originalWarn = console.warn
+	console.warn = (message, ...optionalParams) => {
+		if (typeof message === 'string') {
+			if (/setNativeProps is deprecated. Please update props using React state instead./g.test(message)) return
+		}
+		originalWarn(message, ...optionalParams)
+	}
+
 	// get head element
 	const head = document.getElementsByTagName('head')[0]
 

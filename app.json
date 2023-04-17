@@ -41,12 +41,8 @@
 				"com.apple.developer.networking.wifi-info": true
 			},
 			"infoPlist": {
+				"UIUserInterfaceStyle": "Dark",
 				"UIBackgroundModes": ["audio"],
-				"UISupportedInterfaceOrientations": [
-					"UIInterfaceOrientationPortrait",
-					"UIInterfaceOrientationLandscapeLeft",
-					"UIInterfaceOrientationLandscapeRight"
-				],
 				"NSPhotoLibraryUsageDescription": "The app accesses your gallery to let you upload photo for your playlist.",
 				"NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera"
 			}

@@ -4,15 +4,18 @@ import Providers from '@/context'
 import useNetwork from '@/hooks/useNetwork'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Stack } from 'expo-router'
-import { useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform, StyleSheet } from 'react-native'
+import { LogBox, Platform, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as ScreenOrientation from 'expo-screen-orientation'
 
 export default function Layout(): JSX.Element {
 	const isConnected = useNetwork()
 	const { i18n } = useTranslation()
+	useEffect(() => {
+		LogBox.ignoreLogs(['Animated: `useNativeDriver`'])
+	}, [])
 
 	useLayoutEffect(() => {
 		if (Platform.OS === 'android') {
