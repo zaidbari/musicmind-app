@@ -1,5 +1,5 @@
 import { TTrackItem } from '@/types/track'
-import { MutableRefObject, createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { MutableRefObject, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Audio, AVPlaybackStatus, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av'
 import { TSoundContext, TSoundProvider } from '@/types/soundContext'
 import { logger } from '@/utils/logger'
@@ -61,7 +61,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 		}
 	}
 
-	const _shuffle = useCallback(async () => {
+	const _shuffle = useCallback(() => {
 		if (!trackList.current) return
 		const shuffledTracks = trackList.current.sort(() => Math.random() - 0.5)
 		trackList.current = shuffledTracks

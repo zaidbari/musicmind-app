@@ -23,7 +23,6 @@ export const useGetPlaylists = (
 
 	const fetchPlaylistById = useCallback(
 		async (unmounted: boolean, token: CancelToken) => {
-			setIsLoading(true)
 			try {
 				if (!unmounted) {
 					const { data } = await api.get(PLAYLIST_GROUP_URL + id, { cancelToken: token })
@@ -44,7 +43,7 @@ export const useGetPlaylists = (
 	)
 
 	useEffect(() => {
-		if (searchTerm) {
+		if (searchTerm != '' && originalPlaylists.length) {
 			const filteredPlaylists = originalPlaylists.filter(playlist => {
 				return playlist.playlist_name.toLowerCase().includes(searchTerm.toLowerCase())
 			})

@@ -5,8 +5,9 @@ import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { useGetPlaylists } from '@/hooks/queries/useGetPlaylists'
+import { TPlaylist } from '@/types/playlist'
 import { Stack, useSearchParams } from 'expo-router'
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
@@ -25,8 +26,12 @@ const PlaylistScreen: FC<{}> = () => {
 		}
 	}, [layoutWidth, itemsCount])
 
-	if (isLoading) return <Loader />
+	const renderPlaylist = useCallback(
+		({ item }: { item: TPlaylist }) => <PlaylistCard width={width} item={item} />,
+		[width]
+	)
 
+	if (isLoading) return <Loader />
 	return (
 		<View style={styles.container}>
 			<Stack.Screen options={{ title: t('pages.playlist') as string }} />
@@ -50,7 +55,7 @@ const PlaylistScreen: FC<{}> = () => {
 				itemDimension={200}
 				spacing={20}
 				data={playlists}
-				renderItem={({ item }) => <PlaylistCard width={width} item={item} />}
+				renderItem={({ item }) => renderPlaylist({ item })}
 			/>
 		</View>
 	)

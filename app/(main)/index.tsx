@@ -5,7 +5,8 @@ import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { useGetContainers } from '@/hooks/queries/useGetContainers'
-import { FC, useEffect, useState } from 'react'
+import { Container } from '@/types/container'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
@@ -22,6 +23,11 @@ const HomeScreen: FC<{}> = (): JSX.Element => {
 			setWidth((layoutWidth - 20 * itemsCount - 1) / itemsCount)
 		}
 	}, [layoutWidth, itemsCount])
+
+	const renderContainer = useCallback(
+		({ item }: { item: Container }) => <ContainerCard width={width} item={item} />,
+		[width]
+	)
 
 	if (isLoading) return <Loader />
 	return (
@@ -46,7 +52,7 @@ const HomeScreen: FC<{}> = (): JSX.Element => {
 				additionalRowStyle={{ padding: 0 }}
 				itemDimension={200}
 				data={containers}
-				renderItem={({ item }) => <ContainerCard width={width} item={item} />}
+				renderItem={({ item }) => renderContainer({ item })}
 			/>
 		</View>
 	)
