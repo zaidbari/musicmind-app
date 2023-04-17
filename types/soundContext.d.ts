@@ -1,3 +1,5 @@
+import { TMediaPlayerAcquisition, TTimerAcquisition } from './playerSettings'
+
 type TSoundProvider = {
 	children: React.ReactNode
 }
@@ -19,4 +21,6 @@ export type TSoundContext = {
 	isShuffled: MutableRefObject<boolean>
 	volume: MutableRefObject<number>
 	_shuffle: () => void
+	mediaPlayerAcquisition: TMediaPlayerAcquisition
+	timerAcquisition: TTimerAcquisition
 }

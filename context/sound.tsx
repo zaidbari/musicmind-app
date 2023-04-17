@@ -1,11 +1,15 @@
 import { TTrackItem } from '@/types/track'
-import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
+import { MutableRefObject, createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Audio, AVPlaybackStatus, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av'
 import { TSoundContext, TSoundProvider } from '@/types/soundContext'
 import { logger } from '@/utils/logger'
+import useAxios from '@/hooks/useAxios'
+import axios from 'axios'
+import { ROYALTY_LOGGING_URL } from '@/constants/urls'
+import { useGetPlayerSettings } from '@/hooks/queries/useGetPlayerSettings'
 
 // This context will be used to store the user info.
-const SoundContext = React.createContext<TSoundContext>({
+const SoundContext = createContext<TSoundContext>({
 	trackList: { current: null },
 	currentPlayingTrack: { current: null },
 	playbackStatus: {} as AVPlaybackStatus,
@@ -21,11 +25,16 @@ const SoundContext = React.createContext<TSoundContext>({
 	_setVolume: (volume: number) => {},
 	isShuffled: { current: false },
 	_shuffle: () => {},
-	volume: { current: 1.0 }
+	volume: { current: 1.0 },
+	mediaPlayerAcquisition: { isShuffleBtnVisible: false, isRepeatBtnVisible: false },
+	timerAcquisition: { timer_value_integer: 0, timer_enabled_bool: false }
 })
 
-export const useSound = () => React.useContext(SoundContext)
+export const useSound = () => useContext(SoundContext)
 export function SoundProvider({ children }: TSoundProvider): JSX.Element {
+	const api = useAxios()
+	const { mediaPlayerAcquisition, timerAcquisition } = useGetPlayerSettings()
+
 	const soundRef = useRef<Audio.Sound>(new Audio.Sound())
 	const sound = soundRef.current
 
@@ -37,6 +46,20 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 	const volume: MutableRefObject<number> = useRef<number>(1.0)
 
 	const [playbackStatus, setPlaybackStatus] = useState<AVPlaybackStatus>({} as AVPlaybackStatus)
+
+	const postRoyaltyLogging = async (id: number) => {
+		let source = axios.CancelToken.source()
+
+		try {
+			await api.post(ROYALTY_LOGGING_URL + id, {}, { cancelToken: source.token })
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: 'postRoyaltyLogging'
+				}
+			})
+		}
+	}
 
 	const _shuffle = useCallback(async () => {
 		if (!trackList.current) return
@@ -79,6 +102,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 					false
 				)
 				//TODO: Music player aquisition end point goes here
+				await postRoyaltyLogging(trackList.current[index].track.id)
 			} else _handlePlayPause()
 		} catch (error) {
 			logger.sentry(error, {
@@ -256,7 +280,9 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				_setPosition,
 				_getPosition,
 				_setVolume,
-				volume
+				volume,
+				mediaPlayerAcquisition,
+				timerAcquisition
 			}}
 		>
 			{children}

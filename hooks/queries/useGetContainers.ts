@@ -1,9 +1,9 @@
 import { MAIN_CONTAINER_URL } from '@/constants/urls'
+import useAxios from '@/hooks/useAxios'
 import { Container } from '@/types/container'
+import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
-import useAxios from '@/hooks/useAxios'
-import { logger } from '@/utils/logger'
 
 export const useGetContainers = (): {
 	containers: Container[]
@@ -22,6 +22,7 @@ export const useGetContainers = (): {
 
 	const fetchContainers = useCallback(async (unmounted: boolean, token: CancelToken) => {
 		setIsLoading(true)
+
 		try {
 			if (!unmounted) {
 				const { data } = await api.get(MAIN_CONTAINER_URL, { cancelToken: token })
