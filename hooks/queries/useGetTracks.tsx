@@ -40,6 +40,7 @@ export const useGetTracks = (id: string): TUseTracks => {
 		} finally {
 			setIsLoading(false)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const fetchTracksByPlaylistId = useCallback(
@@ -64,6 +65,7 @@ export const useGetTracks = (id: string): TUseTracks => {
 				setIsLoading(false)
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[id]
 	)
 
@@ -77,6 +79,7 @@ export const useGetTracks = (id: string): TUseTracks => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [shoudlReset])
 
 	return { tracks, isLoading, setShouldReset, playlistDetails, userPlaylists }

@@ -17,7 +17,7 @@ function PlaylistDetailCard({ playlistDetails, tracksLength, handlePlay }: TPlay
 	const device = useDevice()
 
 	return (
-		<View style={StyleSheet.flatten([styles.container, device == 'phone' && { flexDirection: 'column' }])}>
+		<View style={StyleSheet.flatten([styles.container, device === 'phone' && { flexDirection: 'column' }])}>
 			<ImageBackground
 				source={{ uri: playlistDetails.Photo as string }}
 				style={styles.backgroundImage}
@@ -35,14 +35,14 @@ function PlaylistDetailCard({ playlistDetails, tracksLength, handlePlay }: TPlay
 			</ImageBackground>
 
 			<View style={{ flexGrow: 1 }}>
-				<Text style={StyleSheet.flatten([styles.title, device == 'phone' && { textAlign: 'center' }])}>
+				<Text style={StyleSheet.flatten([styles.title, device === 'phone' && { textAlign: 'center' }])}>
 					{playlistDetails.playlist_name}
 				</Text>
-				<Text style={StyleSheet.flatten([styles.subTitle, device == 'phone' && { textAlign: 'center' }])}>
+				<Text style={StyleSheet.flatten([styles.subTitle, device === 'phone' && { textAlign: 'center' }])}>
 					{tracksLength} {t('tracks')}
 				</Text>
 
-				<View style={StyleSheet.flatten([styles.buttonRow, device == 'phone' && { flexDirection: 'column' }])}>
+				<View style={StyleSheet.flatten([styles.buttonRow, device === 'phone' && { flexDirection: 'column' }])}>
 					<View style={styles.buttonRow}>
 						<Pressable style={styles.button} onPress={() => handlePlay(0)}>
 							<Ionicons name="ios-play" size={22} color={colors.primary} />

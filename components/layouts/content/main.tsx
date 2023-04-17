@@ -13,7 +13,7 @@ export function MainContentArea({ open }: { open: boolean }): JSX.Element {
 			if (!open) setShow(true)
 			else setShow(false)
 		}
-	}, [open])
+	}, [open, device])
 
 	return (
 		<View style={{ flex: 2, height, display: show ? 'flex' : 'none' }}>

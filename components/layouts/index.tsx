@@ -34,6 +34,8 @@ export default function Layout(): JSX.Element {
 				// fallback to default language
 				i18n.changeLanguage('da')
 			})
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return isConnected ? (

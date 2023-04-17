@@ -4,17 +4,17 @@ import Constants from 'expo-constants'
 import { colors } from '@/constants/colors'
 import { logger } from '@/utils/logger'
 
-export function ErrorFallback({ children }: { children: React.ReactElement }): JSX.Element {
-	const CustomFallback = (props: { error: Error; resetError: Function }) => (
-		<View style={styles.container}>
-			<Text style={styles.title}>Something happened!</Text>
-			<Text style={styles.text}>{props.error.toString()}</Text>
-			<Pressable onPress={e => props.resetError(e)} style={styles.button}>
-				<Text style={styles.buttonText}>Try again</Text>
-			</Pressable>
-		</View>
-	)
+const CustomFallback = (props: { error: Error; resetError: Function }) => (
+	<View style={styles.container}>
+		<Text style={styles.title}>Something happened!</Text>
+		<Text style={styles.text}>{props.error.toString()}</Text>
+		<Pressable onPress={e => props.resetError(e)} style={styles.button}>
+			<Text style={styles.buttonText}>Try again</Text>
+		</Pressable>
+	</View>
+)
 
+export function ErrorFallback({ children }: { children: React.ReactElement }): JSX.Element {
 	function handleError(error: Error, componentStack: string) {
 		logger.log(error, componentStack)
 	}

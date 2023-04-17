@@ -1,5 +1,5 @@
 import { TTrackItem } from '@/types/track'
-import { MutableRefObject, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { MutableRefObject, createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Audio, AVPlaybackStatus, InterruptionModeAndroid, InterruptionModeIOS } from 'expo-av'
 import { TSoundContext, TSoundProvider } from '@/types/soundContext'
 import { logger } from '@/utils/logger'
@@ -31,6 +31,7 @@ const SoundContext = createContext<TSoundContext>({
 })
 
 export const useSound = () => useContext(SoundContext)
+
 export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 	const api = useAxios()
 	const { mediaPlayerAcquisition, timerAcquisition } = useGetPlayerSettings()
@@ -65,9 +66,11 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 		if (!trackList.current) return
 		const shuffledTracks = trackList.current.sort(() => Math.random() - 0.5)
 		trackList.current = shuffledTracks
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [trackList.current])
 
-	const _getPlaybackStatus = useCallback(async () => await sound.getStatusAsync(), [])
+	const _getPlaybackStatus = useCallback(async () => await sound.getStatusAsync(), [sound])
 
 	const _onPlaybackStatusUpdate = async (status: AVPlaybackStatus) => {
 		setPlaybackStatus(status)
@@ -130,6 +133,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				}
 			})
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playbackStatus])
 
 	const _play = useCallback(async () => {
@@ -146,6 +151,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				}
 			})
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentTrackIndex.current])
 
 	const _pause = useCallback(async () => {
@@ -158,6 +165,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				}
 			})
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const _stop = useCallback(async () => {
@@ -170,6 +179,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				}
 			})
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const _next = useCallback(async () => {
@@ -189,6 +200,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				}
 			})
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentTrackIndex, playbackStatus.isLoaded])
 
 	const _previous = useCallback(async () => {
@@ -209,6 +222,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				}
 			})
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentTrackIndex.current, playbackStatus.isLoaded])
 
 	const _toggleLoop = useCallback(async () => {
@@ -218,6 +233,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 			await sound.setIsLoopingAsync(!isLooping.current)
 			isLooping.current = !isLooping.current
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const _setPosition = useCallback(async (position: number) => {
@@ -226,6 +242,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 		if (status.isLoaded) {
 			await sound.setPositionAsync(position)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const _getPosition = useCallback(async () => {
@@ -234,6 +251,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 			return status.positionMillis
 		}
 		return 0
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const _setVolume = useCallback(
@@ -245,6 +263,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				volume.current = volumeToSet
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[volume.current]
 	)
 
@@ -260,6 +279,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 		})
 
 		sound.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (

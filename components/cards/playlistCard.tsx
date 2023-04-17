@@ -19,6 +19,8 @@ function PlaylistCard({ item, width }: { item: TPlaylist; width: number }): JSX.
 		} catch (error) {
 			console.error(error)
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [item.playlist])
 
 	return (

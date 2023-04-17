@@ -30,7 +30,7 @@ function TrackRow({ track, index, handlePlay }: TTrackRow): JSX.Element {
 					{track.track.song_title}
 				</Text>
 				<Text style={styles.subTitle}>{track.track.artist_name}</Text>
-				{device == 'phone' && (
+				{device === 'phone' && (
 					<Text style={{ color: isCurrentTrackSelectedForPlayback ? colors.accent : 'white', marginTop: 10 }}>
 						{track.track.album_name}
 					</Text>

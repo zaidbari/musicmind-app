@@ -29,6 +29,7 @@ export const useGetNewsfeed = () => {
 		} finally {
 			setIsLoading(false)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
@@ -40,6 +41,7 @@ export const useGetNewsfeed = () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [shoudlReset])
 
 	return { newsfeed, isLoading, setShouldReset }

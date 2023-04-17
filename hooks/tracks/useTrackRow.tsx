@@ -97,6 +97,7 @@ export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
 			setIsPaused(false)
 			setIsBuffering(false)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playbackStatus, currentPlayingTrack.current])
 
 	// ?this hook only runs when the currentPlayingTrack.current changes
@@ -107,6 +108,7 @@ export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
 		} else {
 			setIsCurrentTrackSelectedForPlayback(false)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPlayingTrack.current])
 
 	return { isBuffering, isPaused, isCurrentTrackSelectedForPlayback, onPress }

@@ -21,7 +21,7 @@ const useAxios = (): AxiosInstance => {
 
 			const { access } = tokens
 
-			if (!config.headers['Authorization']) config.headers['Authorization'] = `JWT ${access}`
+			if (!config.headers.Authorization) config.headers.Authorization = `JWT ${access}`
 			return config
 		},
 		error => {
@@ -34,7 +34,7 @@ const useAxios = (): AxiosInstance => {
 		async error => {
 			const { response, config } = error
 
-			if (error.code == 'ERR_CANCELED') return Promise.reject(error)
+			if (error.code === 'ERR_CANCELED') return Promise.reject(error)
 			if (response?.status !== 401) return Promise.reject(error)
 			const tokens = await getTokens()
 
@@ -53,7 +53,7 @@ const useAxios = (): AxiosInstance => {
 						new FormData().append('refresh', tokens.refresh)
 					)
 					setTokens(data)
-					prevRequest.headers['Authorization'] = `JWT ${data.access}`
+					prevRequest.headers.Authorization = `JWT ${data.access}`
 					return await api(prevRequest)
 				} catch (err) {
 					logger.sentry(err, {

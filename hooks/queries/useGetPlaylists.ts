@@ -39,11 +39,12 @@ export const useGetPlaylists = (
 				setIsLoading(false)
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[id]
 	)
 
 	useEffect(() => {
-		if (searchTerm != '' && originalPlaylists.length) {
+		if (searchTerm !== '' && originalPlaylists.length) {
 			const filteredPlaylists = originalPlaylists.filter(playlist => {
 				return playlist.playlist_name.toLowerCase().includes(searchTerm.toLowerCase())
 			})
@@ -51,6 +52,7 @@ export const useGetPlaylists = (
 		} else {
 			setPlaylists(originalPlaylists)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchTerm])
 
 	useEffect(() => {
@@ -62,6 +64,7 @@ export const useGetPlaylists = (
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [shoudlReset])
 
 	return { playlists, isLoading, setShouldReset, search }

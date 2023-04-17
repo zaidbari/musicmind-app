@@ -21,7 +21,7 @@ export function MainSidebar({ open, setOpen }: MainSidebarProps): JSX.Element {
 		if (deviceType === 'phone') {
 			setSideWidth(width)
 		}
-	}, [])
+	}, [deviceType, width])
 
 	return (
 		<View style={{ width: open ? sideWidth : 40, height }}>

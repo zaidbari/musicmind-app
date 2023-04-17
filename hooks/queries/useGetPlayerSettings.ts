@@ -35,6 +35,7 @@ export const useGetPlayerSettings = () => {
 				}
 			})
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
@@ -46,6 +47,7 @@ export const useGetPlayerSettings = () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return { mediaPlayerAcquisition, timerAcquisition }

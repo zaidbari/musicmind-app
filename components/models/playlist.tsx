@@ -1,7 +1,7 @@
 import { colors } from '@/constants/colors'
 import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
 import { logger } from '@/utils/logger'
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
@@ -22,6 +22,8 @@ function PlaylistModal({ hideModal }: PlaylistModalProps): JSX.Element {
 		hideModal()
 	}
 
+	const renderSeparater = useCallback(() => <View style={styles.separater} />, [])
+
 	return (
 		<View style={[styles.container, { width, height }]}>
 			<View style={[styles.contentContainer, { width: width / 1.3 }]}>
@@ -29,9 +31,7 @@ function PlaylistModal({ hideModal }: PlaylistModalProps): JSX.Element {
 					<Text style={styles.title}>Add to playlist</Text>
 					<FlatList
 						data={playlists}
-						ItemSeparatorComponent={() => (
-							<View style={{ height: 1, backgroundColor: colors.secondary, marginVertical: 10 }} />
-						)}
+						ItemSeparatorComponent={() => renderSeparater()}
 						renderItem={({ item }) => (
 							<Pressable onPress={() => _handlePress(item.id)}>
 								<Text style={{ color: 'white', fontSize: 16 }}>{item.name}</Text>
@@ -90,5 +90,10 @@ const styles = StyleSheet.create({
 		marginHorizontal: 8,
 		textAlign: 'center',
 		fontWeight: 'bold'
+	},
+	separater: {
+		height: 1,
+		backgroundColor: colors.secondary,
+		marginVertical: 10
 	}
 })

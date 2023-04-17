@@ -25,7 +25,9 @@ export const useGetContainers = (): {
 
 		try {
 			if (!unmounted) {
-				const { data } = await api.get(MAIN_CONTAINER_URL, { cancelToken: token })
+				const { data } = await api.get(MAIN_CONTAINER_URL, {
+					cancelToken: token
+				})
 				setOriginalContainers(data)
 				setContainers(data)
 			}
@@ -38,28 +40,31 @@ export const useGetContainers = (): {
 		} finally {
 			setIsLoading(false)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
 		if (searchTerm) {
-			const filteredContainers = origianlContainers.filter(container => {
+			const filteredContainers = origianlContainers.filter((container: Container) => {
 				return container.name.toLowerCase().includes(searchTerm.toLowerCase())
 			})
 			setContainers(filteredContainers)
 		} else {
 			setContainers(origianlContainers)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchTerm])
 
 	useEffect(() => {
 		let unmounted = false
-		let source = axios.CancelToken.source()
+		const source = axios.CancelToken.source()
 
 		fetchContainers(unmounted, source.token)
 		return () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [shoudlReset])
 
 	return { containers, isLoading, setShouldReset, search }

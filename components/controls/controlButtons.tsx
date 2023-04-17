@@ -22,6 +22,8 @@ function ControlButtons({ open, width }: { open: boolean; width: number }) {
 
 		if (currentPlayingTrack.current === null) setDisabled(true)
 		else setDisabled(false)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPlayingTrack.current])
 
 	function _handlePress(action: string) {

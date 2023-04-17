@@ -28,11 +28,12 @@ export function useTrackControls() {
 				setIsPaused(false)
 			}
 		}
-	}, [playbackStatus])
+	}, [playbackStatus, currentPlayingTrack])
 
 	// ?this hook only runs when the currentPlayingTrack.current changes
 	useEffect(() => {
 		setIsBuffering(true)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPlayingTrack.current])
 
 	return { isBuffering, isPaused, isLoading }

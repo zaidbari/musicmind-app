@@ -14,6 +14,8 @@ function AlbumImage(): JSX.Element | null {
 			setShouldRender(true)
 			setUri(currentPlayingTrack.current.track.album_photo)
 		} else setShouldRender(false)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPlayingTrack.current])
 
 	if (!shouldRender) return null

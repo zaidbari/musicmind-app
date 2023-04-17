@@ -13,6 +13,8 @@ function VolumeBar({ width }: { width: number }) {
 	useEffect(() => {
 		if (currentPlayingTrack.current === null) setDisabled(true)
 		else setDisabled(false)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPlayingTrack.current])
 
 	return (

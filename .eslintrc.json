@@ -1,0 +1,31 @@
+{
+	"extends": ["@react-native-community", "plugin:react/jsx-runtime", "prettier"],
+	"rules": {
+		"prettier/prettier": [
+			"error",
+			{
+				"tabWidth": 2,
+				"useTabs": true,
+				"semi": false,
+				"singleQuote": true,
+				"trailingComma": "none",
+				"bracketSpacing": true,
+				"jsxBracketSameLine": false,
+				"arrowParens": "avoid",
+				"printWidth": 120,
+				"endOfLine": "lf"
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": ["**/*.{ts,tsx}"],
+			"rules": {
+				"@typescript-eslint/no-unused-vars": "off",
+				"react-native/no-inline-styles": "off",
+				"@typescript-eslint/no-shadow": "off",
+				"no-self-compare": "off"
+			}
+		}
+	]
+}

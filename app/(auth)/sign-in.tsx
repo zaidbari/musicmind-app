@@ -28,8 +28,8 @@ const SignIn = (): JSX.Element => {
 		try {
 			const { data } = await axios.post(LOGIN_URL, { username, password })
 			signIn(data)
-		} catch (error: AxiosError | any) {
-			setError(error.response.data.detail)
+		} catch (err: AxiosError | any) {
+			setError(err.response.data.detail)
 		} finally {
 			setLoading(false)
 		}

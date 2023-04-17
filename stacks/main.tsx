@@ -14,8 +14,8 @@ export function MainStack(): JSX.Element {
 	return (
 		<Stack
 			screenOptions={{
-				headerTitle: ({ children }) => device !== 'phone' && <Title>{children}</Title>,
-				headerRight: () => <MainHeader />,
+				headerTitle: ({ children }) => device !== 'phone' && <Title>{children}</Title>, // eslint-disable-line react/no-unstable-nested-components
+				headerRight: () => <MainHeader />, // eslint-disable-line react/no-unstable-nested-components
 				headerStyle: styles.headerStyle,
 				headerBackTitleVisible: false,
 				headerShadowVisible: false,
@@ -27,7 +27,7 @@ export function MainStack(): JSX.Element {
 				name="index"
 				options={{
 					title: t('pages.home') as string,
-					headerLeft: () => <></>,
+					headerLeft: () => <></>, // eslint-disable-line react/no-unstable-nested-components
 					gestureEnabled: false
 				}}
 			/>

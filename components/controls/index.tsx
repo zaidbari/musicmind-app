@@ -14,7 +14,7 @@ export default function TrackControls({ open }: { open: boolean }): JSX.Element 
 
 	useEffect(() => {
 		if (device === 'phone') setSideWidth(width - 20)
-	}, [])
+	}, [device, width])
 
 	return (
 		<View style={{ justifyContent: 'flex-end', flexDirection: 'column', alignItems: 'center' }}>

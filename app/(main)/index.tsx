@@ -34,6 +34,7 @@ const HomeScreen: FC<{}> = (): JSX.Element => {
 		<View style={styles.container}>
 			<ResetView setShouldReset={setShouldReset}>
 				<Input
+					accessibilityHint={t('inputs.searchPreMadePlaylists') as string}
 					returnKeyType={'search'}
 					inputMode={'search'}
 					placeholder={t('inputs.searchPreMadePlaylists') as string}
@@ -52,7 +53,7 @@ const HomeScreen: FC<{}> = (): JSX.Element => {
 				additionalRowStyle={{ padding: 0 }}
 				itemDimension={200}
 				data={containers}
-				renderItem={({ item }) => renderContainer({ item })}
+				renderItem={({ item }: { item: Container }) => renderContainer({ item })}
 			/>
 		</View>
 	)

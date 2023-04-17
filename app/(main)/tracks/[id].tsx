@@ -22,6 +22,8 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 
 	useEffect(() => {
 		if (userPlaylists.length) setUserPlaylists(userPlaylists)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userPlaylists])
 
 	const _handlePlayPress = (trackIndex: number) => {
@@ -33,6 +35,8 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 		({ track, index }: { track: TTrackItem; index: number }) => (
 			<TrackRow index={index} track={track} handlePlay={_handlePlayPress} />
 		),
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[tracks]
 	)
 
@@ -44,8 +48,12 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 				tracksLength={tracks.length}
 			/>
 		),
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[tracks]
 	)
+
+	const renderSeparator = useCallback(() => <View style={styles.separator} />, [])
 
 	if (isLoading) return <Loader />
 	return (
@@ -64,7 +72,7 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 						})
 					}
 					estimatedItemSize={100}
-					ItemSeparatorComponent={() => <View style={styles.separator} />}
+					ItemSeparatorComponent={() => renderSeparator()}
 				/>
 			</View>
 		</>
