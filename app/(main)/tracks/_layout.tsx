@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 const TrackLayout: FC<{}> = (): JSX.Element => {
 	const { t } = useTranslation()
+
 	return (
 		<Stack
 			screenOptions={{
