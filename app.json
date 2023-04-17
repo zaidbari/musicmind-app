@@ -74,10 +74,12 @@
 		"plugins": [
 			"sentry-expo",
 			"expo-localization",
-			"expo-screen-orientation",
-			{
-				"initialOrientation": "DEFAULT"
-			}
+			[
+				"expo-screen-orientation",
+				{
+					"initialOrientation": "DEFAULT"
+				}
+			]
 		]
 	}
 }
