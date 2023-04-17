@@ -8,10 +8,10 @@ import { useDevice } from '@/context/device'
 import { useInfoModal } from '@/hooks/modals/useInfoModal'
 import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
 import { useSearchModal } from '@/hooks/modals/useSearchModal'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-export default (): JSX.Element => {
+const MainRoot: FC<{}> = (): JSX.Element => {
 	const [open, setOpen] = useState<boolean>(true)
 	const device = useDevice()
 	const { visible, hideModal, title, content } = useInfoModal()
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
 		position: 'relative'
 	}
 })
+
+export default MainRoot

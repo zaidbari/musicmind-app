@@ -6,12 +6,12 @@ import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { useGetPlaylists } from '@/hooks/queries/useGetPlaylists'
 import { Stack, useSearchParams } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
-export default function PlaylistScreen() {
+const PlaylistScreen: FC<{}> = () => {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
@@ -47,7 +47,7 @@ export default function PlaylistScreen() {
 				onItemsPerRowChange={setItemsCount}
 				ListEmptyComponent={<EmptyCard />}
 				additionalRowStyle={{ padding: 0 }}
-				itemDimension={230}
+				itemDimension={200}
 				spacing={20}
 				data={playlists}
 				renderItem={({ item }) => <PlaylistCard width={width} item={item} />}
@@ -69,9 +69,7 @@ const styles = StyleSheet.create({
 		color: colors.accent,
 		fontWeight: 'bold',
 		marginVertical: 10
-	},
-	grid: {
-		padding: 0,
-		marginTop: 10
 	}
 })
+
+export default PlaylistScreen

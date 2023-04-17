@@ -4,6 +4,7 @@ import { Platform } from 'react-native'
 import '@/utils/localization'
 import * as Sentry from 'sentry-expo'
 import { SENTRY_DSN } from '@/constants/urls'
+import { colors } from './constants/colors'
 
 Sentry.init({
 	dsn: SENTRY_DSN,
@@ -17,7 +18,7 @@ if (Platform.OS === 'web' && document) {
 	const originalWarn = console.warn
 	console.warn = (message, ...optionalParams) => {
 		if (typeof message === 'string') {
-			if (/setNativeProps is deprecated. Please update props using React state instead./g.test(message)) return
+			if (/setNativeProps is deprecated./g.test(message) || /Animated: `useNativeDriver` /g.test(message)) return
 		}
 		originalWarn(message, ...optionalParams)
 	}
@@ -50,6 +51,10 @@ if (Platform.OS === 'web' && document) {
 
 		::-webkit-scrollbar-thumb {
 			display: none;
+		}
+
+		body {
+			background-color: ${colors.primary};
 		}
 
 		input, textarea, button {

@@ -5,12 +5,12 @@ import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { useGetContainers } from '@/hooks/queries/useGetContainers'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
-function HomeScreen(): JSX.Element {
+const HomeScreen: FC<{}> = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { isLoading, containers, setShouldReset, search } = useGetContainers()
 	const [width, setWidth] = useState<number>(250)

@@ -2,10 +2,10 @@ import { EmptyCard } from '@/components/cards/emptyCard'
 import { Loader } from '@/components/loader'
 import { colors } from '@/constants/colors'
 import { useGetNewsfeed } from '@/hooks/queries/useGetNewsfeed'
-import { memo } from 'react'
+import { FC } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 
-function NewsfeedScreen(): JSX.Element {
+const NewsfeedScreen: FC<{}> = (): JSX.Element => {
 	const { isLoading, newsfeed } = useGetNewsfeed()
 
 	if (isLoading) return <Loader />
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default memo(NewsfeedScreen)
+export default NewsfeedScreen

@@ -8,11 +8,11 @@ import { useGetTracks } from '@/hooks/queries/useGetTracks'
 import { TTrackItem } from '@/types/track'
 import { FlashList } from '@shopify/flash-list'
 import { Stack, useSearchParams } from 'expo-router'
-import { useCallback, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 
-export default function TrackScreen() {
+const TrackScreen: FC<{}> = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 
@@ -81,3 +81,5 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.secondary
 	}
 })
+
+export default TrackScreen
