@@ -58,6 +58,8 @@ export const useGetPlaylists = (id: string): TUseGetPlaylists => {
 	}, [searchTerm])
 
 	useEffect(() => {
+		setIsLoading(true)
+
 		let unmounted = false
 		let source = axios.CancelToken.source()
 
