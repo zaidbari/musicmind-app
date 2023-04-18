@@ -1,12 +1,12 @@
-import ContainerCard from '@/components/cards/containerCard'
-import { EmptyCard } from '@/components/cards/emptyCard'
+import { EmptyCard, ContainerCard } from '@/components/cards'
 import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
-import { useGetContainers } from '@/hooks/queries/useGetContainers'
+import { useLayout } from '@/hooks/layout/useLayout'
+import { useGetContainers } from '@/hooks/queries'
 import { Container } from '@/types/container'
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
@@ -14,15 +14,12 @@ import { FlatGrid } from 'react-native-super-grid'
 const HomeScreen: FC<{}> = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { isLoading, containers, setShouldReset, search } = useGetContainers()
-	const [width, setWidth] = useState<number>(250)
-	const [itemsCount, setItemsCount] = useState<number>(3)
-	const [layoutWidth, setLayoutWidth] = useState<number>(880)
 
-	useEffect(() => {
-		if (layoutWidth !== 0) {
-			setWidth((layoutWidth - 20 * itemsCount - 1) / itemsCount)
-		}
-	}, [layoutWidth, itemsCount])
+	/**
+	 * using this hook to dynamically update the width of cards depending on
+	 * number of items per row and the width of the screen
+	 */
+	const { width, setLayoutWidth, setItemsCount } = useLayout()
 
 	const renderContainer = useCallback(
 		({ item }: { item: Container }) => <ContainerCard width={width} item={item} />,

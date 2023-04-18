@@ -7,12 +7,12 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native'
 
-type TPlaylistDetailCard = {
+type TProps = {
 	playlistDetails: TPlaylist
 	tracksLength: number
 	handlePlay: (index: number) => void
 }
-function PlaylistDetailCard({ playlistDetails, tracksLength, handlePlay }: TPlaylistDetailCard): JSX.Element {
+const PlaylistDetailCard = ({ playlistDetails, tracksLength, handlePlay }: TProps): JSX.Element => {
 	const { t } = useTranslation()
 	const device = useDevice()
 

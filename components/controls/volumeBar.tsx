@@ -5,7 +5,7 @@ import Slider from '@react-native-community/slider'
 import { memo, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
-function VolumeBar({ width }: { width: number }) {
+const VolumeBar = ({ width }: { width: number }): JSX.Element => {
 	const { currentPlayingTrack, _setVolume, volume } = useSound()
 
 	const [disabled, setDisabled] = useState<boolean>(true)

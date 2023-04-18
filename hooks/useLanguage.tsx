@@ -6,7 +6,7 @@ type TUseLanguageReturnType = {
 	_handleLanguageChange: () => Promise<void>
 }
 
-export function useLanguage(): TUseLanguageReturnType {
+export const useLanguage = (): TUseLanguageReturnType => {
 	const { i18n } = useTranslation()
 
 	const _handleLanguageChange = async () => {

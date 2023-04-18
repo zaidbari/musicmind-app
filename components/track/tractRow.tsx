@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { memo, useCallback } from 'react'
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native'
 
-function TrackRow({ track, index, handlePlay }: TTrackRow): JSX.Element {
+const TrackRow = ({ track, index, handlePlay }: TTrackRow): JSX.Element => {
 	const device = useDevice()
 	const { isBuffering, isPaused, isCurrentTrackSelectedForPlayback, onPress } = useTrackRow(track)
 

@@ -7,7 +7,7 @@ import { View } from 'react-native'
 import { InfoButton } from './infoButton'
 import { useSearchModal } from '@/hooks/modals/useSearchModal'
 
-export function MainHeader(): JSX.Element {
+export const MainHeader = (): JSX.Element => {
 	const { signOut } = useAuth()
 	const { setSearchVisible } = useSearchModal()
 	const router = useRouter()

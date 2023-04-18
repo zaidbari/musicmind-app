@@ -7,7 +7,7 @@ import { useInfoModal } from '../modals/useInfoModal'
 import { useTranslation } from 'react-i18next'
 import { usePlaylistModal } from '../modals/usePlaylistModal'
 
-export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
+export const useTrackRow = (track: TTrackItem): TUseTrackRowReturnType => {
 	const [isBuffering, setIsBuffering] = useState(false)
 	const [isPaused, setIsPaused] = useState(false)
 	const [isCurrentTrackSelectedForPlayback, setIsCurrentTrackSelectedForPlayback] = useState<boolean>(false)
@@ -22,7 +22,7 @@ export function useTrackRow(track: TTrackItem): TUseTrackRowReturnType {
 	const options = [t('menu.addToQueue'), t('menu.addToPlaylist'), t('close')]
 	const cancelButtonIndex = options.length - 1
 
-	function onPress() {
+	const onPress = () => {
 		showActionSheetWithOptions(
 			{
 				options,

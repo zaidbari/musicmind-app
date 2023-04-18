@@ -6,8 +6,9 @@ import { Image } from 'expo-image'
 import { Link } from 'expo-router'
 import { memo } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
+type TProps = { item: Container; width: number }
 
-function ContainerCard({ item, width }: { item: Container; width: number }): JSX.Element {
+const ContainerCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
 
 	return (

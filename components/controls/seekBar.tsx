@@ -4,7 +4,7 @@ import Slider from '@react-native-community/slider'
 import { memo, useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 
-function SeekBar({ width }: { width: number }) {
+const SeekBar = ({ width }: { width: number }): JSX.Element => {
 	const { currentPlayingTrack, playbackStatus, _setPosition } = useSound()
 
 	const [disabled, setDisabled] = useState<boolean>(true)

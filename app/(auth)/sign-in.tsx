@@ -4,11 +4,11 @@ import { LOGIN_URL } from '@/constants/urls'
 import { useAuth } from '@/context/auth'
 import axios, { AxiosError } from 'axios'
 import { Image } from 'expo-image'
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-const SignIn = (): JSX.Element => {
+const SignIn: FC<{}> = (): JSX.Element => {
 	const { t } = useTranslation()
 
 	const { signIn } = useAuth()
@@ -25,6 +25,7 @@ const SignIn = (): JSX.Element => {
 			setError(t('auth_empty_fields'))
 			return
 		}
+
 		try {
 			const { data } = await axios.post(LOGIN_URL, { username, password })
 			signIn(data)

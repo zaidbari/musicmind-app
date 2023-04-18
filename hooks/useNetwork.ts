@@ -1,7 +1,7 @@
-import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
+import NetInfo from '@react-native-community/netinfo'
 import { useEffect, useState } from 'react'
 
-export default function useNetwork(): boolean {
+export const useNetwork = (): boolean => {
 	const [isConnected, setIsConnected] = useState<boolean>(true)
 
 	useEffect(() => {

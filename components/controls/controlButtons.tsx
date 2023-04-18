@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { memo, useEffect, useState } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-function ControlButtons({ open, width }: { open: boolean; width: number }) {
+const ControlButtons = ({ open, width }: { open: boolean; width: number }): JSX.Element => {
 	const { _play, _pause, _previous, _next, _toggleLoop, _shuffle, currentPlayingTrack, mediaPlayerAcquisition } =
 		useSound()
 

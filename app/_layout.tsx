@@ -1,4 +1,4 @@
-import Layout from '@/components/layouts'
+import RootLayout from '@/components/layouts/rootLayout'
 import { Loader } from '@/components/loader'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useFonts } from 'expo-font'
@@ -29,13 +29,13 @@ const Root: FC<{}> = (): JSX.Element => {
 		if (error) throw error
 	}, [error])
 
-	if (Platform.OS == 'web' && !loaded) {
+	if (Platform.OS === 'web' && !loaded) {
 		// ?we need to return something before the fonts are loaded
 		return <Loader />
 	}
 
 	// ?wait for all the assets to be loaded before rendering the app
-	return loaded ? <Layout /> : <SplashScreen />
+	return loaded ? <RootLayout /> : <SplashScreen />
 }
 
 export default Root

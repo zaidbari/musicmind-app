@@ -5,7 +5,12 @@ import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 
-export const useGetPlayerSettings = () => {
+type TGetPlayerSettingsReturnType = {
+	mediaPlayerAcquisition: TMediaPlayerAcquisition
+	timerAcquisition: TTimerAcquisition
+}
+
+export const useGetPlayerSettings = (): TGetPlayerSettingsReturnType => {
 	const api = useAxios()
 
 	const [mediaPlayerAcquisition, setMediaPlayerAcquisition] = useState<TMediaPlayerAcquisition>({

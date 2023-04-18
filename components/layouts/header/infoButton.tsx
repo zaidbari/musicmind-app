@@ -1,11 +1,11 @@
 import { IconButton } from '@/components/buttons/iconButton'
 import { colors } from '@/constants/colors'
 import { useActionSheet } from '@expo/react-native-action-sheet'
-import * as WebBrowser from 'expo-web-browser'
+import { openBrowserAsync } from 'expo-web-browser'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 
-export function InfoButton() {
+export const InfoButton = (): JSX.Element => {
 	const { showActionSheetWithOptions } = useActionSheet()
 	const { t } = useTranslation()
 	const onPress = () => {
@@ -40,7 +40,7 @@ export function InfoButton() {
 				switch (selectedIndex) {
 					case 0:
 						if (Platform.OS !== 'web') {
-							WebBrowser.openBrowserAsync('https://instoremusic.dk/Musicmind_UserManual_NativeApp.pdf')
+							openBrowserAsync('https://instoremusic.dk/Musicmind_UserManual_NativeApp.pdf')
 						} else {
 							window.open('https://instoremusic.dk/Musicmind_UserManual_NativeApp.pdf', '_blank', 'noopener,noreferrer')
 						}

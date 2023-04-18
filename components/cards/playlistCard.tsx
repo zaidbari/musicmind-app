@@ -8,7 +8,12 @@ import { useRouter } from 'expo-router'
 import { memo, useCallback } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
-function PlaylistCard({ item, width }: { item: TPlaylist; width: number }): JSX.Element {
+type TProps = {
+	item: TPlaylist
+	width: number
+}
+
+const PlaylistCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
 	const router = useRouter()
 

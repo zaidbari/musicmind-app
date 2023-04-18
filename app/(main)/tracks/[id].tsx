@@ -1,16 +1,15 @@
-import PlaylistDetailsCard from '@/components/cards/playlistDetailsCard'
+import { PlaylistDetailsCard } from '@/components/cards'
 import { Loader } from '@/components/loader'
 import TrackRow from '@/components/track/tractRow'
 import { colors } from '@/constants/colors'
 import { useSound } from '@/context/sound'
-import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
-import { useGetTracks } from '@/hooks/queries/useGetTracks'
+import { usePlaylistModal } from '@/hooks/modals'
+import { useGetTracks } from '@/hooks/queries'
 import { TTrackItem } from '@/types/track'
-import { FlashList } from '@shopify/flash-list'
 import { Stack, useSearchParams } from 'expo-router'
 import { FC, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 
 const TrackScreen: FC<{}> = (): JSX.Element => {
 	const { t } = useTranslation()
@@ -50,7 +49,7 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 		),
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[tracks]
+		[playlistDetails, tracks.length]
 	)
 
 	const renderSeparator = useCallback(() => <View style={styles.separator} />, [])
@@ -60,7 +59,7 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 		<>
 			<Stack.Screen options={{ title: t('pages.playlistTracks') as string }} />
 			<View style={styles.container}>
-				<FlashList
+				<FlatList
 					contentContainerStyle={{ paddingBottom: 30 }}
 					ListHeaderComponent={renderHeader}
 					data={tracks}
@@ -71,7 +70,6 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 							index
 						})
 					}
-					estimatedItemSize={100}
 					ItemSeparatorComponent={() => renderSeparator()}
 				/>
 			</View>

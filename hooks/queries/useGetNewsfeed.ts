@@ -3,9 +3,15 @@ import useAxios from '@/hooks/useAxios'
 import { TNewsfeed } from '@/types/newsfeed'
 import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
-import { useCallback, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
-export const useGetNewsfeed = () => {
+type TGetNewsfeedReturnType = {
+	newsfeed: TNewsfeed[]
+	isLoading: boolean
+	setShouldReset: Dispatch<SetStateAction<boolean>>
+}
+
+export const useGetNewsfeed = (): TGetNewsfeedReturnType => {
 	const api = useAxios()
 
 	const [newsfeed, setNewsfeed] = useState<TNewsfeed[]>([])
@@ -14,7 +20,6 @@ export const useGetNewsfeed = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 
 	const fetchNewsfeed = useCallback(async (unmounted: boolean, token: CancelToken) => {
-		setIsLoading(true)
 		try {
 			if (!unmounted) {
 				const { data } = await api.get(NEWS_FEED_URL, { cancelToken: token })

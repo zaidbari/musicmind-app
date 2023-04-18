@@ -24,45 +24,29 @@ export const useGetTracks = (id: string): TUseTracks => {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	const [playlistDetails, setPlaylistDetails] = useState<TPlaylist>({} as TPlaylist)
 
-	const fetchUserPlaylist = useCallback(async (unmounted: boolean, token: CancelToken) => {
-		setIsLoading(true)
-		try {
-			if (!unmounted) {
-				const { data } = await api.get(USER_PLAYLIST_URL, { cancelToken: token })
-				setUserPlaylists(data)
-			}
-		} catch (error) {
-			logger.sentry(error, {
-				tags: {
-					section: 'fetchUserPlaylist'
-				}
-			})
-		} finally {
-			setIsLoading(false)
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
-	const fetchTracksByPlaylistId = useCallback(
+	const fetchDataInParallel = useCallback(
 		async (unmounted: boolean, token: CancelToken) => {
-			setIsLoading(true)
+			if (unmounted) return
 			try {
-				if (!unmounted) {
-					const { data } = await api.get(PLAYLIST_TRACKS_URL + id, { cancelToken: token })
-					setTracks(data)
+				await Promise.all([
+					api.get(PLAYLIST_TRACKS_URL + id, { cancelToken: token }),
+					api.get(USER_PLAYLIST_URL, { cancelToken: token })
+				]).then(async values => {
+					setTracks(values[0].data)
+					setUserPlaylists(values[1].data)
 					const playlist = await AsyncStorage.getItem('@playlist')
-					if (playlist) {
+					if (playlist !== null) {
 						setPlaylistDetails(JSON.parse(playlist))
 					}
-				}
+
+					setIsLoading(false)
+				})
 			} catch (error) {
 				logger.sentry(error, {
 					tags: {
-						section: 'fetchTracksByPlaylistId'
+						section: 'fetchDataInParallel'
 					}
 				})
-			} finally {
-				setIsLoading(false)
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,14 +57,15 @@ export const useGetTracks = (id: string): TUseTracks => {
 		let unmounted = false
 		let source = axios.CancelToken.source()
 
-		fetchTracksByPlaylistId(unmounted, source.token)
-		fetchUserPlaylist(unmounted, source.token)
+		if (id) {
+			fetchDataInParallel(unmounted, source.token)
+		}
 		return () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [shoudlReset])
+	}, [shoudlReset, id])
 
 	return { tracks, isLoading, setShouldReset, playlistDetails, userPlaylists }
 }

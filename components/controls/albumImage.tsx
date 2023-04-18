@@ -4,7 +4,7 @@ import { Image } from 'expo-image'
 import { memo, useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-function AlbumImage(): JSX.Element | null {
+const AlbumImage = (): JSX.Element | null => {
 	const { currentPlayingTrack } = useSound()
 	const [uri, setUri] = useState('')
 	const [shouldRender, setShouldRender] = useState(false)

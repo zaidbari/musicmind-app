@@ -7,7 +7,7 @@ type IconButtonProps = PressableProps & {
 	style?: ViewStyle
 }
 
-export function IconButton({ icon, style, ...props }: IconButtonProps): JSX.Element {
+export const IconButton = ({ icon, style, ...props }: IconButtonProps): JSX.Element => {
 	return (
 		<Pressable accessibilityRole="button" style={StyleSheet.flatten([styles.iconButton, style && style])} {...props}>
 			{({ pressed }) => (

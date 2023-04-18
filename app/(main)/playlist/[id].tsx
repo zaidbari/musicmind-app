@@ -1,30 +1,26 @@
-import { EmptyCard } from '@/components/cards/emptyCard'
-import PlaylistCard from '@/components/cards/playlistCard'
+import { EmptyCard, PlaylistCard } from '@/components/cards'
 import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
-import { useGetPlaylists } from '@/hooks/queries/useGetPlaylists'
+import { useLayout } from '@/hooks/layout/useLayout'
+import { useGetPlaylists } from '@/hooks/queries'
 import { TPlaylist } from '@/types/playlist'
 import { Stack, useSearchParams } from 'expo-router'
-import { FC, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
-const PlaylistScreen: FC<{}> = () => {
+const PlaylistScreen = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
-	const [width, setWidth] = useState<number>(250)
-	const [itemsCount, setItemsCount] = useState<number>(3)
-	const [layoutWidth, setLayoutWidth] = useState<number>(880)
-
-	useEffect(() => {
-		if (layoutWidth !== 0) {
-			setWidth((layoutWidth - 20 * itemsCount - 1) / itemsCount)
-		}
-	}, [layoutWidth, itemsCount])
+	/**
+	 * using this hook to dynamically update the width of cards depending on
+	 * number of items per row and the width of the screen
+	 */
+	const { width, setLayoutWidth, setItemsCount } = useLayout()
 
 	const renderPlaylist = useCallback(
 		({ item }: { item: TPlaylist }) => <PlaylistCard width={width} item={item} />,

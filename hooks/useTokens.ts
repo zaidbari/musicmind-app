@@ -1,7 +1,13 @@
 import { Tokens } from '@/types/tokens'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export const useTokens = () => {
+type TTokensHookReturnType = {
+	getTokens: () => Promise<Tokens | null>
+	setTokens: (tokens: Tokens) => Promise<void>
+	removeTokens: () => Promise<void>
+}
+
+export const useTokens = (): TTokensHookReturnType => {
 	const getTokens = async () => {
 		const access = await AsyncStorage.getItem('@access')
 		const refresh = await AsyncStorage.getItem('@refresh')

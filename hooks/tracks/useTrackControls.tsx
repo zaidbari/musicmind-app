@@ -1,7 +1,8 @@
 import { useSound } from '@/context/sound'
+import { TUseTrackControlsReturnType } from '@/types/track'
 import { useEffect, useState } from 'react'
 
-export function useTrackControls() {
+export const useTrackControls = (): TUseTrackControlsReturnType => {
 	const [isBuffering, setIsBuffering] = useState(false)
 	const [isPaused, setIsPaused] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)

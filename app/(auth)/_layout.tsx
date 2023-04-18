@@ -1,8 +1,9 @@
 import { colors } from '@/constants/colors'
 import { Stack } from 'expo-router'
-export const unstable_settings = { initialRouteName: 'sign-in' }
+import { FC } from 'react'
 
-export default (): JSX.Element => {
+export const unstable_settings = { initialRouteName: 'sign-in' }
+const AuthLayout: FC<{}> = (): JSX.Element => {
 	return (
 		<Stack
 			screenOptions={{
@@ -21,3 +22,5 @@ export default (): JSX.Element => {
 		</Stack>
 	)
 }
+
+export default AuthLayout

@@ -29,3 +29,9 @@ export type TUseTrackRowReturnType = {
 	isCurrentTrackSelectedForPlayback: boolean
 	onPress: () => void
 }
+
+export type TUseTrackControlsReturnType = {
+	isBuffering: boolean
+	isPaused: boolean
+	isLoading: boolean
+}

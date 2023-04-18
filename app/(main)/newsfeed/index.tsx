@@ -1,7 +1,7 @@
-import { EmptyCard } from '@/components/cards/emptyCard'
+import { EmptyCard } from '@/components/cards'
 import { Loader } from '@/components/loader'
 import { colors } from '@/constants/colors'
-import { useGetNewsfeed } from '@/hooks/queries/useGetNewsfeed'
+import { useGetNewsfeed } from '@/hooks/queries'
 import { FC } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 

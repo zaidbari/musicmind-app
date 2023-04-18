@@ -3,7 +3,7 @@ import { MainStack } from '@/stacks/main'
 import { useEffect, useState } from 'react'
 import { View, useWindowDimensions } from 'react-native'
 
-export function MainContentArea({ open }: { open: boolean }): JSX.Element {
+export const MainContentArea = ({ open }: { open: boolean }): JSX.Element => {
 	const { height } = useWindowDimensions()
 	const [show, setShow] = useState<boolean>(true)
 	const device = useDevice()

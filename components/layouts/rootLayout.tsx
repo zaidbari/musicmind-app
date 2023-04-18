@@ -1,28 +1,30 @@
 import { ErrorFallback } from '@/components/errorFallback'
 import { NoInternet } from '@/components/noInternet'
 import Providers from '@/context'
-import useNetwork from '@/hooks/useNetwork'
+import { useNetwork } from '@/hooks/useNetwork'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Stack } from 'expo-router'
 import { useEffect, useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LogBox, Platform, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import * as ScreenOrientation from 'expo-screen-orientation'
+import { lockAsync, OrientationLock } from 'expo-screen-orientation'
+import { useDevice } from '@/context/device'
 
-export default function Layout(): JSX.Element {
+export default function RootLayout(): JSX.Element {
 	const isConnected = useNetwork()
 	const { i18n } = useTranslation()
+	const device = useDevice()
+
 	useEffect(() => {
 		LogBox.ignoreLogs(['Animated: `useNativeDriver`'])
 	}, [])
 
 	useLayoutEffect(() => {
-		if (Platform.OS === 'android') {
-			ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL)
-		}
-		if (Platform.OS === 'ios') {
-			ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+		if (device === 'phone') lockAsync(OrientationLock.PORTRAIT_UP)
+		else {
+			if (Platform.OS === 'android') lockAsync(OrientationLock.ALL)
+			if (Platform.OS === 'ios') lockAsync(OrientationLock.DEFAULT)
 		}
 
 		AsyncStorage.getItem('language')
