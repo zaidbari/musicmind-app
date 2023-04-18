@@ -7,17 +7,18 @@ import { usePlaylistModal } from '@/hooks/modals'
 import { useGetTracks } from '@/hooks/queries'
 import { TTrackItem } from '@/types/track'
 import { Stack, useSearchParams } from 'expo-router'
-import { FC, useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 
-const TrackScreen: FC<{}> = (): JSX.Element => {
+const TrackScreen = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { id } = useSearchParams()
 
 	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks(id as string)
-	const { trackList, _load } = useSound()
+	const { trackList, _load, currentTrackIndex } = useSound()
 	const { setUserPlaylists } = usePlaylistModal()
+	const [listRef, setRef] = useState<FlatList<TTrackItem> | null>(null)
 
 	useEffect(() => {
 		if (userPlaylists.length) setUserPlaylists(userPlaylists)
@@ -38,6 +39,19 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[tracks]
 	)
+
+	// Animate to current track
+	useEffect(() => {
+		if (listRef && currentTrackIndex.current !== -1) {
+			listRef.scrollToIndex({
+				animated: true,
+				index: currentTrackIndex.current,
+				viewPosition: 0.5
+			})
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentTrackIndex.current, listRef])
 
 	const renderHeader = useCallback(
 		() => (
@@ -60,9 +74,11 @@ const TrackScreen: FC<{}> = (): JSX.Element => {
 			<Stack.Screen options={{ title: t('pages.playlistTracks') as string }} />
 			<View style={styles.container}>
 				<FlatList
+					ref={ref => setRef(ref)}
 					contentContainerStyle={{ paddingBottom: 30 }}
 					ListHeaderComponent={renderHeader}
 					data={tracks}
+					initialNumToRender={20}
 					keyExtractor={item => String(item.track.id)}
 					renderItem={({ item, index }) =>
 						renderTrack({

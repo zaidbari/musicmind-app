@@ -23,4 +23,5 @@ export type TSoundContext = {
 	_shuffle: () => void
 	mediaPlayerAcquisition: TMediaPlayerAcquisition
 	timerAcquisition: TTimerAcquisition
+	currentTrackIndex: MutableRefObject<number>
 }

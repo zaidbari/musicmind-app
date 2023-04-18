@@ -25,6 +25,7 @@ const SoundContext = createContext<TSoundContext>({
 	_setVolume: (volume: number) => {},
 	isShuffled: { current: false },
 	_shuffle: () => {},
+	currentTrackIndex: { current: -1 },
 	volume: { current: 1.0 },
 	mediaPlayerAcquisition: { isShuffleBtnVisible: false, isRepeatBtnVisible: false },
 	timerAcquisition: { timer_value_integer: 0, timer_enabled_bool: false }
@@ -289,6 +290,7 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				playbackStatus,
 				isShuffled,
 				currentPlayingTrack,
+				currentTrackIndex,
 				_load,
 				_shuffle,
 				_play,

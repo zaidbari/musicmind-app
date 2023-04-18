@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
 		gap: 10
 	},
 	image: {
-		width: 140,
-		height: 140,
-		borderRadius: 140,
+		width: 100,
+		height: 100,
+		borderRadius: 100,
 		borderWidth: 2,
 		borderColor: colors.accent,
 		borderStyle: 'solid',
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 	title: {
 		color: 'white',
 		fontWeight: 'bold',
-		fontSize: 16,
+		fontSize: 14,
 		marginTop: 10,
 		textAlign: 'center'
 	},
