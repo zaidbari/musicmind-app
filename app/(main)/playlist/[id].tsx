@@ -7,15 +7,14 @@ import { useLayout } from '@/hooks/layout/useLayout'
 import { useGetPlaylists } from '@/hooks/queries'
 import { TPlaylist } from '@/types/playlist'
 import { Stack, useSearchParams } from 'expo-router'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
 const PlaylistScreen = (): JSX.Element => {
 	const { t } = useTranslation()
-	const { id } = useSearchParams()
-	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
+	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists()
 	/**
 	 * using this hook to dynamically update the width of cards depending on
 	 * number of items per row and the width of the screen

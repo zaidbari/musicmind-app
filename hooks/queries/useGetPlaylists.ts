@@ -3,6 +3,7 @@ import useAxios from '@/hooks/useAxios'
 import { TPlaylist } from '@/types/playlist.d'
 import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
+import { useSearchParams } from 'expo-router'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
 type TUseGetPlaylists = {
@@ -12,8 +13,9 @@ type TUseGetPlaylists = {
 	search: Dispatch<SetStateAction<string>>
 }
 
-export const useGetPlaylists = (id: string): TUseGetPlaylists => {
+export const useGetPlaylists = (): TUseGetPlaylists => {
 	const api = useAxios()
+	const { id } = useSearchParams()
 
 	const [playlists, setPlaylists] = useState<TPlaylist[]>([])
 	const [originalPlaylists, setOriginalPlaylists] = useState<TPlaylist[]>([])

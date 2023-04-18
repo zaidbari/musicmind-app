@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 				await setTokens(tokens)
 				await getUsertype(tokens.access)
 				setAuth(tokens)
+				router.replace('/')
 			} catch (error) {
 				logger.sentry(error, {
 					tags: {
@@ -59,6 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 				})
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[getUsertype, setTokens]
 	)
 
@@ -79,24 +81,29 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 				setIsAdmin(true)
 			}
 		}
-	}, [getTokens, getUsertype])
-
-	useEffect(() => {
-		loadStorageData()
 
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
 	}, [])
 
 	useEffect(() => {
-		const inAuthGroup = segments[0] === '(auth)'
-		if (!auth?.access && !inAuthGroup) {
-			router.replace('/sign-in')
-		} else if (auth?.access && inAuthGroup) {
-			router.replace('/')
+		loadStorageData()
+		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
+	}, [])
+
+	useEffect(() => {
+		async function boot() {
+			const inAuthGroup = segments[0] === '(auth)'
+			const tokens = await getTokens()
+
+			if (!tokens?.access && !inAuthGroup) {
+				router.replace('/sign-in')
+			}
 		}
 
+		boot()
+
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
-	}, [auth?.access, segments])
+	}, [segments])
 
 	return (
 		<AuthContext.Provider

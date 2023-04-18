@@ -13,9 +13,8 @@ import { FlatList, StyleSheet, View } from 'react-native'
 
 const TrackScreen = (): JSX.Element => {
 	const { t } = useTranslation()
-	const { id } = useSearchParams()
 
-	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks(id as string)
+	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks()
 	const { trackList, _load, currentPlayingTrack } = useSound()
 	const { setUserPlaylists } = usePlaylistModal()
 	const [listRef, setRef] = useState<FlatList<TTrackItem> | null>(null)
