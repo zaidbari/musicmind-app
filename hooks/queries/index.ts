@@ -1,3 +1,5 @@
+import { useGetUserPlaylists } from './useGetUserPlaylists'
+import { useGetCopiedPlaylists } from './useGetCopiedPlaylists'
 import { useGetPlaylists } from './useGetPlaylists'
 import { useGetContainers } from './useGetContainers'
 import { useGetNewsfeed } from './useGetNewsfeed'
@@ -11,5 +13,7 @@ export {
 	useGetInternalContainers,
 	useGetNewsfeed,
 	useGetPlayerSettings,
-	useGetTracks
+	useGetTracks,
+	useGetCopiedPlaylists,
+	useGetUserPlaylists
 }

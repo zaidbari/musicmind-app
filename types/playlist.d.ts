@@ -17,4 +17,13 @@ export type TUserPlaylist = {
 	name: string
 	theme: string | null
 	visibility: number
+	user: number
+}
+
+export type TCopiedPlaylists = {
+	id: number
+	is_allowed_to_be_removed: boolean
+	playlist: number
+	playlist_name: string
+	user: number
 }

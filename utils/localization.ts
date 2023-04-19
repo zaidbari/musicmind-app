@@ -10,6 +10,8 @@ i18n.use(initReactI18next).init({
 				reset: 'Reset',
 				categories: 'Categories',
 				close: 'Close',
+				cancel: 'Cancel',
+				delete: 'Delete',
 				tracks: 'Tracks',
 				play: 'Play',
 				copy: 'Copy',
@@ -36,12 +38,15 @@ i18n.use(initReactI18next).init({
 					playlist: 'Playlist',
 					playlistTracks: 'Playlist tracks',
 					newsfeed: 'News Feed',
-					internalPlaylist: 'Internal playlists'
+					internalPlaylist: 'Internal playlists',
+					assignedPlaylists: 'Assigned playlists'
 				},
 				menu: {
 					addToPlaylist: 'Add to playlist',
 					addToQueue: 'Add to queue',
-					tour: 'Guided Tour'
+					tour: 'Guided Tour',
+					backToHome: 'Go Back to home',
+					confirmPlaylistDelete: 'Are you sure you want to delete this playlist?'
 				},
 				'No active account found with the given credentials!': 'No active account found with the given credentials!'
 			}
@@ -54,6 +59,8 @@ i18n.use(initReactI18next).init({
 				reset: 'Nulstil',
 				categories: 'Kategorier',
 				close: 'Luk',
+				cancel: 'Annuller',
+				delete: 'Slet',
 				tracks: 'Numre',
 				play: 'Afspil',
 				copy: 'Kopier',
@@ -80,12 +87,15 @@ i18n.use(initReactI18next).init({
 					playlist: 'Spillelister',
 					playlistTracks: 'Spillelister numre',
 					newsfeed: 'Nyhedsstrøm',
-					internalPlaylist: 'Internt spillelister'
+					internalPlaylist: 'Internt spillelister',
+					assignedPlaylists: 'Tildelte spillelister'
 				},
 				menu: {
 					addToPlaylist: 'Tilføj til spilleliste',
 					addToQueue: 'Tilføj til kø',
-					tour: 'Rundvisning'
+					tour: 'Rundvisning',
+					backToHome: 'Tilbage til hjem',
+					confirmPlaylistDelete: 'Er du sikker på at du vil slette denne spilleliste?'
 				},
 				'No active account found with the given credentials!': 'Ingen aktive brugere fundet med de givne oplysninger!'
 			}

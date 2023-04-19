@@ -1,45 +1,41 @@
-import { USER_PLAYLIST_URL } from '@/constants/urls'
+import { COPYPLAYLIST_ASSIGNED_URL } from '@/constants/urls'
 import useAxios from '@/hooks/useAxios'
-import { Container } from '@/types/container'
-import { TUserPlaylist } from '@/types/playlist'
+import { TCopiedPlaylists } from '@/types/playlist'
 import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
 type TGetUserPlaylistReturnType = {
-	userPlaylists: TUserPlaylist[]
+	copiedPlaylists: TCopiedPlaylists[]
 	isLoading: boolean
 	setShouldReset: Dispatch<SetStateAction<boolean>>
 }
 
-export const useGetUserPlaylists = (): TGetUserPlaylistReturnType => {
+export const useGetCopiedPlaylists = (): TGetUserPlaylistReturnType => {
 	const api = useAxios()
 
-	const [userPlaylists, setUserPlaylists] = useState<TUserPlaylist[]>([])
+	const [copiedPlaylists, setCopiedPlaylists] = useState<TCopiedPlaylists[]>([])
 
 	const [shoudlReset, setShouldReset] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 
-	const fetchUserPlaylists = useCallback(async (unmounted: boolean, token: CancelToken) => {
+	const fetchCopiedPlaylists = useCallback(async (unmounted: boolean, token: CancelToken) => {
 		try {
 			if (!unmounted) {
-				const { data } = await api.get(USER_PLAYLIST_URL, {
+				const { data } = await api.get(COPYPLAYLIST_ASSIGNED_URL, {
 					cancelToken: token
 				})
 
-				const sorted = data.sort((a: Container, b: Container) => {
-					if (a.position === b.position) {
-						return a.name.localeCompare(b.name)
-					}
-					return a.position - b.position
+				const sorted = data.sort((a: TCopiedPlaylists, b: TCopiedPlaylists) => {
+					return a.playlist_name.localeCompare(b.playlist_name)
 				})
 
-				setUserPlaylists(sorted)
+				setCopiedPlaylists(sorted)
 			}
 		} catch (err) {
 			logger.sentry(err, {
 				tags: {
-					section: 'fetchUserPlaylists'
+					section: 'fetchCopiedPlaylists'
 				}
 			})
 		} finally {
@@ -53,7 +49,7 @@ export const useGetUserPlaylists = (): TGetUserPlaylistReturnType => {
 		let unmounted = false
 		const source = axios.CancelToken.source()
 
-		fetchUserPlaylists(unmounted, source.token)
+		fetchCopiedPlaylists(unmounted, source.token)
 		return () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
@@ -62,5 +58,5 @@ export const useGetUserPlaylists = (): TGetUserPlaylistReturnType => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [shoudlReset])
 
-	return { userPlaylists, isLoading, setShouldReset }
+	return { copiedPlaylists, isLoading, setShouldReset }
 }

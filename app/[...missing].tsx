@@ -1,15 +1,18 @@
 import { colors } from '@/constants/colors'
+import { ROOT_SCREEN } from '@/constants/urls'
 import { Link, Stack } from 'expo-router'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 
 const NotFoundScreen = (): JSX.Element => {
+	const { t } = useTranslation()
 	return (
 		<>
 			<Stack.Screen options={{ title: 'Oops!', headerShown: false }} />
 			<View style={styles.container}>
 				<Text style={styles.title}>This screen doesn't exist.</Text>
-				<Link href="/home" style={styles.link}>
-					<Text style={styles.linkText}>Go to home screen!</Text>
+				<Link href={`/${ROOT_SCREEN}`} style={styles.link}>
+					<Text style={styles.linkText}>{t('menu.backToHome')}</Text>
 				</Link>
 			</View>
 		</>

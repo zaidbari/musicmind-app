@@ -1,5 +1,5 @@
 import { PlaylistModalContext } from '@/hooks/modals/usePlaylistModal'
-import { useGetUserPlaylists } from '@/hooks/queries/useGetUserPlaylists'
+import { useGetUserPlaylists } from '@/hooks/queries'
 import { ReactElement, useState } from 'react'
 
 export const PlaylistModalProvider = ({ children }: { children: ReactElement }): JSX.Element => {

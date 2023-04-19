@@ -1,5 +1,6 @@
 import RootLayout from '@/components/layouts/rootLayout'
 import { Loader } from '@/components/loader'
+import { ROOT_SCREEN } from '@/constants/urls'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useFonts } from 'expo-font'
 import { SplashScreen } from 'expo-router'
@@ -15,7 +16,7 @@ if (Platform.OS === 'android') {
 	if (UIManager.setLayoutAnimationEnabledExperimental) UIManager.setLayoutAnimationEnabledExperimental(true)
 }
 
-export const unstable_settings = { initialRouteName: '(main)/home' } // ? set initial route to be our main stack
+export const unstable_settings = { initialRouteName: `(main)/${ROOT_SCREEN}` } // ? set initial route to be our main stack
 export { ErrorBoundary } from 'expo-router'
 
 const Root = (): JSX.Element => {

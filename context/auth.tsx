@@ -1,4 +1,4 @@
-import { USERTYPE_URL } from '@/constants/urls'
+import { ROOT_SCREEN, USERTYPE_URL } from '@/constants/urls'
 import { useTokens } from '@/hooks/useTokens'
 import { Tokens } from '@/types/tokens'
 import { logger } from '@/utils/logger'
@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }): JSX.Elem
 		if (!auth?.access && !inAuthGroup) {
 			router.replace('/sign-in')
 		} else if (auth?.access && inAuthGroup) {
-			router.replace('/(main)/home')
+			router.replace(`/(main)/${ROOT_SCREEN}`)
 		}
 
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */

@@ -1,7 +1,8 @@
-import PlaylistDetailsCard from '@/components/cards/playlistDetailsCard'
-import PlaylistCard from '@/components/cards/playlistCard'
-import EmptyCard from '@/components/cards/emptyCard'
-import ContainerCard from '@/components/cards/containerCard'
-import InternalContainerCard from '@/components/cards/internalContainerCard'
+import { UserPlaylistCard } from './userPlaylistCard'
+import PlaylistDetailsCard from './playlistDetailsCard'
+import PlaylistCard from './playlistCard'
+import EmptyCard from './emptyCard'
+import ContainerCard from './containerCard'
+import InternalContainerCard from './internalContainerCard'
 
-export { PlaylistDetailsCard, PlaylistCard, EmptyCard, ContainerCard, InternalContainerCard }
+export { PlaylistDetailsCard, PlaylistCard, EmptyCard, ContainerCard, InternalContainerCard, UserPlaylistCard }
