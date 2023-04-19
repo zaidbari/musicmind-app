@@ -14,7 +14,9 @@ import { FlatGrid } from 'react-native-super-grid'
 
 const PlaylistScreen = (): JSX.Element => {
 	const { t } = useTranslation()
-	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists()
+	const { id } = useSearchParams()
+
+	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
 	/**
 	 * using this hook to dynamically update the width of cards depending on
 	 * number of items per row and the width of the screen

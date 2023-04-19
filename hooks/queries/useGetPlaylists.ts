@@ -13,9 +13,8 @@ type TUseGetPlaylists = {
 	search: Dispatch<SetStateAction<string>>
 }
 
-export const useGetPlaylists = (): TUseGetPlaylists => {
+export const useGetPlaylists = (id: string): TUseGetPlaylists => {
 	const api = useAxios()
-	const { id } = useSearchParams()
 
 	const [playlists, setPlaylists] = useState<TPlaylist[]>([])
 	const [originalPlaylists, setOriginalPlaylists] = useState<TPlaylist[]>([])

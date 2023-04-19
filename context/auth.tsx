@@ -5,17 +5,19 @@ import { logger } from '@/utils/logger'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import { useRouter, useSegments } from 'expo-router'
-import { ReactElement, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { ReactElement, createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 //TODO: Add a protected route hook to protect the route access based on user authentication.
 
-// This context will be used to store the user info.
-const AuthContext = createContext<{
+type AuthContextType = {
 	auth: Tokens | null
 	signIn: (tokens: Tokens) => void
 	signOut: () => void
 	isAdmin: boolean
-}>({
+}
+
+// This context will be used to store the user info.
+const AuthContext = createContext<AuthContextType>({
 	auth: null,
 	signIn: (tokens: Tokens): void => {},
 	signOut: (): void => {},
@@ -23,9 +25,9 @@ const AuthContext = createContext<{
 })
 
 // This hook can be used to access the user info.
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = (): AuthContextType => useContext(AuthContext)
 
-export const AuthProvider = ({ children }: { children: ReactNode | ReactElement }): JSX.Element => {
+export const AuthProvider = ({ children }: { children: ReactElement }): JSX.Element => {
 	const [auth, setAuth] = useState<Tokens | null>(null)
 	const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
@@ -61,14 +63,16 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[getUsertype, setTokens]
+		[]
 	)
 
 	const signOut = useCallback(async () => {
 		await removeTokens()
 		await AsyncStorage.removeItem('@usertype')
 		setAuth(null)
-	}, [removeTokens])
+
+		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
+	}, [])
 
 	const loadStorageData = useCallback(async () => {
 		const tokens = await getTokens()
@@ -87,23 +91,29 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactElement 
 
 	useEffect(() => {
 		loadStorageData()
+
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
 	}, [])
 
 	useEffect(() => {
-		async function boot() {
-			const inAuthGroup = segments[0] === '(auth)'
-			const tokens = await getTokens()
+		// async function boot() {
+		// 	const inAuthGroup = segments[0] === '(auth)'
+		// 	const tokens = await getTokens()
+		// 	if (!tokens?.access && !inAuthGroup) {
+		// 		router.replace('/sign-in')
+		// 	}
+		// }
+		// boot()
 
-			if (!tokens?.access && !inAuthGroup) {
-				router.replace('/sign-in')
-			}
+		const inAuthGroup = segments[0] === '(auth)'
+		if (!auth?.access && !inAuthGroup) {
+			router.replace('/sign-in')
+		} else if (auth?.access && inAuthGroup) {
+			router.replace('/')
 		}
 
-		boot()
-
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
-	}, [segments])
+	}, [auth?.access, segments])
 
 	return (
 		<AuthContext.Provider
