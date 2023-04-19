@@ -1,9 +1,8 @@
 import { colors } from '@/constants/colors'
 import { Stack } from 'expo-router'
-import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const PlaylistLayout: FC<{}> = (): JSX.Element => {
+const PlaylistLayout = (): JSX.Element => {
 	const { t } = useTranslation()
 	return (
 		<Stack

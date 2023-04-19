@@ -1,9 +1,9 @@
 import { colors } from '@/constants/colors'
 import { Stack } from 'expo-router'
-import { FC } from 'react'
+
 import { useTranslation } from 'react-i18next'
 
-const TrackLayout: FC<{}> = (): JSX.Element => {
+const TrackLayout = (): JSX.Element => {
 	const { t } = useTranslation()
 
 	return (

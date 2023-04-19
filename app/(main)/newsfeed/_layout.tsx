@@ -1,9 +1,8 @@
 import { colors } from '@/constants/colors'
 import { Stack } from 'expo-router'
-import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const NewsfeedLayout: FC<{}> = (): JSX.Element => {
+const NewsfeedLayout = (): JSX.Element => {
 	const { t } = useTranslation()
 	return (
 		<Stack

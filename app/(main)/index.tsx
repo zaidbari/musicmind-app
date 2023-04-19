@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
-const HomeScreen: FC<{}> = (): JSX.Element => {
+const HomeScreen = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { isLoading, containers, setShouldReset, search } = useGetContainers()
 

@@ -7,7 +7,7 @@ import { useInfoModal, usePlaylistModal, useSearchModal } from '@/hooks/modals'
 import { FC, useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-const MainLayout: FC<{}> = (): JSX.Element => {
+const MainLayout = (): JSX.Element => {
 	const [open, setOpen] = useState<boolean>(true)
 
 	const device = useDevice()
