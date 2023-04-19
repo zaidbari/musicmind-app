@@ -41,14 +41,15 @@ const HomeScreen: FC<{}> = (): JSX.Element => {
 					}}
 				/>
 			</ResetView>
-			<Text style={styles.title}>{t('categories')}</Text>
+
 			<FlatGrid
+				// ListHeaderComponent={<Text style={styles.title}>{t('categories')}</Text>}
 				onLayout={({ nativeEvent }) => setLayoutWidth(nativeEvent.layout.width)}
 				onItemsPerRowChange={setItemsCount}
 				ListEmptyComponent={<EmptyCard />}
 				spacing={20}
 				additionalRowStyle={{ padding: 0 }}
-				itemDimension={200}
+				itemDimension={180}
 				data={containers}
 				renderItem={({ item }: { item: Container }) => renderContainer({ item })}
 			/>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: colors.accent,
 		fontWeight: 'bold',
-		marginVertical: 10
+		marginBottom: 20
 	},
 	input: {
 		flexGrow: 1
