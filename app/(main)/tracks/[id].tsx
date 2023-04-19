@@ -6,15 +6,15 @@ import { useSound } from '@/context/sound'
 import { usePlaylistModal } from '@/hooks/modals'
 import { useGetTracks } from '@/hooks/queries'
 import { TTrackItem } from '@/types/track'
-import { Stack } from 'expo-router'
+import { Stack, useLocalSearchParams } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 
 const TrackScreen = (): JSX.Element => {
 	const { t } = useTranslation()
-
-	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks()
+	const { id } = useLocalSearchParams()
+	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks(id as string)
 	const { trackList, _load, currentPlayingTrack } = useSound()
 	const { setUserPlaylists } = usePlaylistModal()
 	const [listRef, setRef] = useState<FlatList<TTrackItem> | null>(null)

@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios, { CancelToken } from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import useAxios from '../useAxios'
-import { useSearchParams } from 'expo-router'
 
 type TUseTracks = {
 	tracks: TTrackItem[]
@@ -14,11 +13,11 @@ type TUseTracks = {
 	setShouldReset: React.Dispatch<React.SetStateAction<boolean>>
 	playlistDetails: TPlaylist
 	userPlaylists: TUserPlaylist[]
+	id: string
 }
 
-export const useGetTracks = (): TUseTracks => {
+export const useGetTracks = (id: string): TUseTracks => {
 	const api = useAxios()
-	const { id } = useSearchParams()
 
 	const [tracks, setTracks] = useState<TTrackItem[]>([])
 	const [userPlaylists, setUserPlaylists] = useState<TUserPlaylist[]>([] as TUserPlaylist[])

@@ -6,7 +6,7 @@ import { colors } from '@/constants/colors'
 import { useLayout } from '@/hooks/layout/useLayout'
 import { useGetPlaylists } from '@/hooks/queries'
 import { TPlaylist } from '@/types/playlist'
-import { Stack, useSearchParams } from 'expo-router'
+import { Stack, useLocalSearchParams } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
@@ -14,7 +14,7 @@ import { FlatGrid } from 'react-native-super-grid'
 
 const PlaylistScreen = (): JSX.Element => {
 	const { t } = useTranslation()
-	const { id } = useSearchParams()
+	const { id } = useLocalSearchParams()
 
 	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
 	/**
