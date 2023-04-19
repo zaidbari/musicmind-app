@@ -3,7 +3,6 @@ import { Loader } from '@/components/loader'
 import TrackRow from '@/components/track/tractRow'
 import { colors } from '@/constants/colors'
 import { useSound } from '@/context/sound'
-import { usePlaylistModal } from '@/hooks/modals'
 import { useGetTracks } from '@/hooks/queries'
 import { TTrackItem } from '@/types/track'
 import { Stack, useLocalSearchParams } from 'expo-router'
@@ -14,16 +13,9 @@ import { FlatList, StyleSheet, View } from 'react-native'
 const TrackScreen = (): JSX.Element => {
 	const { t } = useTranslation()
 	const { id } = useLocalSearchParams()
-	const { tracks, isLoading, playlistDetails, userPlaylists } = useGetTracks(id as string)
+	const { tracks, isLoading, playlistDetails } = useGetTracks(id as string)
 	const { trackList, _load, currentPlayingTrack } = useSound()
-	const { setUserPlaylists } = usePlaylistModal()
 	const [listRef, setRef] = useState<FlatList<TTrackItem> | null>(null)
-
-	useEffect(() => {
-		if (userPlaylists.length) setUserPlaylists(userPlaylists)
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userPlaylists])
 
 	const _handlePlayPress = (trackIndex: number) => {
 		trackList.current = tracks

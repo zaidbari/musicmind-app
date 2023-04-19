@@ -1,11 +1,11 @@
 import { TUserPlaylist } from '@/types/playlist'
-import { Dispatch, SetStateAction, createContext, useContext } from 'react'
+import { createContext, useContext } from 'react'
 
 export type ModelContextType = {
 	visible: boolean
 	trackId: number | null
 	userPlaylists: TUserPlaylist[]
-	setUserPlaylists: Dispatch<SetStateAction<TUserPlaylist[]>>
+	isLoading: boolean
 	showModal: ({ trackId }: { trackId: number }) => void
 	hideModal: () => void
 }
@@ -15,7 +15,7 @@ export const PlaylistModalContext = createContext<ModelContextType>({
 	userPlaylists: [] as TUserPlaylist[],
 	trackId: null,
 	showModal: ({ trackId }: { trackId: number }) => {},
-	setUserPlaylists: () => {},
+	isLoading: true,
 	hideModal: () => {}
 })
 

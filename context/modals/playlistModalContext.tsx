@@ -1,11 +1,11 @@
 import { PlaylistModalContext } from '@/hooks/modals/usePlaylistModal'
-import { TUserPlaylist } from '@/types/playlist'
-import { ReactElement, ReactNode, useState } from 'react'
+import { useGetUserPlaylists } from '@/hooks/queries/useGetUserPlaylists'
+import { ReactElement, useState } from 'react'
 
-export const PlaylistModalProvider = ({ children }: { children: ReactNode | ReactElement }): JSX.Element => {
+export const PlaylistModalProvider = ({ children }: { children: ReactElement }): JSX.Element => {
 	const [visible, setVisible] = useState(false)
 	const [trackId, setTrackId] = useState<number | null>(null)
-	const [userPlaylists, setUserPlaylists] = useState<TUserPlaylist[]>([] as TUserPlaylist[])
+	const { userPlaylists, isLoading } = useGetUserPlaylists()
 
 	const showModal = ({ trackId }: { trackId: number }) => {
 		setVisible(true)
@@ -25,7 +25,7 @@ export const PlaylistModalProvider = ({ children }: { children: ReactNode | Reac
 				userPlaylists,
 				showModal,
 				hideModal,
-				setUserPlaylists
+				isLoading
 			}}
 		>
 			{children}

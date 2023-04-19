@@ -26,15 +26,17 @@ function PlaylistModal({ hideModal }: PlaylistModalProps): JSX.Element {
 
 	return (
 		<View style={[styles.container, { width, height }]}>
-			<View style={[styles.contentContainer, { width: width / 1.3 }]}>
+			<View style={[styles.contentContainer, { width: width * 0.8, height: height * 0.8 }]}>
 				<View style={{ flex: 1 }}>
-					<Text style={styles.title}>Add to playlist</Text>
+					<Text style={styles.title}>{t('menu.addToPlaylist')}</Text>
 					<FlatList
+						contentContainerStyle={{ marginBottom: 20 }}
 						data={playlists}
 						ItemSeparatorComponent={() => renderSeparater()}
 						renderItem={({ item }) => (
 							<Pressable onPress={() => _handlePress(item.id)}>
-								<Text style={{ color: 'white', fontSize: 16 }}>{item.name}</Text>
+								<Text style={styles.playlistTitle}>{item.name}</Text>
+								<Text style={styles.description}>{item.description}</Text>
 							</Pressable>
 						)}
 					/>
@@ -69,6 +71,16 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		marginVertical: 10,
 		fontWeight: 'bold'
+	},
+	description: {
+		color: 'white',
+		fontSize: 12,
+		fontStyle: 'italic',
+		marginTop: 5
+	},
+	playlistTitle: {
+		color: 'white',
+		fontSize: 16
 	},
 	content: {
 		color: 'white',

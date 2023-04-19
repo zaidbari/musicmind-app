@@ -13,7 +13,7 @@ function Modal({ hideModal, title, content }: InfoModalProps): JSX.Element {
 	const { t } = useTranslation()
 	return (
 		<View style={[styles.container, { width, height }]}>
-			<View style={[styles.contentContainer, { width: width / 1.3 }]}>
+			<View style={[styles.contentContainer, { width: width * 0.8 }]}>
 				<Text style={styles.title}>{title}</Text>
 				<Text style={styles.content}>{content}</Text>
 				<Pressable onPress={hideModal} style={styles.button}>
