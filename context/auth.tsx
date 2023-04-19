@@ -95,6 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }): JSX.Elem
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */
 	}, [])
 
+	// FIXME: This is not working as expected.causes back button to disappear and have wierd urls on web
 	useEffect(() => {
 		// async function boot() {
 		// 	const inAuthGroup = segments[0] === '(auth)'

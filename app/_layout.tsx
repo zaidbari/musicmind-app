@@ -3,7 +3,7 @@ import { Loader } from '@/components/loader'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useFonts } from 'expo-font'
 import { SplashScreen } from 'expo-router'
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Platform, UIManager } from 'react-native'
 
 /**
@@ -18,7 +18,7 @@ if (Platform.OS === 'android') {
 export const unstable_settings = { initialRouteName: '(main)' } // ? set initial route to be our main stack
 export { ErrorBoundary } from 'expo-router'
 
-const Root: FC<{}> = (): JSX.Element => {
+const Root = (): JSX.Element => {
 	// ?loading icons here before application is rendered
 	const [loaded, error] = useFonts({
 		...Ionicons.font
