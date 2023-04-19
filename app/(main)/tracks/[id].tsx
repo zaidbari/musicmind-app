@@ -48,7 +48,6 @@ const TrackScreen = (): JSX.Element => {
 		)
 
 		if (listRef && currentTrackIndex !== -1) {
-			console.log('scrolling to index', currentTrackIndex)
 			listRef.scrollToIndex({
 				animated: true,
 				index: currentTrackIndex,
