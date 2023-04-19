@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }): JSX.Elem
 		if (!auth?.access && !inAuthGroup) {
 			router.replace('/sign-in')
 		} else if (auth?.access && inAuthGroup) {
-			router.replace('/')
+			router.replace('/(main)/home')
 		}
 
 		/* eslint-disable-next-line react-hooks/exhaustive-deps  */

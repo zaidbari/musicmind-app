@@ -1,4 +1,4 @@
-import { EmptyCard, ContainerCard } from '@/components/cards'
+import { ContainerCard, EmptyCard } from '@/components/cards'
 import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
@@ -6,9 +6,9 @@ import { colors } from '@/constants/colors'
 import { useLayout } from '@/hooks/layout/useLayout'
 import { useGetContainers } from '@/hooks/queries'
 import { Container } from '@/types/container'
-import { FC, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
 const HomeScreen = (): JSX.Element => {

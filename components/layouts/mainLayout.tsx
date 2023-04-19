@@ -4,7 +4,7 @@ import { InfoModal, PlaylistModal, SearchModal } from '@/components/models'
 import { colors } from '@/constants/colors'
 import { useDevice } from '@/context/device'
 import { useInfoModal, usePlaylistModal, useSearchModal } from '@/hooks/modals'
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 const MainLayout = (): JSX.Element => {

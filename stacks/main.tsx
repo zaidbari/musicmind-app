@@ -24,7 +24,7 @@ export function MainStack(): JSX.Element {
 			}}
 		>
 			<Stack.Screen
-				name="index"
+				name="home"
 				options={{
 					title: t('pages.home') as string,
 					headerLeft: () => <></>, // eslint-disable-line react/no-unstable-nested-components
@@ -47,6 +47,12 @@ export function MainStack(): JSX.Element {
 				name="internal-playlists"
 				options={{
 					title: t('pages.internalPlaylist') as string
+				}}
+			/>
+			<Stack.Screen
+				name="my-playlists"
+				options={{
+					title: t('pages.myPlaylists') as string
 				}}
 			/>
 			<Stack.Screen
