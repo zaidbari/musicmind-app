@@ -44,6 +44,12 @@ export function MainStack(): JSX.Element {
 				}}
 			/>
 			<Stack.Screen
+				name="internal-playlists"
+				options={{
+					title: t('pages.internalPlaylist') as string
+				}}
+			/>
+			<Stack.Screen
 				name="newsfeed"
 				options={{
 					title: t('pages.newsfeed') as string

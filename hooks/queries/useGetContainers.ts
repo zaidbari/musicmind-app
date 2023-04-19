@@ -28,8 +28,15 @@ export const useGetContainers = (): TGetContainerReturnType => {
 				const { data } = await api.get(MAIN_CONTAINER_URL, {
 					cancelToken: token
 				})
-				setOriginalContainers(data)
-				setContainers(data)
+				const sorted = data.sort((a: Container, b: Container) => {
+					if (a.position === b.position) {
+						return a.name.localeCompare(b.name)
+					}
+					return a.position - b.position
+				})
+
+				setOriginalContainers(sorted)
+				setContainers(sorted)
 			}
 		} catch (err) {
 			logger.sentry(err, {

@@ -1,9 +1,8 @@
-import { PLAYLIST_GROUP_URL } from '@/constants/urls'
+import { INTERNAL_PLAYLIST_GROUP_URL, PLAYLIST_GROUP_URL } from '@/constants/urls'
 import useAxios from '@/hooks/useAxios'
 import { TPlaylist } from '@/types/playlist.d'
 import { logger } from '@/utils/logger'
 import axios, { CancelToken } from 'axios'
-import { useSearchParams } from 'expo-router'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 
 type TUseGetPlaylists = {
@@ -13,7 +12,7 @@ type TUseGetPlaylists = {
 	search: Dispatch<SetStateAction<string>>
 }
 
-export const useGetPlaylists = (id: string): TUseGetPlaylists => {
+export const useGetPlaylists = (id: string, type?: string): TUseGetPlaylists => {
 	const api = useAxios()
 
 	const [playlists, setPlaylists] = useState<TPlaylist[]>([])
@@ -26,9 +25,20 @@ export const useGetPlaylists = (id: string): TUseGetPlaylists => {
 		async (unmounted: boolean, token: CancelToken) => {
 			try {
 				if (!unmounted) {
-					const { data } = await api.get(PLAYLIST_GROUP_URL + id, { cancelToken: token })
-					setPlaylists(data)
-					setOriginalPlaylists(data)
+					const { data } = await api.get((type ? INTERNAL_PLAYLIST_GROUP_URL : PLAYLIST_GROUP_URL) + id, {
+						cancelToken: token
+					})
+
+					// sort playlists by position, if position is same, sort by name
+					const sorted = data.sort((a: TPlaylist, b: TPlaylist) => {
+						if (a.position === b.position) {
+							return a.playlist_name.localeCompare(b.playlist_name)
+						}
+						return a.position - b.position
+					})
+
+					setPlaylists(sorted)
+					setOriginalPlaylists(sorted)
 				}
 			} catch (error) {
 				logger.sentry(error, {

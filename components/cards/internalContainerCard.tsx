@@ -14,12 +14,12 @@ type TProps = {
 
 const InternalContainerCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
-
+	console.log(item)
 	const [photo, setPhoto] = useState(item.Photo ?? '/assets/images/icon.png')
 
 	return (
 		<View style={{ flex: 1, position: 'relative' }}>
-			<Link href={`/playlist/${item.id}`} style={styles.card}>
+			<Link href={`/internal-playlists/${item.id}`} style={styles.card}>
 				<Image
 					style={StyleSheet.flatten([styles.image, { width: '100%', minHeight: width, maxHeight: width }])}
 					contentFit={'fill'}

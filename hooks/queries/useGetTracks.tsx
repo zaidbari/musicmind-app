@@ -13,7 +13,6 @@ type TUseTracks = {
 	setShouldReset: React.Dispatch<React.SetStateAction<boolean>>
 	playlistDetails: TPlaylist
 	userPlaylists: TUserPlaylist[]
-	id: string
 }
 
 export const useGetTracks = (id: string): TUseTracks => {
@@ -34,7 +33,9 @@ export const useGetTracks = (id: string): TUseTracks => {
 					api.get(USER_PLAYLIST_URL, { cancelToken: token })
 				]).then(async values => {
 					setTracks(values[0].data)
+
 					setUserPlaylists(values[1].data)
+
 					const playlist = await AsyncStorage.getItem('@playlist')
 					if (playlist !== null) {
 						setPlaylistDetails(JSON.parse(playlist))

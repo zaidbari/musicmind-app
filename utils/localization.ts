@@ -35,7 +35,8 @@ i18n.use(initReactI18next).init({
 					createPlaylist: 'Create playlist',
 					playlist: 'Playlist',
 					playlistTracks: 'Playlist tracks',
-					newsfeed: 'News Feed'
+					newsfeed: 'News Feed',
+					internalPlaylist: 'Internal playlists'
 				},
 				menu: {
 					addToPlaylist: 'Add to playlist',
@@ -78,7 +79,8 @@ i18n.use(initReactI18next).init({
 					createPlaylist: 'Opret spilleliste',
 					playlist: 'Spillelister',
 					playlistTracks: 'Spillelister numre',
-					newsfeed: 'Nyhedsstrøm'
+					newsfeed: 'Nyhedsstrøm',
+					internalPlaylist: 'Internt spillelister'
 				},
 				menu: {
 					addToPlaylist: 'Tilføj til spilleliste',

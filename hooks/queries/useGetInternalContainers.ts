@@ -1,4 +1,4 @@
-import { INTERNAL_CONTAINER_URL, MAIN_CONTAINER_URL } from '@/constants/urls'
+import { INTERNAL_CONTAINER_URL } from '@/constants/urls'
 import useAxios from '@/hooks/useAxios'
 import { Container } from '@/types/container'
 import { logger } from '@/utils/logger'
@@ -22,20 +22,28 @@ export const useGetInternalContainers = (): TGetContainerReturnType => {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	const [searchTerm, search] = useState<string>('')
 
-	const fetchContainers = useCallback(async (unmounted: boolean, token: CancelToken) => {
+	const fetchInternalContainers = useCallback(async (unmounted: boolean, token: CancelToken) => {
 		try {
 			if (!unmounted) {
 				const { data } = await api.get(INTERNAL_CONTAINER_URL, {
 					cancelToken: token
 				})
-				console.log(data)
-				setOriginalContainers(data)
-				setContainers(data)
+
+				// sort playlists by position, if position is same, sort by name
+				const sorted = data.sort((a: Container, b: Container) => {
+					if (a.position === b.position) {
+						return a.name.localeCompare(b.name)
+					}
+					return a.position - b.position
+				})
+
+				setOriginalContainers(sorted)
+				setContainers(sorted)
 			}
 		} catch (err) {
 			logger.sentry(err, {
 				tags: {
-					section: 'fetchContainers'
+					section: 'fetchInternalContainers'
 				}
 			})
 		} finally {
@@ -62,7 +70,7 @@ export const useGetInternalContainers = (): TGetContainerReturnType => {
 		let unmounted = false
 		const source = axios.CancelToken.source()
 
-		fetchContainers(unmounted, source.token)
+		fetchInternalContainers(unmounted, source.token)
 		return () => {
 			unmounted = true
 			source.cancel('Cancelling in cleanup')
