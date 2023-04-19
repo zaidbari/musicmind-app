@@ -14,7 +14,6 @@ type TProps = {
 
 const InternalContainerCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
-	console.log(item)
 	const [photo, setPhoto] = useState(item.Photo ?? '/assets/images/icon.png')
 
 	return (
