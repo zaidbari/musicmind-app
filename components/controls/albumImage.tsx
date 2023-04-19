@@ -1,4 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
+import { FALLBACK } from '@/constants/urls'
 import { useSound } from '@/context/sound'
 import { Image } from 'expo-image'
 import { memo, useEffect, useState } from 'react'
@@ -6,12 +7,12 @@ import { StyleSheet, Text, View } from 'react-native'
 
 const AlbumImage = (): JSX.Element | null => {
 	const { currentPlayingTrack } = useSound()
-	const [photo, setPhoto] = useState('/assets/images/icon.png')
+	const [photo, setPhoto] = useState(FALLBACK)
 	const [shouldRender, setShouldRender] = useState(false)
 	useEffect(() => {
 		if (currentPlayingTrack.current) {
 			setShouldRender(true)
-			setPhoto(currentPlayingTrack.current.track.album_photo ?? '/assets/images/icon.png')
+			setPhoto(currentPlayingTrack.current.track.album_photo ?? FALLBACK)
 		} else setShouldRender(false)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,7 +26,7 @@ const AlbumImage = (): JSX.Element | null => {
 				contentFit="cover"
 				source={{ uri: photo }}
 				transition={10}
-				onError={() => setPhoto('/assets/images/icon.png')}
+				onError={() => setPhoto(FALLBACK)}
 				placeholder={blurhash}
 			/>
 			<Text numberOfLines={1} style={styles.title}>

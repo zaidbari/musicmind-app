@@ -105,8 +105,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 					{ shouldPlay: true, volume: volume.current },
 					false
 				)
-				//TODO: Music player aquisition end point goes here
-				await postRoyaltyLogging(trackList.current[index].track.id)
+				//?INFO: Music player aquisition end point goes here and is disabled in development mode
+				if (process.env.NODE_ENV === 'production') await postRoyaltyLogging(trackList.current[index].track.id)
 			} else _handlePlayPause()
 		} catch (error) {
 			logger.sentry(error, {

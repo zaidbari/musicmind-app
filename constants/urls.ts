@@ -53,3 +53,4 @@ export const NEWS_ENGAGEMENT_URL = BASE_API_URL + '/music/news-engagement/'
 export const SHOULD_APP_WORK = BASE_API_URL + '/music/android-should-work/'
 
 export const MUSICTHERAPISTS_URL = BASE_API_URL + '/music/musictherapists/'
+export const FALLBACK = '/assets/images/icon.png'

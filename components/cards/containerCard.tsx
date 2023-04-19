@@ -1,4 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
+import { FALLBACK } from '@/constants/urls'
 import { useInfoModal } from '@/hooks/modals/useInfoModal'
 import { Container } from '@/types/container'
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -6,11 +7,12 @@ import { Image } from 'expo-image'
 import { Link } from 'expo-router'
 import { memo, useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
+
 type TProps = { item: Container; width: number }
 
 const ContainerCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
-	const [photo, setPhoto] = useState(item.Photo ?? '/assets/images/icon.png')
+	const [photo, setPhoto] = useState(item.Photo ?? FALLBACK)
 
 	return (
 		<View style={{ flex: 1, width, position: 'relative' }}>
@@ -19,7 +21,7 @@ const ContainerCard = ({ item, width }: TProps): JSX.Element => {
 					placeholder={blurhash}
 					transition={10}
 					source={{ uri: photo }}
-					onError={() => setPhoto('/assets/images/icon.png')}
+					onError={() => setPhoto(FALLBACK)}
 					style={StyleSheet.flatten([styles.image, { width, height: width }])}
 					contentFit={'fill'}
 				/>

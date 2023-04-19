@@ -1,4 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
+import { FALLBACK } from '@/constants/urls'
 import { useInfoModal } from '@/hooks/modals/useInfoModal'
 import { Container } from '@/types/container'
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -14,7 +15,7 @@ type TProps = {
 
 const InternalContainerCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
-	const [photo, setPhoto] = useState(item.Photo ?? '/assets/images/icon.png')
+	const [photo, setPhoto] = useState(item.Photo ?? FALLBACK)
 
 	return (
 		<View style={{ flex: 1, position: 'relative' }}>
@@ -23,7 +24,7 @@ const InternalContainerCard = ({ item, width }: TProps): JSX.Element => {
 					style={StyleSheet.flatten([styles.image, { width: '100%', minHeight: width, maxHeight: width }])}
 					contentFit={'fill'}
 					source={{ uri: photo }}
-					onError={() => setPhoto('/assets/images/icon.png')}
+					onError={() => setPhoto(FALLBACK)}
 					placeholder={blurhash}
 					transition={10}
 				/>

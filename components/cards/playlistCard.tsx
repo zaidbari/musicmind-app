@@ -1,4 +1,5 @@
 import { blurhash, colors } from '@/constants/colors'
+import { FALLBACK } from '@/constants/urls'
 import { useInfoModal } from '@/hooks/modals/useInfoModal'
 import { TPlaylist } from '@/types/playlist'
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -16,7 +17,7 @@ type TProps = {
 const PlaylistCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
 	const router = useRouter()
-	const [photo, setPhoto] = useState(item.Photo ?? '/assets/images/icon.png')
+	const [photo, setPhoto] = useState(item.Photo ?? FALLBACK)
 
 	const _handlePress = useCallback(async () => {
 		try {
@@ -36,7 +37,7 @@ const PlaylistCard = ({ item, width }: TProps): JSX.Element => {
 					style={StyleSheet.flatten([styles.image, { width: '100%', minHeight: width, maxHeight: width }])}
 					contentFit={'fill'}
 					source={{ uri: photo }}
-					onError={() => setPhoto('/assets/images/icon.png')}
+					onError={() => setPhoto(FALLBACK)}
 					placeholder={blurhash}
 					transition={10}
 				/>

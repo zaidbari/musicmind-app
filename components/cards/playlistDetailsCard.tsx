@@ -1,9 +1,10 @@
 import { blurhash, colors } from '@/constants/colors'
+import { FALLBACK } from '@/constants/urls'
 import { useDevice } from '@/context/device'
 import { TPlaylist } from '@/types/playlist'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { Image } from 'expo-image'
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native'
 
@@ -15,11 +16,13 @@ type TProps = {
 const PlaylistDetailCard = ({ playlistDetails, tracksLength, handlePlay }: TProps): JSX.Element => {
 	const { t } = useTranslation()
 	const device = useDevice()
+	const [photo, setPhoto] = useState(playlistDetails.Photo ?? FALLBACK)
 
 	return (
 		<View style={StyleSheet.flatten([styles.container, device === 'phone' && { flexDirection: 'column' }])}>
 			<ImageBackground
-				source={{ uri: playlistDetails.Photo ?? '/assets/images/icon.png' }}
+				source={{ uri: photo }}
+				onError={() => setPhoto(FALLBACK)}
 				style={styles.backgroundImage}
 				resizeMode="cover"
 				blurRadius={10}
@@ -27,9 +30,9 @@ const PlaylistDetailCard = ({ playlistDetails, tracksLength, handlePlay }: TProp
 				<Image
 					style={styles.image}
 					contentFit="fill"
-					source={{ uri: playlistDetails.Photo ?? '/assets/images/icon.png' }}
+					source={{ uri: photo }}
 					transition={10}
-					onError={console.error}
+					onError={() => setPhoto(FALLBACK)}
 					placeholder={blurhash}
 				/>
 			</ImageBackground>
