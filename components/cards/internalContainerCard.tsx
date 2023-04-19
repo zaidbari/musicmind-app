@@ -1,37 +1,25 @@
 import { blurhash, colors } from '@/constants/colors'
 import { useInfoModal } from '@/hooks/modals/useInfoModal'
-import { TPlaylist } from '@/types/playlist'
+import { Container } from '@/types/container'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Image } from 'expo-image'
-import { useRouter } from 'expo-router'
-import { memo, useCallback, useState } from 'react'
+import { Link } from 'expo-router'
+import { memo, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 type TProps = {
-	item: TPlaylist
+	item: Container
 	width: number
 }
 
-const PlaylistCard = ({ item, width }: TProps): JSX.Element => {
+const InternalContainerCard = ({ item, width }: TProps): JSX.Element => {
 	const { showModal } = useInfoModal()
-	const router = useRouter()
+
 	const [photo, setPhoto] = useState(item.Photo ?? '/assets/images/icon.png')
 
-	const _handlePress = useCallback(async () => {
-		try {
-			await AsyncStorage.setItem('@playlist', JSON.stringify(item))
-			router.push(`/tracks/${item.playlist}`)
-		} catch (error) {
-			console.error(error)
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [item.playlist])
-
 	return (
-		<View style={{ flex: 1, minHeight: width, position: 'relative' }}>
-			<Pressable onPress={_handlePress} style={styles.card}>
+		<View style={{ flex: 1, position: 'relative' }}>
+			<Link href={`/playlist/${item.id}`} style={styles.card}>
 				<Image
 					style={StyleSheet.flatten([styles.image, { width: '100%', minHeight: width, maxHeight: width }])}
 					contentFit={'fill'}
@@ -41,20 +29,17 @@ const PlaylistCard = ({ item, width }: TProps): JSX.Element => {
 					transition={10}
 				/>
 				<View style={styles.cardContent}>
-					<Text style={styles.cardText}>{item.playlist_name}</Text>
+					<Text style={styles.cardText}>{item.name}</Text>
 				</View>
-			</Pressable>
-			<Pressable
-				style={styles.infoButton}
-				onPress={() => showModal({ title: item.playlist_name, content: item.description })}
-			>
+			</Link>
+			<Pressable style={styles.infoButton} onPress={() => showModal({ title: item.name, content: item.description })}>
 				<Ionicons name="information-circle" size={16} color="white" />
 			</Pressable>
 		</View>
 	)
 }
 
-export default memo(PlaylistCard)
+export default memo(InternalContainerCard)
 
 const styles = StyleSheet.create({
 	image: {

@@ -38,6 +38,12 @@ export function MainStack(): JSX.Element {
 				}}
 			/>
 			<Stack.Screen
+				name="internal-containers"
+				options={{
+					title: t('pages.internalContainers') as string
+				}}
+			/>
+			<Stack.Screen
 				name="newsfeed"
 				options={{
 					title: t('pages.newsfeed') as string

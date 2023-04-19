@@ -27,8 +27,15 @@ export const useTrackRow = (track: TTrackItem): TUseTrackRowReturnType => {
 			{
 				options,
 				title: track.track.song_title,
+				message: 'By ' + track.track.artist_name,
 				userInterfaceStyle: 'dark',
 				showSeparators: true,
+				cancelButtonTintColor: colors.accent,
+				messageTextStyle: {
+					color: 'white',
+					fontSize: 12,
+					fontStyle: 'italic'
+				},
 				containerStyle: {
 					backgroundColor: colors.primary
 				},

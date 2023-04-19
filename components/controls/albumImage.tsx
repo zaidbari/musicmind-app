@@ -6,13 +6,12 @@ import { StyleSheet, Text, View } from 'react-native'
 
 const AlbumImage = (): JSX.Element | null => {
 	const { currentPlayingTrack } = useSound()
-	const [uri, setUri] = useState('')
+	const [photo, setPhoto] = useState('/assets/images/icon.png')
 	const [shouldRender, setShouldRender] = useState(false)
-
 	useEffect(() => {
 		if (currentPlayingTrack.current) {
 			setShouldRender(true)
-			setUri(currentPlayingTrack.current.track.album_photo)
+			setPhoto(currentPlayingTrack.current.track.album_photo ?? '/assets/images/icon.png')
 		} else setShouldRender(false)
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,13 +23,17 @@ const AlbumImage = (): JSX.Element | null => {
 			<Image
 				style={styles.image}
 				contentFit="cover"
-				source={{ uri }}
+				source={{ uri: photo }}
 				transition={10}
-				onError={() => console.log('error image')}
+				onError={() => setPhoto('/assets/images/icon.png')}
 				placeholder={blurhash}
 			/>
-			<Text style={styles.title}>{currentPlayingTrack.current.track.song_title}</Text>
-			<Text style={styles.artist}>{currentPlayingTrack.current.track.artist_name}</Text>
+			<Text numberOfLines={1} style={styles.title}>
+				{currentPlayingTrack.current.track.song_title}
+			</Text>
+			<Text numberOfLines={1} style={styles.artist}>
+				{currentPlayingTrack.current.track.artist_name}
+			</Text>
 		</View>
 	)
 }
@@ -56,13 +59,13 @@ const styles = StyleSheet.create({
 	title: {
 		color: 'white',
 		fontWeight: 'bold',
-		fontSize: 14,
+		fontSize: 12,
 		marginTop: 10,
 		textAlign: 'center'
 	},
 	artist: {
 		color: 'white',
-		fontSize: 14,
+		fontSize: 12,
 		textAlign: 'center'
 	}
 })

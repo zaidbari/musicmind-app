@@ -1,58 +1,59 @@
-import { EmptyCard, PlaylistCard } from '@/components/cards'
+import { EmptyCard, InternalContainerCard } from '@/components/cards'
 import { Input } from '@/components/inputs/input'
 import { Loader } from '@/components/loader'
 import { ResetView } from '@/components/reset'
 import { colors } from '@/constants/colors'
 import { useLayout } from '@/hooks/layout/useLayout'
-import { useGetPlaylists } from '@/hooks/queries'
-import { TPlaylist } from '@/types/playlist'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { useGetInternalContainers } from '@/hooks/queries'
+import { Container } from '@/types/container'
+import { Stack } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { FlatGrid } from 'react-native-super-grid'
 
-const PlaylistScreen = (): JSX.Element => {
+const InternalContainerScreen = (): JSX.Element => {
 	const { t } = useTranslation()
-	const { id } = useLocalSearchParams()
+	const { isLoading, containers, setShouldReset, search } = useGetInternalContainers()
 
-	const { isLoading, playlists, setShouldReset, search } = useGetPlaylists(id as string)
 	/**
 	 * using this hook to dynamically update the width of cards depending on
 	 * number of items per row and the width of the screen
 	 */
 	const { width, setLayoutWidth, setItemsCount } = useLayout()
 
-	const renderPlaylist = useCallback(
-		({ item }: { item: TPlaylist }) => <PlaylistCard width={width} item={item} />,
+	const renderContainer = useCallback(
+		({ item }: { item: Container }) => <InternalContainerCard width={width} item={item} />,
 		[width]
 	)
 
 	if (isLoading) return <Loader />
 	return (
 		<View style={styles.container}>
-			<Stack.Screen options={{ title: t('pages.playlist') as string }} />
+			<Stack.Screen options={{ title: t('pages.internalContainers') as string }} />
 			<ResetView setShouldReset={setShouldReset}>
 				<Input
+					accessibilityHint={t('inputs.searchPreMadePlaylists') as string}
 					returnKeyType={'search'}
 					inputMode={'search'}
+					placeholder={t('inputs.searchPreMadePlaylists') as string}
+					style={styles.input}
 					onSubmitEditing={({ nativeEvent }) => {
 						search(nativeEvent.text)
 					}}
-					placeholder={t('inputs.searchPlaylists') as string}
-					style={styles.input}
 				/>
 			</ResetView>
 
 			<FlatGrid
+				// ListHeaderComponent={<Text style={styles.title}>{t('categories')}</Text>}
 				onLayout={({ nativeEvent }) => setLayoutWidth(nativeEvent.layout.width)}
 				onItemsPerRowChange={setItemsCount}
 				ListEmptyComponent={<EmptyCard />}
+				spacing={20}
 				additionalRowStyle={{ padding: 0 }}
 				itemDimension={180}
-				spacing={20}
-				data={playlists}
-				renderItem={({ item }) => renderPlaylist({ item })}
+				data={containers}
+				renderItem={({ item }: { item: Container }) => renderContainer({ item })}
 			/>
 		</View>
 	)
@@ -60,18 +61,17 @@ const PlaylistScreen = (): JSX.Element => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		padding: 0
-	},
-	input: {
-		flexGrow: 1
+		flex: 1
 	},
 	title: {
 		fontSize: 20,
 		color: colors.accent,
 		fontWeight: 'bold',
-		marginVertical: 10
+		marginBottom: 20
+	},
+	input: {
+		flexGrow: 1
 	}
 })
 
-export default PlaylistScreen
+export default InternalContainerScreen

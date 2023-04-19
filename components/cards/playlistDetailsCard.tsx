@@ -19,7 +19,7 @@ const PlaylistDetailCard = ({ playlistDetails, tracksLength, handlePlay }: TProp
 	return (
 		<View style={StyleSheet.flatten([styles.container, device === 'phone' && { flexDirection: 'column' }])}>
 			<ImageBackground
-				source={{ uri: playlistDetails.Photo as string }}
+				source={{ uri: playlistDetails.Photo ?? '/assets/images/icon.png' }}
 				style={styles.backgroundImage}
 				resizeMode="cover"
 				blurRadius={10}
@@ -27,7 +27,7 @@ const PlaylistDetailCard = ({ playlistDetails, tracksLength, handlePlay }: TProp
 				<Image
 					style={styles.image}
 					contentFit="fill"
-					source={{ uri: playlistDetails.Photo as string }}
+					source={{ uri: playlistDetails.Photo ?? '/assets/images/icon.png' }}
 					transition={10}
 					onError={console.error}
 					placeholder={blurhash}
