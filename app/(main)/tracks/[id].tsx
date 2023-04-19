@@ -47,7 +47,8 @@ const TrackScreen = (): JSX.Element => {
 			(track: TTrackItem) => track.track.id === currentPlayingTrack.current?.track.id
 		)
 
-		if (listRef && currentTrackIndex) {
+		if (listRef && currentTrackIndex !== -1) {
+			console.log('scrolling to index', currentTrackIndex)
 			listRef.scrollToIndex({
 				animated: true,
 				index: currentTrackIndex,
