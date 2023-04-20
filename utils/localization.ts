@@ -28,7 +28,9 @@ i18n.use(initReactI18next).init({
 					password: 'Password',
 					search: 'Search',
 					searchPlaylists: 'Search playlists',
-					searchPreMadePlaylists: 'Search pre-made playlists'
+					searchPreMadePlaylists: 'Search pre-made playlists',
+					setTimer: 'Set timer',
+					invalidMinutes: 'Please input valid number of minutes'
 				},
 				pages: {
 					home: 'Home',
@@ -77,7 +79,9 @@ i18n.use(initReactI18next).init({
 					password: 'Kodeord',
 					search: 'Søg',
 					searchPlaylists: 'Søg spillelister',
-					searchPreMadePlaylists: 'Søg præoprettet spillelister'
+					searchPreMadePlaylists: 'Søg præoprettet spillelister',
+					setTimer: 'Indstil timer',
+					invalidMinutes: 'Venligst indtast et gyldigt antal minutter'
 				},
 				pages: {
 					home: 'Hjem',
