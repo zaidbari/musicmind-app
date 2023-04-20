@@ -6,7 +6,6 @@ import { Platform, StyleSheet, Switch, Text, View } from 'react-native'
 import { IconButton } from '../buttons/iconButton'
 
 const TimerControls = ({ width }: { width: number }): JSX.Element => {
-	const [isEnabled, setIsEnabled] = useState<boolean>(false)
 	const { timerCount, isTimerEnabled, setTimerEnabled } = useSound()
 	const { showModal } = useTimerModal()
 
@@ -20,22 +19,13 @@ const TimerControls = ({ width }: { width: number }): JSX.Element => {
 		}`
 	}
 
-	const toggleSwitch = () => {
-		setTimerEnabled(previousState => !previousState)
-		setIsEnabled(previousState => !previousState)
-	}
-
-	const showTimerModal = () => {
-		showModal()
-	}
-
 	return (
 		<View style={StyleSheet.flatten([styles.row, { width }])}>
 			<Switch
 				trackColor={{ false: colors.secondary, true: colors.accent }}
-				thumbColor={isEnabled ? '#fff' : colors.secondary}
-				onValueChange={toggleSwitch}
-				value={isEnabled}
+				thumbColor={isTimerEnabled ? '#fff' : colors.secondary}
+				onValueChange={() => setTimerEnabled(previousState => !previousState)}
+				value={isTimerEnabled}
 				{...Platform.select({
 					web: {
 						activeThumbColor: '#fff'
@@ -50,7 +40,7 @@ const TimerControls = ({ width }: { width: number }): JSX.Element => {
 					icon="ios-stopwatch-outline"
 					size={10}
 					style={{ marginRight: 0, marginLeft: 5, paddingVertical: 4, paddingHorizontal: 6 }}
-					onPress={showTimerModal}
+					onPress={() => showModal()}
 				/>
 			</View>
 		</View>
