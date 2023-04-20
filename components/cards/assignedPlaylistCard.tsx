@@ -1,6 +1,6 @@
 import { blurhash, colors } from '@/constants/colors'
 import { FALLBACK } from '@/constants/urls'
-import { useInfoModal } from '@/hooks/modals/useInfoModal'
+import { useAuth } from '@/context/auth'
 import { TCopiedPlaylists } from '@/types/playlist'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -12,11 +12,12 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 type TProps = {
 	item: TCopiedPlaylists
 	width: number
+	deleteUserPlaylist: (id: number, type: 'assigned' | 'user') => void
 }
 
-const AssignedPlaylistCard = ({ item, width }: TProps): JSX.Element => {
-	const { showModal } = useInfoModal()
+const AssignedPlaylistCard = ({ item, width, deleteUserPlaylist }: TProps): JSX.Element => {
 	const router = useRouter()
+	const { isAdmin } = useAuth()
 
 	const _handlePress = useCallback(async () => {
 		try {
@@ -43,9 +44,12 @@ const AssignedPlaylistCard = ({ item, width }: TProps): JSX.Element => {
 					<Text style={styles.cardText}>{item.playlist_name}</Text>
 				</View>
 			</Pressable>
-			<Pressable style={styles.infoButton} onPress={() => console.log(item)}>
-				<Ionicons name="ios-trash-outline" size={16} color="white" />
-			</Pressable>
+			{(isAdmin || item.is_allowed_to_be_removed) && (
+				// FIXME: Check if this is the correct id to pass or do we need to pass in item.playlist?
+				<Pressable style={styles.infoButton} onPress={() => deleteUserPlaylist(item.id, 'assigned')}>
+					<Ionicons name="ios-trash-outline" size={16} color="white" />
+				</Pressable>
+			)}
 		</View>
 	)
 }

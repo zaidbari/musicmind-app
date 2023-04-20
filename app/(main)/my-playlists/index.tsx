@@ -54,7 +54,11 @@ const MyPlaylistsScreen = (): JSX.Element => {
 		[]
 	)
 	const renderAssignedPlaylist = useCallback(
-		({ item }: { item: TCopiedPlaylists }) => <AssignedPlaylistCard width={width} item={item} />,
+		({ item }: { item: TCopiedPlaylists }) => (
+			<AssignedPlaylistCard deleteUserPlaylist={onDeletePress} width={width} item={item} />
+		),
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[width]
 	)
 
