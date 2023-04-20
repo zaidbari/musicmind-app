@@ -6,6 +6,7 @@ import ControlButtons from './controlButtons'
 import VolumeBar from './volumeBar'
 import { useDevice } from '@/context/device'
 import { useEffect, useState } from 'react'
+import TimerControl from './timerControl'
 
 export default function TrackControls({ open }: { open: boolean }): JSX.Element {
 	const device = useDevice()
@@ -22,6 +23,7 @@ export default function TrackControls({ open }: { open: boolean }): JSX.Element 
 			<ControlButtons width={sideWidth} open={open} />
 			{device !== 'phone' ? <SeekBar width={sideWidth} /> : open ? <SeekBar width={sideWidth} /> : null}
 			{device !== 'phone' ? <VolumeBar width={sideWidth} /> : open ? <VolumeBar width={sideWidth} /> : null}
+			{device !== 'phone' ? <TimerControl width={sideWidth} /> : open ? <TimerControl width={sideWidth} /> : null}
 		</View>
 	)
 }

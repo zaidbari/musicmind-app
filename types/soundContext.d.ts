@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import { TMediaPlayerAcquisition, TTimerAcquisition } from './playerSettings'
 
 type TSoundProvider = {
@@ -12,6 +13,7 @@ export type TSoundContext = {
 	_load: (index: number) => Promise<void>
 	_pause: () => Promise<void>
 	_stop: () => Promise<void>
+	_unload: () => Promise<void>
 	_next: () => Promise<void>
 	_previous: () => Promise<void>
 	_toggleLoop: () => void
@@ -24,4 +26,8 @@ export type TSoundContext = {
 	mediaPlayerAcquisition: TMediaPlayerAcquisition
 	timerAcquisition: TTimerAcquisition
 	currentTrackIndex: MutableRefObject<number>
+	isTimerEnabled: boolean
+	setTimerEnabled: Dispatch<SetStateAction<boolean>>
+	timerCount: number
+	setTimer: Dispatch<SetStateAction<number>>
 }

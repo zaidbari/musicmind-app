@@ -15,6 +15,7 @@ const SoundContext = createContext<TSoundContext>({
 	playbackStatus: {} as AVPlaybackStatus,
 	_play: async () => {},
 	_load: async (index: number) => {},
+	_unload: async () => {},
 	_pause: async () => {},
 	_stop: async () => {},
 	_next: async () => {},
@@ -28,17 +29,19 @@ const SoundContext = createContext<TSoundContext>({
 	currentTrackIndex: { current: -1 },
 	volume: { current: 1.0 },
 	mediaPlayerAcquisition: { isShuffleBtnVisible: false, isRepeatBtnVisible: false },
-	timerAcquisition: { timer_value_integer: 0, timer_enabled_bool: false }
+	timerAcquisition: { timer_value_integer: 0, timer_enabled_bool: false },
+	isTimerEnabled: false,
+	setTimerEnabled: () => {},
+	timerCount: 3600,
+	setTimer: () => {}
 })
 
 export const useSound = () => useContext(SoundContext)
 
 export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 	const api = useAxios()
-	const { mediaPlayerAcquisition, timerAcquisition } = useGetPlayerSettings()
 
-	const soundRef = useRef<Audio.Sound>(new Audio.Sound())
-	const sound = soundRef.current
+	const { mediaPlayerAcquisition, timerAcquisition } = useGetPlayerSettings()
 
 	const trackList: MutableRefObject<TTrackItem[] | null> = useRef(null)
 	const currentTrackIndex: MutableRefObject<number> = useRef<number>(-1)
@@ -46,8 +49,15 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 	const isLooping: MutableRefObject<boolean> = useRef<boolean>(false)
 	const isShuffled: MutableRefObject<boolean> = useRef<boolean>(false)
 	const volume: MutableRefObject<number> = useRef<number>(1.0)
+	const soundRef = useRef<Audio.Sound>(new Audio.Sound())
+	const sound = soundRef.current
 
+	const [isTimerEnabled, setTimerEnabled] = useState<boolean>(false)
 	const [playbackStatus, setPlaybackStatus] = useState<AVPlaybackStatus>({} as AVPlaybackStatus)
+
+	const [timerCount, setTimer] = useState(3600)
+
+	// stop music when timer reaches zero
 
 	const postRoyaltyLogging = async (id: number) => {
 		let source = axios.CancelToken.source()
@@ -58,6 +68,18 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 			logger.sentry(error, {
 				tags: {
 					section: 'postRoyaltyLogging'
+				}
+			})
+		}
+	}
+
+	const _unload = async () => {
+		try {
+			await sound.unloadAsync()
+		} catch (error) {
+			logger.sentry(error, {
+				tags: {
+					section: '_unload'
 				}
 			})
 		}
@@ -283,6 +305,20 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
+	useEffect(() => {
+		if (isTimerEnabled && currentTrackIndex.current !== -1) {
+			const timer = setInterval(() => setTimer(prev => prev - 1), 1000)
+
+			if (timerCount <= 0) {
+				setTimer(0)
+				_stop()
+			}
+
+			return () => clearInterval(timer)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isTimerEnabled, timerCount, currentTrackIndex.current])
+
 	return (
 		<SoundContext.Provider
 			value={{
@@ -304,7 +340,12 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 				_setVolume,
 				volume,
 				mediaPlayerAcquisition,
-				timerAcquisition
+				timerAcquisition,
+				isTimerEnabled,
+				timerCount,
+				setTimer,
+				_unload,
+				setTimerEnabled
 			}}
 		>
 			{children}
