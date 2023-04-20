@@ -1,7 +1,7 @@
 import { colors } from '@/constants/colors'
 import { useDevice } from '@/context/device'
 import { useSound } from '@/context/sound'
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { Input } from '../inputs/input'
@@ -15,9 +15,15 @@ function TimerModal({ hideModal }: InfoModalProps): JSX.Element {
 	const [input, setInput] = React.useState<string>('')
 	const [error, setError] = React.useState<boolean>(false)
 
-	const { setTimer } = useSound()
+	const { setTimer, timerCount } = useSound()
 	const { t } = useTranslation()
 	const device = useDevice()
+
+	useEffect(() => {
+		setInput((timerCount / 60).toString())
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	const _handleTimer = () => {
 		setError(false)

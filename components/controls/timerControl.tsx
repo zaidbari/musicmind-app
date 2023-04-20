@@ -1,7 +1,7 @@
 import { colors } from '@/constants/colors'
 import { useSound } from '@/context/sound'
 import { useTimerModal } from '@/hooks/modals'
-import { memo, useState } from 'react'
+import { memo, useEffect } from 'react'
 import { Platform, StyleSheet, Switch, Text, View } from 'react-native'
 import { IconButton } from '../buttons/iconButton'
 
