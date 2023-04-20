@@ -1,12 +1,12 @@
 import { colors } from '@/constants/colors'
-import React, { memo } from 'react'
+import { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 export type InfoModalProps = {
 	hideModal: () => void
 	title: string
-	content: string | React.ReactElement
+	content: string | ReactElement
 }
 function Modal({ hideModal, title, content }: InfoModalProps): JSX.Element {
 	const { height, width } = useWindowDimensions()

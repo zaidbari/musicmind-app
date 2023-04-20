@@ -1,9 +1,9 @@
 import { colors } from '@/constants/colors'
 import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
 import { logger } from '@/utils/logger'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 
 export type PlaylistModalProps = {

@@ -1,10 +1,10 @@
+import { Input } from '@/components/inputs/input'
 import { colors } from '@/constants/colors'
 import { useDevice } from '@/context/device'
 import { useSound } from '@/context/sound'
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
-import { Input } from '../inputs/input'
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 
 export type InfoModalProps = {
 	hideModal: () => void
@@ -12,8 +12,8 @@ export type InfoModalProps = {
 
 function TimerModal({ hideModal }: InfoModalProps): JSX.Element {
 	const { height, width } = useWindowDimensions()
-	const [input, setInput] = React.useState<string>('')
-	const [error, setError] = React.useState<boolean>(false)
+	const [input, setInput] = useState<string>('')
+	const [error, setError] = useState<boolean>(false)
 
 	const { setTimer, timerCount } = useSound()
 	const { t } = useTranslation()
@@ -82,13 +82,6 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.primary,
 		borderRadius: 10,
 		padding: 20
-	},
-	title: {
-		color: colors.accent,
-		textAlign: 'center',
-		fontSize: 20,
-		marginTop: 8,
-		fontWeight: 'bold'
 	},
 	content: {
 		color: 'red',
