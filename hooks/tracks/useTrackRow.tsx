@@ -57,7 +57,6 @@ export const useTrackRow = (track: TTrackItem): TUseTrackRowReturnType => {
 			(selectedIndex?: number) => {
 				switch (selectedIndex) {
 					case 0:
-						console.log(trackList.current, track)
 						// check if trackList.current is null
 						if (!trackList.current) {
 							trackList.current = [track]
@@ -104,6 +103,7 @@ export const useTrackRow = (track: TTrackItem): TUseTrackRowReturnType => {
 			setIsPaused(false)
 			setIsBuffering(false)
 		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playbackStatus, currentPlayingTrack.current])
 
