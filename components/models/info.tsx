@@ -15,7 +15,7 @@ function Modal({ hideModal, title, content }: InfoModalProps): JSX.Element {
 		<View style={[styles.container, { width, height }]}>
 			<View style={[styles.contentContainer, { width: width * 0.8 }]}>
 				<Text style={styles.title}>{title}</Text>
-				<Text style={styles.content}>{content}</Text>
+				{typeof content === 'string' ? <Text style={styles.content}>{t(content)}</Text> : content}
 				<Pressable onPress={hideModal} style={styles.button}>
 					<Text style={styles.text}>{t('close')}</Text>
 				</Pressable>

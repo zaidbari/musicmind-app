@@ -1,5 +1,8 @@
 import { colors } from '@/constants/colors'
+import { PLAYLIST_TRACKS_URL } from '@/constants/urls'
+import { useInfoModal } from '@/hooks/modals'
 import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
+import useAxios from '@/hooks/useAxios'
 import { logger } from '@/utils/logger'
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,11 +15,29 @@ export type PlaylistModalProps = {
 function PlaylistModal({ hideModal }: PlaylistModalProps): JSX.Element {
 	const { height, width } = useWindowDimensions()
 	const { t } = useTranslation()
-	const { trackId, userPlaylists: playlists } = usePlaylistModal()
+	const { trackId: track, userPlaylists: playlists } = usePlaylistModal()
+	const { showModal } = useInfoModal()
 
-	const _handlePress = (playlistId: number) => {
-		//TODO: Playlist track assignment code goes here
-		logger.log(playlistId, trackId)
+	const api = useAxios()
+
+	const _handlePress = async (playlistId: number) => {
+		try {
+			await api.post(PLAYLIST_TRACKS_URL + playlistId, { track })
+			showModal({
+				title: t('success'),
+				content: t('notifications.trackAddedToPlaylist')
+			})
+		} catch (error) {
+			showModal({
+				title: t('error'),
+				content: t('notifications.trackAlreadyInPlaylist')
+			})
+			logger.sentry(error, {
+				tags: {
+					section: 'addTrackToPlaylist'
+				}
+			})
+		}
 
 		// after the track is added to the playlist, hide the modal
 		hideModal()

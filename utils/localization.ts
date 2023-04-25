@@ -21,7 +21,9 @@ i18n.use(initReactI18next).init({
 				actions: 'Actions',
 				notifications: {
 					addedToQueue: 'Added to queue',
-					alreadyInQueue: 'Track already in queue'
+					alreadyInQueue: 'Track already in queue',
+					trackAddedToPlaylist: 'Track added to playlist',
+					trackAlreadyInPlaylist: 'Track already in playlist'
 				},
 				inputs: {
 					username: 'Username',
@@ -72,7 +74,9 @@ i18n.use(initReactI18next).init({
 				actions: 'Handlinger',
 				notifications: {
 					addedToQueue: 'Tilføjet til kø',
-					alreadyInQueue: 'Nummeret er allerede i køen'
+					alreadyInQueue: 'Nummeret er allerede i køen',
+					trackAddedToPlaylist: 'Nummeret er tilføjet til spillelisten',
+					trackAlreadyInPlaylist: 'Nummeret er allerede i spillelisten'
 				},
 				inputs: {
 					username: 'Brugernavn',

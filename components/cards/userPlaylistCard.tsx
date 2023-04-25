@@ -1,9 +1,7 @@
-import { ACTION_MENU_STYLES } from '@/constants/misc'
 import { TUserPlaylist } from '@/types/playlist'
-import { useActionSheet } from '@expo/react-native-action-sheet'
-import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { IconButton } from '../buttons/iconButton'
+import { useInfoModal } from '@/hooks/modals'
 
 export const UserPlaylistCard = ({
 	item,
@@ -12,6 +10,8 @@ export const UserPlaylistCard = ({
 	item: TUserPlaylist
 	deleteUserPlaylist: (id: number, type: 'assigned' | 'user') => void
 }) => {
+	const { showModal } = useInfoModal()
+
 	return (
 		<View style={styles.row}>
 			<View>
@@ -19,7 +19,7 @@ export const UserPlaylistCard = ({
 				<Text style={styles.description}>{item.description}</Text>
 			</View>
 			<View style={styles.row}>
-				<IconButton icon="ios-pencil" />
+				<IconButton icon="ios-pencil" onPress={() => showModal({ title: 'Success', content: 'Comnet' })} />
 				<IconButton icon="ios-trash-outline" onPress={() => deleteUserPlaylist(item.id, 'user')} />
 			</View>
 		</View>
