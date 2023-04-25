@@ -319,8 +319,8 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 			if (timerCount <= 0) {
 				setTimer(0)
 				_pause()
-				clearInterval(timer)
 				setTimerEnabled(false)
+				clearInterval(timer)
 			}
 
 			return () => clearInterval(timer)
