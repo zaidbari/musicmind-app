@@ -57,6 +57,13 @@ export function SoundProvider({ children }: TSoundProvider): JSX.Element {
 
 	const [timerCount, setTimer] = useState(3600)
 
+	useEffect(() => {
+		if (timerAcquisition.timer_enabled_bool) {
+			setTimerEnabled(true)
+			setTimer(timerAcquisition.timer_value_integer * 60)
+		}
+	}, [timerAcquisition])
+
 	// stop music when timer reaches zero
 
 	const postRoyaltyLogging = async (id: number) => {

@@ -3,7 +3,7 @@ import { useGetCopiedPlaylists } from './useGetCopiedPlaylists'
 import { useGetUserPlaylists } from './useGetUserPlaylists'
 import { TCopiedPlaylists, TUserPlaylist } from '@/types/playlist'
 import useAxios from '@/hooks/useAxios'
-import { USER_PLAYLIST_URL } from '@/constants/urls'
+import { COPYPLAYLIST_ASSIGNED_URL, USER_PLAYLIST_URL } from '@/constants/urls'
 import { logger } from '@/utils/logger'
 
 type TGetMyPlaylistsDataReturnType = {
@@ -27,11 +27,13 @@ export const useGetMyPlaylistsData = (): TGetMyPlaylistsDataReturnType => {
 	const deleteUserPlaylist = async (id: number, type: 'assigned' | 'user') => {
 		try {
 			// TODO: uncomment when backend will be ready
-			// await api.post(`${USER_PLAYLIST_URL}/${id}/`)
+			console.log(id)
 
 			if (type === 'assigned') {
+				await api.delete(`${COPYPLAYLIST_ASSIGNED_URL}/${id}`)
 				setCopiedPlaylists(prev => prev.filter(playlist => playlist.id !== id))
 			} else {
+				await api.delete(`${USER_PLAYLIST_URL}/${id}`)
 				setUserPlaylists(prev => prev.filter(playlist => playlist.id !== id))
 			}
 		} catch (error) {
