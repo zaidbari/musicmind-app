@@ -26,9 +26,6 @@ export const useGetMyPlaylistsData = (): TGetMyPlaylistsDataReturnType => {
 
 	const deleteUserPlaylist = async (id: number, type: 'assigned' | 'user') => {
 		try {
-			// TODO: uncomment when backend will be ready
-			console.log(id)
-
 			if (type === 'assigned') {
 				await api.delete(`${COPYPLAYLIST_ASSIGNED_URL}/${id}`)
 				setCopiedPlaylists(prev => prev.filter(playlist => playlist.id !== id))
