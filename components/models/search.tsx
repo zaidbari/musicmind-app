@@ -1,8 +1,8 @@
-import { Input } from '@/components/inputs/input'
 import { colors } from '@/constants/colors'
 import { Dispatch, memo, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { Input } from '../inputs/input'
 
 type SearchModalProps = {
 	setSearchVisible: Dispatch<SetStateAction<boolean>>

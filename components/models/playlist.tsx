@@ -4,9 +4,9 @@ import { useInfoModal } from '@/hooks/modals'
 import { usePlaylistModal } from '@/hooks/modals/usePlaylistModal'
 import useAxios from '@/hooks/useAxios'
 import { logger } from '@/utils/logger'
-import { memo, useCallback } from 'react'
+import React, { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 
 export type PlaylistModalProps = {
